@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EmergencyContact {
+struct Contact {
     var emailAdress: String
     var firstName: String
     var surName: String

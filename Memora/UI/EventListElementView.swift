@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct EventListElementView: View {
+    var event : Event
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 20) {
+                Text(event.title)
+                Spacer()
+                Text(event.hour.formatted(.dateTime.hour().minute()))
+            }
+            .padding(.vertical, 10)
+            .font(.title2)
+            Text(event.description)
+                .foregroundStyle(.secondText)
+                .font(.title3)
+        }
+        .padding(10)
+        .background(event.type == .crisis ? .tagRed : .white)
+        .cornerRadius(20)
     }
 }
 
 #Preview {
-    EventListElementView()
+    EventListElementView(event: events[0])
 }

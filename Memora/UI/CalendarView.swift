@@ -1,0 +1,54 @@
+//
+//  CalendarView.swift
+//  Memora
+//
+//  Created by Apprenant76 on 22/07/2026.
+//
+
+import SwiftUI
+
+struct CalendarView: View {
+    @State var date = Date()
+    var calendar = Calendar.current
+
+    var events: [Event]
+    var selectedDayEvents: [Event] {
+        events.filter({
+            calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame
+        })
+    }
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                DatePicker("test", selection: $date, displayedComponents: [.date])
+                    .datePickerStyle(.graphical)
+                    .environment(\.locale, Locale.init(identifier: "fr"))
+                    .tint(.accent)
+                ForEach(selectedDayEvents) { event in
+                    EventListElementView(event: event)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Calendrier")
+                        .font(.largeTitle)
+                        .bold()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+
+                    } label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
+            .padding(.horizontal, 12)
+            .background(Color.background)
+        }
+    }
+}
+
+#Preview {
+    CalendarView(events: crisis)
+}

@@ -20,3 +20,30 @@ var events = [
         location: "24 rue des archers, 34000 Montpellier"
     )
 ]
+
+var crisis = [
+    Event(
+        title: "Crise d'anxiété",
+        date: calendar.date(from: DateComponents(year: 2026, month: 7, day: 29))!,
+        hour: calendar.date(from: DateComponents(hour: 20, minute: 00))!,
+        description: "Crise d'anxiété durant une promenade",
+        type: .crisis),
+    Event(
+        title: "Crise d'anxiété",
+        date: calendar.date(from: DateComponents(year: 2026, month: 7, day: 23))!,
+        hour: calendar.date(from: DateComponents(hour: 20, minute: 00))!,
+        description: "Crise d'anxiété durant une promenade",
+        type: .crisis),
+    Event(
+        title: "Crise d'anxiété",
+        date: calendar.date(from: DateComponents(year: 2026, month: 7, day: 29))!,
+        hour: calendar.date(from: DateComponents(hour: 20, minute: 00))!,
+        description: "Crise d'anxiété durant une promenade",
+        type: .crisis),
+    Event(
+        title: "Crise d'anxiété",
+        date: calendar.date(from: DateComponents(year: 2026, month: 7, day: 29))!,
+        hour: calendar.date(from: DateComponents(hour: 20, minute: 00))!,
+        description: "Crise d'anxiété durant une promenade",
+        type: .crisis),
+]

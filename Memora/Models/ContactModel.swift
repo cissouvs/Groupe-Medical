@@ -7,10 +7,13 @@
 
 import Foundation
 
-struct Contact {
+struct Contact: Identifiable {
+    var id = UUID()
     var emailAdress: String
     var firstName: String
     var surName: String
     var phoneNumber: String
     var adress: String
+    var postalCode: String
+    var photo: String
 }

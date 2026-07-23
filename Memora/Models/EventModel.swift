@@ -18,10 +18,12 @@ struct Event: Identifiable {
     var location: String?
 }
 
-enum EventType: String {
+enum EventType: String, Identifiable, CaseIterable {
     case crisis = "Crise"
     case birthday = "Anniversaire"
     case activity = "Activité"
     case other = "Autre"
+
+    var id: Self {self}
 }
 

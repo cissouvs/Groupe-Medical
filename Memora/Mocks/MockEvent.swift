@@ -16,7 +16,7 @@ var events = [
         hour: calendar.date(from: DateComponents(hour: 20, minute: 00))!,
         description: "Soirée d'anniversaire au Buffalo Grill avec les copines",
         type: .birthday ,
-        contact: Contact(emailAdress: "colette@caramail.fr", firstName: "Colette", surName: "Levrelle", phoneNumber: "0304040404", adress: "21 impasse de la charette, 46800 Montcuq"),
+        contact: Contact(emailAdress: "colette@caramail.fr", firstName: "Colette", surName: "Levrelle", phoneNumber: "0304040404", adress: "21 impasse de la Charette,",postalCode: " 46800 Montcuq", photo: "colette"),
         location: "24 rue des archers, 34000 Montpellier"
     )
 ]

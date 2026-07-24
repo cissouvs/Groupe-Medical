@@ -11,10 +11,11 @@ struct Event: Identifiable {
     var id = UUID()
     var title: String
     var date: Date
-    var hour: Date
+    var isAllDay: Bool
+    var endTime : Date?
     var description: String
     var type: EventType
-    var contact: Contact?
+    var participants: [String]
     var location: String?
 }
 

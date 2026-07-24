@@ -23,7 +23,7 @@ struct EventListElementView: View {
                 .font(.title3)
         }
         .padding(10)
-        .background(event.type == .crisis ? .tagRed : .white)
+        .background(event.type == .crisis ? .tagRed : .whiteBackground)
         .cornerRadius(20)
     }
 }

@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum FieldType {
+    case title
+    case description
+    case location
+    case partipants
+}
+
 
 struct AddCalendarElementSheetView: View {
     @Binding var isAddSheetPresented: Bool
@@ -23,15 +30,17 @@ struct AddCalendarElementSheetView: View {
         location: ""
     )
 
+    @FocusState private var focusedField: FieldType?
+
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
                     TextField("Titre", text: $eventForm.title)
-                        .onSubmit {
-                        }
+                        .focused($focusedField, equals: .title)
                     TextField("Description", text: $eventForm.description)
+                        .focused($focusedField, equals: .description)
                     Picker("Type", selection: $eventForm.type) {
                         ForEach(EventType.allCases) { type in
                             Text(type.rawValue).tag(type)
@@ -55,13 +64,11 @@ struct AddCalendarElementSheetView: View {
                     }
                     if let eventLocation = Binding($eventForm.location) {
                         TextField("Lieu", text: eventLocation)
+                            .focused($focusedField, equals: .location)
                     }
                     VStack(alignment: .leading) {
                         TextField("Participant", text: $newParticipant)
-                            .onSubmit {
-                                eventForm.participants.append(newParticipant)
-                                newParticipant = ""
-                            }
+                            .focused($focusedField, equals: .partipants)
                     }
                     ScrollView(.horizontal) {
                         LazyHStack {
@@ -86,6 +93,22 @@ struct AddCalendarElementSheetView: View {
                     }
                 }
             }
+            .onSubmit {
+                switch focusedField {
+                case .title:
+                    focusedField = .description
+                case .description:
+                    focusedField = nil
+                case .location:
+                    focusedField = .partipants
+                case .partipants:
+                    eventForm.participants.append(newParticipant)
+                    newParticipant = ""
+                    focusedField = .partipants
+                case nil:
+                    ()
+                }
+            }
             .toolbar{
                 AddCalenderSheetToolbarView(
                     events: $events,
@@ -93,7 +116,6 @@ struct AddCalendarElementSheetView: View {
                     eventForm: $eventForm
                 )
             }
-
         }
     }
 }

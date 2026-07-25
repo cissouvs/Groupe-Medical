@@ -23,32 +23,34 @@ struct CalendarView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
+            VStack {
                 DatePicker("", selection: $date, displayedComponents: [.date])
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale.init(identifier: "fr"))
                     .tint(.accent)
-                ForEach(selectedDayEvents) { event in
-                    EventListElementView(event: event)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Calendrier")
-                        .font(.largeTitle)
-                        .bold()
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        isAddSheetPresented = true
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundStyle(.black)
+                ScrollView {
+                    ForEach(selectedDayEvents) { event in
+                        EventListElementView(event: event)
                     }
                 }
-            }
-            .sheet(isPresented: $isAddSheetPresented) {
-                AddCalendarElementSheetView(isAddSheetPresented: $isAddSheetPresented, events: $events)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Calendrier")
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isAddSheetPresented = true
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundStyle(.black)
+                        }
+                    }
+                }
+                .sheet(isPresented: $isAddSheetPresented) {
+                    AddCalendarElementSheetView(isAddSheetPresented: $isAddSheetPresented, events: $events)
+                }
             }
             .padding(.horizontal, 12)
             .background(Color.background)

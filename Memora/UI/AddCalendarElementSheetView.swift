@@ -11,26 +11,28 @@ import SwiftUI
 struct AddCalendarElementSheetView: View {
     @Binding var isAddSheetPresented: Bool
     @Binding var events: [Event]
-    @State var eventTitle: String = ""
-    @State var eventDescription: String = ""
-    @State var eventType: EventType = .other
-    @State var isEventAllDay: Bool = false
-    @State var eventDate: Date = Date()
-    @State var eventEndTime: Date = Date().addingTimeInterval(1500.0)
-    @State var eventLocation: String = ""
     @State var newParticipant: String = ""
-    @State var eventParticipants: [String] = []
+    @State var eventForm: Event = Event(
+        title: "",
+        date: Date(),
+        isAllDay: false,
+        endTime: Date().addingTimeInterval(1500.0),
+        description: "",
+        type: .other,
+        participants: [],
+        location: ""
+    )
 
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Titre", text: $eventTitle)
+                    TextField("Titre", text: $eventForm.title)
                         .onSubmit {
                         }
-                    TextField("Description", text: $eventDescription)
-                    Picker("Type", selection: $eventType) {
+                    TextField("Description", text: $eventForm.description)
+                    Picker("Type", selection: $eventForm.type) {
                         ForEach(EventType.allCases) { type in
                             Text(type.rawValue).tag(type)
                         }
@@ -38,31 +40,39 @@ struct AddCalendarElementSheetView: View {
                     .tint(.accent)
                 }
                 Section {
-                    Toggle("Journée Entière", isOn: $isEventAllDay)
+                    Toggle("Journée Entière", isOn: $eventForm.isAllDay)
                         .tint(.accent)
-                    if isEventAllDay {
-                        DatePicker("Jour", selection: $eventDate, displayedComponents: [.date])
+                    if eventForm.isAllDay {
+                        DatePicker("Jour", selection: $eventForm.date, displayedComponents: [.date])
                             .datePickerStyle(.automatic)
                     } else {
-                        DatePicker("Début", selection: $eventDate)
+                        DatePicker("Début", selection: $eventForm.date)
                             .datePickerStyle(.automatic)
-                        DatePicker("Fin", selection: $eventEndTime)
-                            .datePickerStyle(.automatic)
+                        if let eventEndTime  = Binding($eventForm.endTime) {
+                            DatePicker("Fin", selection: eventEndTime)
+                                .datePickerStyle(.automatic)
+                        }
                     }
-                    TextField("Lieu", text: $eventLocation)
+                    if let eventLocation = Binding($eventForm.location) {
+                        TextField("Lieu", text: eventLocation)
+                    }
                     VStack(alignment: .leading) {
                         TextField("Participant", text: $newParticipant)
+                            .onSubmit {
+                                eventForm.participants.append(newParticipant)
+                                newParticipant = ""
+                            }
                     }
                     ScrollView(.horizontal) {
                         LazyHStack {
                             ForEach(
-                                eventParticipants.enumerated(),
+                                eventForm.participants.enumerated(),
                                 id: \.offset
                             ) { index, participant in
                                 HStack {
                                     Text(participant)
                                     Button {
-                                        eventParticipants.remove(at: index)
+                                        eventForm.participants.remove(at: index)
                                     } label: {
                                         Image(systemName: "xmark")
                                             .foregroundStyle(.mainText)
@@ -76,48 +86,12 @@ struct AddCalendarElementSheetView: View {
                     }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        isAddSheetPresented = false
-                        eventTitle = ""
-                        eventDescription = ""
-                        isEventAllDay = false
-                        eventDate = Date()
-                        eventEndTime = Date()
-                        eventType = .other
-                        eventLocation = ""
-                        eventParticipants = []
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    Text("Nouveau")
-                        .font(.title2)
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        events
-                            .append(
-                                Event(
-                                    title: eventTitle,
-                                    date: eventDate,
-                                    isAllDay: isEventAllDay,
-                                    endTime: isEventAllDay ? nil : eventEndTime,
-                                    description: eventDescription,
-                                    type: eventType,
-                                    participants: []
-                                )
-                            )
-                        isAddSheetPresented = false
-                    } label: {
-                        Image(systemName: "checkmark")
-                    }
-                    .tint(.accent)
-                    .buttonStyle(.glassProminent)
-                    .disabled(eventTitle.isEmpty)
-                }
+            .toolbar{
+                AddCalenderSheetToolbarView(
+                    events: $events,
+                    isAddSheetPresented: $isAddSheetPresented,
+                    eventForm: $eventForm
+                )
             }
 
         }

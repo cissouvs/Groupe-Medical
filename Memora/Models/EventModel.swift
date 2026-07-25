@@ -17,6 +17,39 @@ struct Event: Identifiable {
     var type: EventType
     var participants: [String]
     var location: String?
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        date: Date,
+        isAllDay: Bool,
+        endTime: Date? = nil,
+        description: String,
+        type: EventType,
+        participants: [String],
+        location: String? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.date = date
+        self.isAllDay = isAllDay
+        self.endTime = endTime
+        self.description = description
+        self.type = type
+        self.participants = participants
+        self.location = location
+    }
+
+    init(from event: Event) {
+        self.title = event.title
+        self.date = event.date
+        self.isAllDay = event.isAllDay
+        self.endTime = event.endTime
+        self.description = event.description
+        self.type = event.type
+        self.participants = event.participants
+        self.location = event.location
+    }
 }
 
 enum EventType: String, Identifiable, CaseIterable {

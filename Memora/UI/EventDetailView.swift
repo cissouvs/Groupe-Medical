@@ -21,13 +21,26 @@ struct EventDetailView: View {
         ZStack {
             Color.background
             VStack(spacing: 40) {
-                VStack(alignment: .leading, spacing: 30) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(event.title)
-                            .font(.largeTitle)
-                        Text("\(dateFormatter.string(from: event.date))")
+                VStack {
+                    VStack(alignment: .leading, spacing: 30) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(event.title)
+                                .font(.largeTitle)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("\(dateFormatter.string(from: event.date).capitalized)")
+                                if let location = event.location {
+                                    Text(location)
+                                }
+                            }
                             .font(.title3)
+                        }
+                        .padding(20)
                     }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 10)
+                    .background(.tagRed)
+                }
+                VStack(alignment: .leading, spacing: 30) {
                     if !event.description.isEmpty {
                         VStack(alignment: .leading)  {
                             Text("Description")
@@ -35,29 +48,23 @@ struct EventDetailView: View {
                             Text(event.description)
                         }
                     }
-                    if let location = event.location {
-                        VStack(alignment: .leading) {
-                            Text("Où")
-                                .font(.title2)
-                            Text(location)
-                        }
-                    }
                     if !event.participants.isEmpty {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 5) {
                             Text("Participants")
                                 .font(.title2)
                             HStack {
                                 ForEach(event.participants.enumerated(), id: \.offset) { _, participant in
                                     Text(participant)
                                         .padding(10)
-                                        .background(.accent)
-                                        .foregroundStyle(.white)
+                                        .background(.tagPurple)
                                         .cornerRadius(20)
                                 }
                             }
                         }
                     }
                 }
+                .padding(.horizontal, 20)
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Button {
 
                 } label: {
@@ -68,10 +75,11 @@ struct EventDetailView: View {
                         .cornerRadius(20)
 
                 }
+                .padding(.bottom, 20)
             }
-            .padding(20)
             .background(.white)
             .cornerRadius(20)
+            .shadow(radius: 1.0)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -82,6 +90,7 @@ struct EventDetailView: View {
                 }
             }
         }
+        .padding(12)
         .ignoresSafeArea()
     }
 }

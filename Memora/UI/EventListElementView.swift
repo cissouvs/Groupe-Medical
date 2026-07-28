@@ -18,6 +18,7 @@ struct EventListElementView: View {
                     Text(event.date.formatted(.dateTime.hour().minute()))
                 }
             }
+            .foregroundStyle(.mainText)
             .padding(.vertical, 10)
             .font(.title2)
             Text(event.description)
@@ -27,6 +28,7 @@ struct EventListElementView: View {
         .padding(10)
         .background(event.type == .crisis ? .tagRed : .whiteBackground)
         .cornerRadius(20)
+        .shadow(radius: 4)
     }
 }
 

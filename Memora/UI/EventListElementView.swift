@@ -14,7 +14,9 @@ struct EventListElementView: View {
             HStack(alignment: .top, spacing: 20) {
                 Text(event.title)
                 Spacer()
-                Text(event.hour.formatted(.dateTime.hour().minute()))
+                if !event.isAllDay {
+                    Text(event.date.formatted(.dateTime.hour().minute()))
+                }
             }
             .padding(.vertical, 10)
             .font(.title2)
@@ -23,7 +25,7 @@ struct EventListElementView: View {
                 .font(.title3)
         }
         .padding(10)
-        .background(event.type == .crisis ? .tagRed : .white)
+        .background(event.type == .crisis ? .tagRed : .whiteBackground)
         .cornerRadius(20)
     }
 }

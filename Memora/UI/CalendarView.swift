@@ -9,38 +9,47 @@ import SwiftUI
 
 struct CalendarView: View {
     @State var date = Date()
+    @State var isAddSheetPresented: Bool = false
+
     var calendar = Calendar.current
 
-    var events: [Event]
+    @State var events: [Event]
     var selectedDayEvents: [Event] {
         events.filter({
             calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame
         })
     }
+
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                DatePicker("test", selection: $date, displayedComponents: [.date])
+            VStack {
+                DatePicker("", selection: $date, displayedComponents: [.date])
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale.init(identifier: "fr"))
                     .tint(.accent)
-                ForEach(selectedDayEvents) { event in
-                    EventListElementView(event: event)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Calendrier")
-                        .font(.largeTitle)
-                        .bold()
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundStyle(.black)
+                ScrollView {
+                    ForEach(selectedDayEvents) { event in
+                        EventListElementView(event: event)
                     }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Calendrier")
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isAddSheetPresented = true
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundStyle(.black)
+                        }
+                    }
+                }
+                .sheet(isPresented: $isAddSheetPresented) {
+                    AddCalendarElementSheetView(isAddSheetPresented: $isAddSheetPresented, events: $events)
                 }
             }
             .padding(.horizontal, 12)

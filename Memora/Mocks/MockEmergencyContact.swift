@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 var emergencyContacts = [
     Contact(
@@ -15,7 +16,7 @@ var emergencyContacts = [
         phoneNumber: "0304040404",
         adress: "21 impasse de la Charette,",
         postalCode: "46800 Montcuq",
-        photo: "colette"),
+        photo: Image("colette")),
     Contact(
         emailAdress: "rene@caramail.fr",
         firstName: "Rene",
@@ -23,7 +24,7 @@ var emergencyContacts = [
         phoneNumber: "0303030303",
         adress: "52 impasse de la Charette,",
         postalCode: " 69000 Lyon",
-        photo: "rene"),
+        photo: Image("rene")),
     Contact(
         emailAdress: "jacques@caramail.fr",
         firstName: "Jacques",
@@ -31,7 +32,7 @@ var emergencyContacts = [
         phoneNumber: "0305050505",
         adress: "33 impasse de la Charette,",
         postalCode: "62000 Lievin",
-        photo: "jacques"),
+        photo: Image("jacques")),
     Contact(
         emailAdress: "robert@caramail.fr",
         firstName: "Robert",
@@ -39,6 +40,6 @@ var emergencyContacts = [
         phoneNumber: "0306060606",
         adress: "45 impasse de la Charette,",
         postalCode: "46800 Montcuq",
-        photo: "robert"
+        photo: Image("robert")
     ),
 ]

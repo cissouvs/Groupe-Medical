@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Contact: Identifiable {
     var id = UUID()
@@ -15,5 +16,5 @@ struct Contact: Identifiable {
     var phoneNumber: String
     var adress: String
     var postalCode: String
-    var photo: String
+    var photo: Image
 }

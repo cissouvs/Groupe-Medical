@@ -101,8 +101,8 @@ struct EventDetailView: View {
                     dismiss()
                 }
             }
+            .padding(12)
         }
-        .padding(12)
         .ignoresSafeArea()
     }
 }

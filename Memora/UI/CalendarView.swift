@@ -28,11 +28,13 @@ struct CalendarView: View {
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale.init(identifier: "fr"))
                     .tint(.accent)
-                ForEach(selectedDayEvents) { event in
-                    NavigationLink {
-                        EventDetailView(event: event, events: $events)
-                    } label: {
-                        EventListElementView(event: event)
+                ScrollView {
+                    ForEach(selectedDayEvents) { event in
+                        NavigationLink {
+                            EventDetailView(event: event, events: $events)
+                        } label: {
+                            EventListElementView(event: event)
+                        }
                     }
                 }
                 .toolbar {

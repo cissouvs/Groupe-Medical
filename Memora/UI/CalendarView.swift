@@ -29,9 +29,9 @@ struct CalendarView: View {
                     .environment(\.locale, Locale.init(identifier: "fr"))
                     .tint(.accent)
                 ScrollView {
-                    ForEach(selectedDayEvents) { event in
+                    ForEach(selectedDayEvents.enumerated(), id: \.offset) { index, event in
                         NavigationLink {
-                            EventDetailView(event: event, events: $events)
+                            EventDetailView(event: $events[index], events: $events)
                         } label: {
                             EventListElementView(event: event)
                         }

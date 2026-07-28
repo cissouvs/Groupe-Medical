@@ -18,7 +18,7 @@ struct ContactDetailView: View {
                 .frame(maxHeight: 400)
                 .foregroundStyle(.white)
             VStack(alignment: .center) {
-                    Image(contact.photo)
+                        contact.photo
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)

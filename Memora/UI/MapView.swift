@@ -12,6 +12,8 @@ struct MapView: View {
     
     @State var camera = MapCameraPosition.automatic
     
+    var manager = CLLocationManager()
+    
     var userPosition = CLLocationCoordinate2D(
         latitude: 44.340861,
         longitude: 1.2024031597201768)
@@ -20,11 +22,13 @@ struct MapView: View {
         latitude: 44.33878193104696,
         longitude: 1.2116824676429137)
     
+    @State private var caregiversLocation: MapCameraPosition = .userLocation(fallback: .automatic)
+    
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
             
-            Map(position: $camera) {
+            Map(position: $caregiversLocation) {
                 
                 Annotation("Patient", coordinate: userPosition) {
                     Image(systemName: "person")
@@ -42,8 +46,15 @@ struct MapView: View {
                         .clipShape(.circle)
                 }
                 
+                UserAnnotation()
+                
             }
-            
+            .mapControls{
+                MapUserLocationButton()
+            }
+            .onAppear{
+                manager.requestWhenInUseAuthorization()
+            }
             VStack(alignment: .trailing){
                 
                 Spacer()

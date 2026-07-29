@@ -53,7 +53,10 @@ struct CalendarView: View {
                     }
                 }
                 .sheet(isPresented: $isAddSheetPresented) {
-                    AddCalendarElementSheetView(isAddSheetPresented: $isAddSheetPresented, events: $events)
+                    AddEventSheetView(
+                        events: $events,
+                        isAddSheetPresented: $isAddSheetPresented
+                    )
                 }
             }
             .padding(.horizontal, 12)

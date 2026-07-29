@@ -13,9 +13,9 @@ var emergencyContacts = [
         emailAdress: "colette@caramail.fr",
         firstName: "Colette",
         surName: "Levrelle",
-        phoneNumber: "0304040404",
-        adress: "21 impasse de la Charette,",
-        postalCode: "46800 Montcuq",
+        phoneNumber: "0765259315",
+        adress: "11 Rue du Tour de la Vielle ville",
+        postalCode: "46800 Montcuq-en-Quercy-Blanc",
         photo: Image("colette")),
     Contact(
         emailAdress: "rene@caramail.fr",

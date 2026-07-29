@@ -6,8 +6,22 @@
 //
 
 import SwiftUI
+import UIKit
+import MapKit
 
+//func sendEmail(openUrl: OpenURLAction) {
+//    let urlString = "https://mail.google.com/mail/u/2/#inbox"
+//    guard let url = URL(string: urlString) else { return }
+//    
+//    openUrl(url) { accepted in
+//        if !accepted {
+//            // Handle the error, e.g., show an alert
+//        }
+//    }
+//}
 struct ContactDetailView: View {
+    @Environment(\.openURL) private var openUrl
+    @State var showingSheet = false
     let contact : Contact
     var body: some View {
         ZStack {
@@ -15,7 +29,7 @@ struct ContactDetailView: View {
                 .ignoresSafeArea()
             RoundedRectangle(cornerRadius: 20)
                 .frame(maxWidth: 350)
-                .frame(maxHeight: 400)
+                .frame(maxHeight: 500)
                 .foregroundStyle(.white)
             VStack(alignment: .center) {
                         contact.photo
@@ -46,12 +60,42 @@ struct ContactDetailView: View {
                         Text(contact.adress)
                         Text(contact.postalCode)
                     }
-                    
+                    HStack(spacing: 20) {
+                        Button {
+//                            sendEmail(openUrl: openUrl)
+                        } label: {
+                            Image(systemName: "paperplane")
+                                .padding()
+                                .foregroundStyle(.white)
+                                .background(.supportYellow)
+                                .cornerRadius(10)
+                        }
+                        Button {
+                            guard let number = URL(string: "tel://" + contact.phoneNumber) else { return }
+                            UIApplication.shared.open(number)
+                        } label: {
+                            Image(systemName: "phone")
+                                .padding()
+                                .foregroundStyle(.white)
+                                .background(.supportGreen)
+                                .cornerRadius(10)
+                        }
+                        Button {
+                        
+                        } label: {
+                            Image(systemName: "mappin")
+                                .padding()
+                                .foregroundStyle(.white)
+                                .background(.supportBlue)
+                                .cornerRadius(10)
+                        }
 
-                } .padding(.vertical, 10)
+                    }
+                }.padding(.vertical, 10)
                 }
             }
         }
+    
     }
 #Preview {
     ContactDetailView(contact: emergencyContacts[0])

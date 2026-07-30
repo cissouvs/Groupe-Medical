@@ -28,7 +28,6 @@ struct EventListElementView: View {
         .padding(10)
         .background(event.type == .crisis ? .tagRed : .whiteBackground)
         .cornerRadius(20)
-        .shadow(radius: 4)
     }
 }
 

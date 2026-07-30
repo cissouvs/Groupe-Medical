@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct EventDetailView: View {
-    var event: Event
+    @Binding var event: Event
     @Binding var events: [Event]
     @State var isDeleteConfirmationPresented: Bool = false
-        @Environment(\.dismiss) var dismiss
+    @State var isModifySheetPresented: Bool = false
+    @Environment(\.dismiss) var dismiss
 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -86,12 +87,12 @@ struct EventDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
+                        isModifySheetPresented = true
                     } label: {
                         Image(systemName: "pencil.line")
                     }
                 }
             }
-
             .alert("Voulez-vous vraiment supprimer cet évènement ?", isPresented: $isDeleteConfirmationPresented) {
                 Button("Annuler", role: .cancel) {}
                 Button("Supprimer", role: .destructive) {
@@ -101,6 +102,14 @@ struct EventDetailView: View {
                     dismiss()
                 }
             }
+            .sheet(isPresented: $isModifySheetPresented) {
+                ModifyEventSheetView(
+                    isAddSheetPresented: $isModifySheetPresented,
+                    event: $event,
+                    events: $events,
+                    eventForm: event,
+                )
+            }
             .padding(12)
         }
         .ignoresSafeArea()
@@ -108,5 +117,5 @@ struct EventDetailView: View {
 }
 
 #Preview {
-    EventDetailView(event: crisis[0], events: .constant(events))
+    EventDetailView(event: .constant(crisis[0]), events: .constant(crisis))
 }

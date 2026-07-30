@@ -28,11 +28,13 @@ struct CalendarView: View {
                     .datePickerStyle(.graphical)
                     .environment(\.locale, Locale.init(identifier: "fr"))
                     .tint(.accent)
-                ForEach(selectedDayEvents) { event in
-                    NavigationLink {
-                        EventDetailView(event: event, events: $events)
-                    } label: {
-                        EventListElementView(event: event)
+                ScrollView {
+                    ForEach(selectedDayEvents.enumerated(), id: \.offset) { index, event in
+                        NavigationLink {
+                            EventDetailView(event: $events[index], events: $events)
+                        } label: {
+                            EventListElementView(event: event)
+                        }
                     }
                 }
                 .toolbar {
@@ -51,7 +53,10 @@ struct CalendarView: View {
                     }
                 }
                 .sheet(isPresented: $isAddSheetPresented) {
-                    AddCalendarElementSheetView(isAddSheetPresented: $isAddSheetPresented, events: $events)
+                    AddEventSheetView(
+                        events: $events,
+                        isAddSheetPresented: $isAddSheetPresented
+                    )
                 }
             }
             .padding(.horizontal, 12)

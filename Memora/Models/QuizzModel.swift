@@ -13,7 +13,7 @@ enum QuizzCategory: String {
     case family = "Famille"
     case activity = "Activité"
     case meal = "Repas"
-    case placesVisited = "Lieux Visités"
+    case visitedPlaces = "Lieux Visités"
     
 }
 
@@ -21,7 +21,7 @@ struct Question {
     
     var question: String
     var guesses: [String]
-    var rightAnswerIndex: [Int]
+    var rightAnswerIndexes: [Int]
     var IsAnswerCorrect: Bool
 }
 
@@ -38,7 +38,7 @@ struct Quizz {
         case .family: return .supportRed
         case .activity: return .supportYellow
         case .meal: return .supportGreen
-        case .placesVisited: return .supportBlue
+        case .visitedPlaces: return .supportBlue
         }
     }
 
@@ -47,7 +47,7 @@ struct Quizz {
         case .family: return .tagRed
         case .activity: return .tagYellow
         case .meal: return .tagGreen
-        case .placesVisited: return .tagBlue
+        case .visitedPlaces: return .tagBlue
         }
     }
     

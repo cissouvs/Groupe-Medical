@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum QuizzCategory: String {
     
@@ -31,5 +32,23 @@ struct Quizz {
     var category: QuizzCategory
     var question: Question
     var isCompleted: Bool
+    
+    var mainColor: Color {
+        switch category {
+        case .family: return .supportRed
+        case .activity: return .supportYellow
+        case .meal: return .supportGreen
+        case .placesVisited: return .supportBlue
+        }
+    }
+
+    var secondaryColor: Color {
+        switch category {
+        case .family: return .tagRed
+        case .activity: return .tagYellow
+        case .meal: return .tagGreen
+        case .placesVisited: return .tagBlue
+        }
+    }
     
 }

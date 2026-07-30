@@ -22,11 +22,19 @@ struct ContactsListView: View {
                                 ContactDetailView(contact: contact)
                             } label: {
                                 HStack {
-                                    contact.photo
-                                        .resizable()
-                                        .scaledToFit()
-                                        .clipShape(.circle)
-                                        .frame(maxWidth: 50)
+                                    if let contactPhoto = contact.photo {
+                                        contactPhoto
+                                            .resizable()
+                                            .scaledToFit()
+                                            .clipShape(.circle)
+                                            .frame(maxWidth: 50)
+                                    } else {
+                                        Image("placeholder")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .clipShape(.circle)
+                                            .frame(maxWidth: 200)
+                                    }
                                     Text(contact.firstName)
                                     Text(contact.surName)
                                 }
@@ -36,26 +44,26 @@ struct ContactsListView: View {
                     .sheet(isPresented: $isSelected){
                         ContactSheet(contacts: $contacts)
                             .padding(.vertical)
-                }
-                .font(.title3)
-                .toolbar {
-                    ToolbarItem(placement: .principal){
-                        Text("Contacts d'urgence")
-                            .font(.title)
-                            .bold()
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            isSelected = true
-                        } label: {
-                            Image(systemName: "plus")
+                    .font(.title3)
+                    .toolbar {
+                        ToolbarItem(placement: .principal){
+                            Text("Contacts d'urgence")
+                                .font(.title)
+                                .bold()
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                isSelected = true
+                            } label: {
+                                Image(systemName: "plus")
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 }
 #Preview {
     ContactsListView(contacts: emergencyContacts)

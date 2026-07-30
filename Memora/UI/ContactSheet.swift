@@ -19,7 +19,7 @@ struct ContactSheet: View {
         phoneNumber: "",
         adress: "",
         postalCode: "",
-        photo: Image("")
+        photo: nil
     )
     @Binding var contacts : [Contact]
     var body: some View {
@@ -60,14 +60,14 @@ struct ContactSheet: View {
                 }
             }
             PhotosPicker(selection: $pickerItem, matching: .images) {
-                if pickerImage == nil {
-                    Image("placeholder")
+                if let contactPhoto = contactForm.photo  {
+                    contactPhoto
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
-                        .frame(maxWidth: 200)
+                        .frame(maxWidth: 400)
                 } else {
-                    Image("colette")
+                    Image("placeholder")
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
@@ -80,7 +80,7 @@ struct ContactSheet: View {
                         return
                     }
                     if let newImage = try? await pickerItem.loadTransferable(type: Image.self) {
-                        pickerImage = newImage
+                        contactForm.photo = newImage
                     }
                 }
             }

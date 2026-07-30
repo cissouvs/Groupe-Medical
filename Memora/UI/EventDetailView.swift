@@ -11,15 +11,15 @@ struct EventDetailView: View {
     var event: Event
     @Binding var events: [Event]
     @State var isDeleteConfirmationPresented: Bool = false
-        @Environment(\.dismiss) var dismiss
-
+    @Environment(\.dismiss) var dismiss
+    
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "fr_FR")
         formatter.setLocalizedDateFormatFromTemplate("EEEE d MMMM à HH:mm")
         return formatter
     }
-
+    
     var body: some View {
         ZStack {
             Color.background
@@ -76,7 +76,7 @@ struct EventDetailView: View {
                         .background(.supportRed)
                         .foregroundStyle(.white)
                         .cornerRadius(20)
-
+                    
                 }
                 .padding(.bottom, 20)
             }
@@ -91,7 +91,7 @@ struct EventDetailView: View {
                     }
                 }
             }
-
+            
             .alert("Voulez-vous vraiment supprimer cet évènement ?", isPresented: $isDeleteConfirmationPresented) {
                 Button("Annuler", role: .cancel) {}
                 Button("Supprimer", role: .destructive) {

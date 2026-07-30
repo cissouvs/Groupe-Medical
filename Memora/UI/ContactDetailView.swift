@@ -32,17 +32,25 @@ struct ContactDetailView: View {
                 .frame(maxHeight: 500)
                 .foregroundStyle(.white)
             VStack(alignment: .center) {
-                        contact.photo
+                if let contactPhoto = contact.photo {
+                    contactPhoto
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
                         .frame(maxWidth: 100)
-                    HStack {
-                        Text(contact.firstName)
-                            .font(.title)
-                        Text(contact.surName)
-                            .font(.title)
-                    }
+                } else {
+                    Image("placeholder")
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(.circle)
+                        .frame(maxWidth: 200)
+                }
+                HStack {
+                    Text(contact.firstName)
+                        .font(.title)
+                    Text(contact.surName)
+                        .font(.title)
+                }
                 VStack(alignment: .leading, spacing: 10) {
                     VStack(alignment:.leading ) {
                         Text("Numéro de téléphone:")
@@ -60,9 +68,9 @@ struct ContactDetailView: View {
                         Text(contact.adress)
                         Text(contact.postalCode)
                     }
-                    HStack(spacing: 20) {
+                    HStack(alignment: .center ,spacing: 20) {
                         Button {
-//                            sendEmail(openUrl: openUrl)
+                            //                            sendEmail(openUrl: openUrl)
                         } label: {
                             Image(systemName: "paperplane")
                                 .padding()
@@ -81,7 +89,7 @@ struct ContactDetailView: View {
                                 .cornerRadius(10)
                         }
                         Button {
-                        
+                            
                         } label: {
                             Image(systemName: "mappin")
                                 .padding()
@@ -89,14 +97,14 @@ struct ContactDetailView: View {
                                 .background(.supportBlue)
                                 .cornerRadius(10)
                         }
-
+                        
                     }
                 }.padding(.vertical, 10)
-                }
             }
         }
-    
     }
+    
+}
 #Preview {
     ContactDetailView(contact: emergencyContacts[0])
 }

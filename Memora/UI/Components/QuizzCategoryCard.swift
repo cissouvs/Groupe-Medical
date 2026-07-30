@@ -13,19 +13,33 @@ struct QuizzCategoryCard: View {
     
     var backgroundCardColor: Color
     
+    var categoryPicture: String
+    
     var body: some View {
         NavigationLink {
             DetailQuizzView()
         } label: {
-            Text(text)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(backgroundCardColor)
-                .cornerRadius(20)
-                .foregroundStyle(Color.background)
+            VStack(alignment: .center, spacing: 10) {
+                HStack{
+                    Image(categoryPicture)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                HStack {
+                    Text(text)
+                        .font(.title)
+                        .padding(.bottom, 10)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(backgroundCardColor)
+            .cornerRadius(20)
+            .foregroundStyle(Color.background)
         }
     }
 }
 
 #Preview {
-    QuizzCategoryCard(text: "Lieux Visités", backgroundCardColor: .green)
+    QuizzCategoryCard(text: "Lieux Visités", backgroundCardColor: .green, categoryPicture: "mealPicture")
 }

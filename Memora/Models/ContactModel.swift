@@ -16,5 +16,5 @@ struct Contact: Identifiable {
     var phoneNumber: String
     var adress: String
     var postalCode: String
-    var photo: Image
+    var photo: Image?
 }

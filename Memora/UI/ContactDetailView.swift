@@ -9,16 +9,12 @@ import SwiftUI
 import UIKit
 import MapKit
 
-//func sendEmail(openUrl: OpenURLAction) {
-//    let urlString = "https://mail.google.com/mail/u/2/#inbox"
-//    guard let url = URL(string: urlString) else { return }
-//    
-//    openUrl(url) { accepted in
-//        if !accepted {
-//            // Handle the error, e.g., show an alert
-//        }
-//    }
-//}
+func sendEmail(openUrl: OpenURLAction) {
+    let urlString = "mailto:colettelevrelle@gmail.com"
+    guard let url = URL(string: urlString) else { return }
+    
+    openUrl(url)
+}
 struct ContactDetailView: View {
     @Environment(\.openURL) private var openUrl
     @State var showingSheet = false
@@ -27,17 +23,13 @@ struct ContactDetailView: View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
-            RoundedRectangle(cornerRadius: 20)
-                .frame(maxWidth: 350)
-                .frame(maxHeight: 500)
-                .foregroundStyle(.white)
             VStack(alignment: .center) {
                 if let contactPhoto = contact.photo {
                     contactPhoto
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 200)
                 } else {
                     Image("placeholder")
                         .resizable()
@@ -47,63 +39,84 @@ struct ContactDetailView: View {
                 }
                 HStack {
                     Text(contact.firstName)
-                        .font(.title)
+                        .font(.largeTitle)
                     Text(contact.surName)
-                        .font(.title)
-                }
-                VStack(alignment: .leading, spacing: 10) {
-                    VStack(alignment:.leading ) {
-                        Text("Numéro de téléphone:")
-                            .bold()
-                        Text(contact.phoneNumber)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Adresse Mail:")
-                            .bold()
-                        Text(contact.emailAdress)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Adresse:")
-                            .bold()
-                        Text(contact.adress)
-                        Text(contact.postalCode)
-                    }
-                    HStack(alignment: .center ,spacing: 20) {
-                        Button {
-                            //                            sendEmail(openUrl: openUrl)
-                        } label: {
-                            Image(systemName: "paperplane")
-                                .padding()
-                                .foregroundStyle(.white)
-                                .background(.supportYellow)
-                                .cornerRadius(10)
+                        .font(.largeTitle)
+                } .padding(.vertical, 20)
+                ScrollView{
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        VStack(alignment:.leading ) {
+                            Text("Numéro:")
+                                .bold()
+                                .font(.title)
+                            Text(contact.phoneNumber)
+                                .font(.title)
+                        } .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .padding(20)
+                            .background(.white)
+                            .cornerRadius(20)
+                        VStack(alignment: .leading) {
+                            Text("Adresse Mail:")
+                                .bold()
+                                .font(.title)
+                            Text(contact.emailAdress)
+                                .font(.title)
+                        } .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .padding(20)
+                            .background(.white)
+                            .cornerRadius(20)
+                        VStack(alignment: .leading) {
+                            Text("Adresse:")
+                                .bold()
+                                .font(.title)
+                            Text(contact.adress)
+                                .font(.title)
+                            Text(contact.postalCode)
+                                .font(.title)
                         }
-                        Button {
-                            guard let number = URL(string: "tel://" + contact.phoneNumber) else { return }
-                            UIApplication.shared.open(number)
-                        } label: {
-                            Image(systemName: "phone")
-                                .padding()
-                                .foregroundStyle(.white)
-                                .background(.supportGreen)
-                                .cornerRadius(10)
-                        }
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "mappin")
-                                .padding()
-                                .foregroundStyle(.white)
-                                .background(.supportBlue)
-                                .cornerRadius(10)
-                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                        .padding(20)
+                        .background(.white)
+                        .cornerRadius(20)
                         
                     }
-                }.padding(.vertical, 10)
-            }
+                    .padding(.horizontal, 30)
+                }
+                HStack(alignment: .center ,spacing: 60) {
+                    Button {
+                        sendEmail(openUrl: openUrl)
+                    } label: {
+                        Image(systemName: "paperplane")
+                            .padding(20)
+                            .foregroundStyle(.white)
+                            .background(.supportBlue)
+                            .clipShape(.circle)
+                    }
+                    Button {
+                        guard let number = URL(string: "tel://" + contact.phoneNumber) else { return }
+                        UIApplication.shared.open(number)
+                    } label: {
+                        Image(systemName: "phone")
+                            .padding(20)
+                            .foregroundStyle(.white)
+                            .background(.supportGreen)
+                            .clipShape(.circle)
+                    }
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "map")
+                            .padding(20)
+                            .foregroundStyle(.white)
+                            .background(.supportRed)
+                            .clipShape(.circle)
+                    }
+                }
+            }.padding(.vertical, 20)
+            
         }
     }
-    
 }
 #Preview {
     ContactDetailView(contact: emergencyContacts[0])

@@ -21,7 +21,7 @@ struct Question {
     
     var question: String
     var guesses: [String]
-    var rightAnswerIndex: Int
+    var rightAnswerIndex: [Int]
     var IsAnswerCorrect: Bool
 }
 
@@ -30,7 +30,7 @@ struct Quizz {
     
     var title: String
     var category: QuizzCategory
-    var question: Question
+    var questions: [Question]
     var isCompleted: Bool
     
     var mainColor: Color {

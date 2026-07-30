@@ -20,7 +20,7 @@ struct EventDetailView: View {
         formatter.setLocalizedDateFormatFromTemplate("EEEE d MMMM à HH:mm")
         return formatter
     }
-
+    
     var body: some View {
         ZStack {
             Color.background
@@ -77,7 +77,7 @@ struct EventDetailView: View {
                         .background(.supportRed)
                         .foregroundStyle(.white)
                         .cornerRadius(20)
-
+                    
                 }
                 .padding(.bottom, 20)
             }

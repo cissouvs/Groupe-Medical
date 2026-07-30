@@ -13,11 +13,7 @@ func sendEmail(openUrl: OpenURLAction) {
     let urlString = "mailto:colettelevrelle@gmail.com"
     guard let url = URL(string: urlString) else { return }
     
-    openUrl(url) { accepted in
-        if !accepted {
-            // Handle the error, e.g., show an alert
-        }
-    }
+    openUrl(url)
 }
 struct ContactDetailView: View {
     @Environment(\.openURL) private var openUrl

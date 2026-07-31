@@ -8,9 +8,20 @@
 import SwiftUI
 import UIKit
 
+fileprivate enum Screen: Hashable {
+    case appointment
+    case medicine
+    case calendar
+    case quizz
+}
+
 struct LandingScreenView: View {
+
+    @State private var path: [Screen] = []
+    @State var events: [Event]
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 Color.background
                 VStack(alignment: .leading, spacing: 10) {
@@ -20,30 +31,67 @@ struct LandingScreenView: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
-                            AppointmentCardView()
+                            Button {
+                                path.append(.appointment)
+                            } label: {
+                                AppointmentCardView()
+                            }
                             Text("Rappel")
                                 .foregroundStyle(.secondText)
-                            MedicineCardView()
+                            Button {
+                                path.append(.medicine)
+                            } label: {
+                                MedicineCardView()
+                            }
                             Text("Vue d'ensemble")
                             HStack {
-                                LandingScreenCalendarButtonView(calendarViewType: .medecine)
+                                Button {
+                                    path.append(.calendar)
+                                } label: {
+                                    LandingScreenCalendarButtonView(calendarViewType: .medecine)
+                                }
                                 Spacer()
-                                LandingScreenCalendarButtonView(calendarViewType:.appointment)
+                                Button {
+                                    path.append(.calendar)
+                                } label: {
+                                    LandingScreenCalendarButtonView(calendarViewType:.appointment)
+                                }
                                 Spacer()
-                                LandingScreenCalendarButtonView(calendarViewType: .event)
+                                Button {
+                                    path.append(.calendar)
+                                } label: {
+                                    LandingScreenCalendarButtonView(calendarViewType: .event)
+                                }
                             }
                             .padding(10)
                             .background(.whiteBackground)
                             .cornerRadius(20)
                             Text("S'exercer")
                                 .foregroundStyle(.secondText)
-                            LandingScreenQuizzButtonView()
+                            Button {
+                                path.append(.quizz)
+                            } label: {
+                                LandingScreenQuizzButtonView()
+                            }
 
                         }
+                        Spacer(minLength: 100)
                     }
                 }
                 .padding(.horizontal, 12)
                 .padding(.top, 60)
+            }
+            .navigationDestination(for: Screen.self) { screen in
+                switch screen {
+                case .appointment:
+                    ContentView()
+                case .medicine:
+                    ContentView()
+                case .calendar:
+                    CalendarView(events: events)
+                case .quizz:
+                    ContentView()
+                }
             }
             .ignoresSafeArea()
         }
@@ -51,5 +99,5 @@ struct LandingScreenView: View {
 }
 
 #Preview {
-    LandingScreenView()
+    LandingScreenView(events: events)
 }

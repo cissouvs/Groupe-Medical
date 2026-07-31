@@ -40,6 +40,7 @@ struct MedicineCardView: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
+        .foregroundStyle(.black)
         .background(.whiteBackground)
         .cornerRadius(20)
     }

@@ -33,22 +33,4 @@ struct Quizz {
     var questions: [Question]
     var isCompleted: Bool
     
-    var mainColor: Color {
-        switch category {
-        case .family: return .supportRed
-        case .activity: return .supportYellow
-        case .meal: return .supportGreen
-        case .visitedPlaces: return .supportBlue
-        }
-    }
-
-    var secondaryColor: Color {
-        switch category {
-        case .family: return .tagRed
-        case .activity: return .tagYellow
-        case .meal: return .tagGreen
-        case .visitedPlaces: return .tagBlue
-        }
-    }
-    
 }

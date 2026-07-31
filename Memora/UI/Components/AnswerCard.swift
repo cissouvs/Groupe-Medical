@@ -9,14 +9,16 @@ import SwiftUI
 
 struct AnswerCard: View {
     
+    @State var isSelected = false
+    
     var text: String
     
     var backgroundCardColor: Color
     
     var body: some View {
-        Button {
-            
-        } label: {
+        Button(action: {
+            isSelected.toggle()
+        }) {
             Text(text)
                 .font(.title2)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

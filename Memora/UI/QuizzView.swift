@@ -31,31 +31,40 @@ struct QuizzView: View {
                         HStack {
                             AnswerCard(text: "La campagne", backgroundCardColor: .tagPurple)
                             AnswerCard(text: "La ville", backgroundCardColor: .tagPurple)
+                        }
+                        Button{
                             
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.right")
+                                Text("Répondre")
+                            }
+                            .font(.title2)
+                            .foregroundStyle(.mainText)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.tagPurple)
+                            .cornerRadius(20)
                         }
                     }
                     .padding(.horizontal, 12)
                     .padding(.bottom, 10)
-                    .frame(maxWidth: .infinity, maxHeight: 180)
+                    .frame(maxWidth: .infinity, maxHeight: 220)
                     .background(.whiteBackground)
                     .cornerRadius(20)
                     Text("Quiz hebdomadaire")
                         .font(.title)
-                        .bold()
-                    VStack(alignment: .center, spacing: 20){
-                        HStack(alignment: .center, spacing: 20){
-                            QuizzCategoryCard(text: "Famille", backgroundCardColor: .supportRed, categoryPicture: "familyPicture")
-                            QuizzCategoryCard(text: "Alimentation", backgroundCardColor: .supportYellow, categoryPicture: "mealPicture")
+                        .fontWeight(.regular)
+                    VStack(alignment: .center, spacing: 10){
+                        HStack(alignment: .center, spacing: 10){
+                            QuizzCategoryCard(quizz: familyQuizz)
+                            QuizzCategoryCard(quizz: mealQuizz)
                         }
-                        HStack(alignment: .center, spacing: 20){
-                            QuizzCategoryCard(text: "Activitées", backgroundCardColor: .supportGreen, categoryPicture: "activityPicture")
-                            QuizzCategoryCard(text: "Lieux visités", backgroundCardColor: .supportBlue, categoryPicture: "visitedPlacesPicture")
+                        HStack(alignment: .center, spacing: 10){
+                            QuizzCategoryCard(quizz: activityQuizz)
+                            QuizzCategoryCard(quizz: visitedPlacesQuizz)
                         }
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity, maxHeight: 420)
-                    .background(.whiteBackground)
+                    .frame(maxWidth: .infinity, maxHeight: 500)
                     .cornerRadius(20)
                 }
                 .padding(.horizontal, 12)

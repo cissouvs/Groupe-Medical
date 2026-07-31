@@ -11,7 +11,7 @@ import SwiftUI
 struct MemoraApp: App {
     var body: some Scene {
         WindowGroup {
-            ContactsListView(contacts: emergencyContacts)
+            TabBarView()
         }
     }
 }

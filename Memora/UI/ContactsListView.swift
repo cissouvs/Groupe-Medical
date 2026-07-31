@@ -16,8 +16,7 @@ struct ContactsListView: View {
             Color.background
             NavigationStack {
                 VStack {
-                    List {
-                        ForEach(contacts) { contact in
+                    List(contacts) { contact in
                             NavigationLink {
                                 ContactDetailView(contact: contact)
                             } label: {
@@ -64,7 +63,6 @@ struct ContactsListView: View {
             }
         }
     }
-}
 #Preview {
     ContactsListView(contacts: emergencyContacts)
 }

@@ -46,7 +46,7 @@ struct LandingScreenCalendarButtonView: View {
         case .medecine:
             Color.supportRed
         case .appointment:
-            Color.supportYellow
+            Color.supportOrange
         case .event:
             Color.supportGreen
         }

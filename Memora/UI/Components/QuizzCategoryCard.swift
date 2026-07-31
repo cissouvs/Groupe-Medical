@@ -14,8 +14,8 @@ struct QuizzCategoryCard: View {
     var mainColorCategory: Color {
         switch quizz.category {
                 case .family: return .supportRed
-                case .activity: return .supportOrange
-                case .meal: return .supportGreen
+                case .activity: return .supportGreen
+                case .meal: return .supportOrange 
                 case .visitedPlaces: return .supportBlue
                 }
     }
@@ -23,8 +23,8 @@ struct QuizzCategoryCard: View {
     var secondaryColorCategory: Color {
         switch quizz.category {
         case .family: return .tagRed
-        case .activity: return .tagOrange
-        case .meal: return .tagGreen
+        case .activity: return .tagGreen
+        case .meal: return .tagOrange
         case .visitedPlaces: return .tagBlue
         }
     }
@@ -73,11 +73,11 @@ struct QuizzCategoryCard: View {
         case .family:
             return "heart.fill"
         case .activity:
-            return "leaf.fill"
+            return "figure.run"
         case .meal:
             return "fork.knife.circle.fill"
         case .visitedPlaces:
-            return "camera.fill"
+            return "mappin.circle"
         }
     }
     

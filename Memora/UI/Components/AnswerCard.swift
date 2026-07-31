@@ -9,25 +9,23 @@ import SwiftUI
 
 struct AnswerCard: View {
     
-    @State var isSelected = false
+    @Binding var isAnswerSelected: Bool
     
-    var text: String
-    
-    var backgroundCardColor: Color
-    
+    var guess: String
+        
     var body: some View {
-        Button(action: {
-            isSelected.toggle()
-        }) {
-            Text(text)
-                .font(.title2)
+            Text(guess)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(backgroundCardColor)
+                .background(Color.background)
                 .cornerRadius(20)
-                .foregroundStyle(Color.mainText)
-        }
+                .foregroundStyle(Color.accent)
+                .font(.system(size: 16))
+                .fontWeight(isAnswerSelected ? .bold : .regular)
+                .lineLimit(2)
+                .padding(.horizontal)
     }
 }
+
 #Preview {
-    AnswerCard(text: "Text", backgroundCardColor: .secondText)
+    AnswerCard(isAnswerSelected: .constant(false), guess: "Boire un café ensemble")
 }

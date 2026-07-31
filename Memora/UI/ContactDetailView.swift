@@ -9,16 +9,15 @@ import SwiftUI
 import UIKit
 import MapKit
 
-func sendEmail(openUrl: OpenURLAction) {
-    let urlString = "mailto:colettelevrelle@gmail.com"
-    guard let url = URL(string: urlString) else { return }
-    
-    openUrl(url)
-}
 struct ContactDetailView: View {
     @Environment(\.openURL) private var openUrl
     @State var showingSheet = false
     let contact : Contact
+    func sendEmail(openUrl: OpenURLAction) {
+        let urlString = "mailto:\(contact.emailAdress)"
+        guard let url = URL(string: urlString) else { return }
+        openUrl(url)
+    }
     var body: some View {
         ZStack {
             Color.background

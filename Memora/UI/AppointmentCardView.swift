@@ -15,11 +15,13 @@ struct AppointmentCardView: View {
                 .resizable()
                 .padding(15)
                 .background(Color.gray)
+                .foregroundStyle(.black)
                 .clipShape(.circle)
                 .frame(width: 70, height: 70)
                 .clipped()
             VStack(alignment: .leading, spacing: 10) {
                 Text("Dr Martin")
+                    .foregroundStyle(.black)
                 Text("Médecin Généraliste")
                     .foregroundStyle(Color.secondText)
                     .font(.subheadline)

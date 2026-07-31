@@ -10,7 +10,7 @@ import SwiftUI
 
 var emergencyContacts = [
     Contact(
-        emailAdress: "colette@caramail.fr",
+        emailAdress: "colettelevrelle@gmail.com",
         firstName: "Colette",
         surName: "Levrelle",
         phoneNumber: "0765259315",
@@ -18,7 +18,7 @@ var emergencyContacts = [
         postalCode: "46800 Montcuq-en-Quercy-Blanc",
         photo: Image("colette")),
     Contact(
-        emailAdress: "rene@caramail.fr",
+        emailAdress: "renelatop@caramail.fr",
         firstName: "Rene",
         surName: "Latop",
         phoneNumber: "0303030303",

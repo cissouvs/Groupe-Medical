@@ -64,7 +64,7 @@ struct QuizzView: View {
                             }
                             Button{
                                 dailyQuestion.toggle()
-                                if question.rightAnswerIndexes == selectedAnswers {
+                                if question.rightAnswerValues == selectedAnswers {
                                     question.IsAnswerCorrect = true
                                 }
                             } label: {
@@ -118,7 +118,7 @@ struct QuizzView: View {
             "Le 28 juillet 1997",
             "Le 15 avril 1997"
         ],
-        rightAnswerIndexes: [true, false, false, false],
+        rightAnswerValues: [true, false, false, false],
         IsAnswerCorrect: false
     ), quizz: familyQuizz
 )

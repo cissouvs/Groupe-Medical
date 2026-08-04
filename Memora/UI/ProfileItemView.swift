@@ -30,7 +30,7 @@ struct ProfileItemView: View {
     var logoBackgroundColor: Color {
         switch profileItemType {
         case .personalData:
-                .supportYellow
+                .supportOrange
         case .emergencyContact:
                 .supportRed
         case .settings:

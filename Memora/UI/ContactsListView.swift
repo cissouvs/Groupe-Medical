@@ -65,3 +65,5 @@ struct ContactsListView: View {
 #Preview {
     ContactsListView(contacts: emergencyContacts)
 }
+
+

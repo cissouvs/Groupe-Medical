@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 enum Screen: Hashable {
     case appointment
@@ -45,6 +44,7 @@ func addNotification() {
         }
     }
 }
+
 struct LandingScreenView: View {
     
     @State private var path: [Screen] = []
@@ -71,7 +71,7 @@ struct LandingScreenView: View {
                             Button {
                                 path.append(.medicine)
                             } label: {
-                                MedicineCardView()
+                                MedicineCardView(medicine: mockMedicines[0])
                             }
                             Text("Vue d'ensemble")
                             HStack {

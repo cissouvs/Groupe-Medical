@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LandingScreenHeaderView: View {
 
-    @Binding var  path: [Screen]
 
     var body: some View {
         HStack {

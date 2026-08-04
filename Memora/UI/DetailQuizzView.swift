@@ -31,7 +31,7 @@ struct DetailQuizzView: View {
     
     @State var selectedAnswers: [Bool] = [false, false, false,false]
     
-    @State var isValide = false
+    @State var isValid = false
     
     @State private var currentQuestionIndex = 0
     

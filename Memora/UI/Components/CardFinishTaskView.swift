@@ -25,7 +25,7 @@ struct CardFinishTaskView: View {
                     .cornerRadius(100)
                     .padding()
                 
-                Text("Félicitation !")
+                Text("Félicitations !")
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.mainText)

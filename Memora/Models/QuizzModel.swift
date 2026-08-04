@@ -21,7 +21,7 @@ struct Question {
     
     var question: String
     var guesses: [String]
-    var rightAnswerIndexes: [Int]
+    var rightAnswerIndexes: [Bool]
     var IsAnswerCorrect: Bool
 }
 

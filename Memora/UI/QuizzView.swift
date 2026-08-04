@@ -11,17 +11,14 @@ struct QuizzView: View {
     
     @State var question: Question
     
-    var selectedGuesses: [Int] = []
+    @State var quizz: Quizz
     
-    @State var isFirstGuess = false
+    @State var selectedAnswers: [Bool] = [false, false, false,false]
     
-    @State var isSecondGuess = false
-    
-    @State var isThirdGuess = false
-    
-    @State var isFourthGuess = false
+    @State var dailyQuestion = false
     
     var body: some View {
+        
         NavigationStack{
             ZStack(alignment: .leading) {
                 Color.background
@@ -30,59 +27,66 @@ struct QuizzView: View {
                     Text("Question du jour")
                         .font(.title)
                         .fontWeight(.regular)
-                    VStack(spacing: 10) {
-                        HStack {
-                            Text(question.question)
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(2)
-                                
-                        }
-                        .padding(.vertical, 10)
-                        HStack {
-                            Button(action: {
-                                isFirstGuess.toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $isFirstGuess, guess: question.guesses[0])
-                            }
-                            Button(action: {
-                                isSecondGuess.toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $isSecondGuess, guess: question.guesses[1])
-                            }
-                        }
-                        HStack {
-                            Button(action: {
-                                isThirdGuess.toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $isThirdGuess, guess: question.guesses[2])
-                            }
-                            Button(action: {
-                                isFourthGuess.toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $isFourthGuess, guess: question.guesses[3])
-                            }
-                        }
-                        Button{
-                            
-                        } label: {
+                    if dailyQuestion == false {
+                        VStack(spacing: 10) {
                             HStack {
-                                Image(systemName: "arrow.right")
-                                Text("Répondre")
+                                Text(question.question)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .lineLimit(2)
+                                
                             }
-                            .font(.title2)
-                            .foregroundStyle(.whiteBackground)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.accent)
-                            .cornerRadius(20)
+                            .padding(.vertical, 10)
+                            HStack {
+                                Button(action: {
+                                    selectedAnswers[0].toggle()
+                                }) {
+                                    AnswerCard(isAnswerSelected: $selectedAnswers[0], guess: question.guesses[0])
+                                }
+                                Button(action: {
+                                    selectedAnswers[1].toggle()
+                                }) {
+                                    AnswerCard(isAnswerSelected: $selectedAnswers[1], guess: question.guesses[1])
+                                }
+                            }
+                            HStack {
+                                Button(action: {
+                                    selectedAnswers[2].toggle()
+                                }) {
+                                    AnswerCard(isAnswerSelected: $selectedAnswers[2], guess: question.guesses[2])
+                                }
+                                Button(action: {
+                                    selectedAnswers[3].toggle()
+                                }) {
+                                    AnswerCard(isAnswerSelected: $selectedAnswers[3], guess: question.guesses[3])
+                                }
+                            }
+                            Button{
+                                dailyQuestion.toggle()
+                                if question.rightAnswerIndexes == selectedAnswers {
+                                    question.IsAnswerCorrect = true
+                                }
+                            } label: {
+                                HStack {
+                                    Image(systemName: "arrow.right")
+                                    Text(question.IsAnswerCorrect ? "Bien joué" : "Répondre")
+                                }
+                                .font(.title2)
+                                .foregroundStyle(.whiteBackground)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.accent)
+                                .cornerRadius(20)
+                            }
                         }
+                        .padding(.horizontal, 12)
+                        .padding(.bottom, 10)
+                        .frame(maxWidth: .infinity, maxHeight: 250)
+                        .background(.whiteBackground)
+                        .cornerRadius(20)
+                    } else {
+                        CardFinishTaskView()
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 10)
-                    .frame(maxWidth: .infinity, maxHeight: 250)
-                    .background(.whiteBackground)
-                    .cornerRadius(20)
                     Text("Quiz hebdomadaire")
                         .font(.title)
                         .fontWeight(.regular)
@@ -114,9 +118,9 @@ struct QuizzView: View {
             "Le 28 juillet 1997",
             "Le 15 avril 1997"
         ],
-        rightAnswerIndexes: [0],
+        rightAnswerIndexes: [true, false, false, false],
         IsAnswerCorrect: false
-    )
+    ), quizz: familyQuizz
 )
 }
 

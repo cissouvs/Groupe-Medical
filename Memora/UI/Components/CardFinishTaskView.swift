@@ -19,7 +19,7 @@ struct CardFinishTaskView: View {
                 
                 Image(systemName: "checkmark.seal")
                     .foregroundStyle(.white)
-                    .font(.system(size: 140))
+                    .font(.system(size: 80))
                     .padding(10)
                     .background(.green)
                     .cornerRadius(100)
@@ -36,27 +36,12 @@ struct CardFinishTaskView: View {
                     .font(.callout)
                     .multilineTextAlignment(.leading)
                     
-                    NavigationLink {
-                        
-                        MissionsView(currentTabIndex: 0)
-                        
-                    } label: {
-                        
-                        Text("Nouvelle mission")
-                            .foregroundStyle(isTouch ? .white : .mainOrange)
-                            .font(.title2)
-                            .padding(10)
-                            .background(isTouch ? .green : .white)
-                            .cornerRadius(100)
-                            .padding()
-                    
-                }
-                
                 Spacer()
             }
-            .foregroundStyle(.mainText)
-            .frame(width: 320, height: 480)
-            .background(.backgroundGray)
+            .padding(.horizontal, 12)
+            .padding(.bottom, 10)
+            .frame(maxWidth: .infinity, maxHeight: 250)
+            .background(.whiteBackground)
             .cornerRadius(20)
             
             

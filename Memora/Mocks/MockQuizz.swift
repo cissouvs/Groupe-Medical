@@ -18,7 +18,7 @@ var familyQuizz = Quizz(
                 "Le 28 juillet 1997",
                 "Le 15 avril 1997"
             ],
-            rightAnswerIndexes: [0],
+            rightAnswerIndexes: [true, false, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -29,7 +29,7 @@ var familyQuizz = Quizz(
                 "Bordeaux",
                 "Montcuq"
             ],
-            rightAnswerIndexes: [3],
+            rightAnswerIndexes: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -40,7 +40,7 @@ var familyQuizz = Quizz(
                 "Ton marie",
                 "Ton médecin"
             ],
-            rightAnswerIndexes: [1],
+            rightAnswerIndexes: [false, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -51,7 +51,7 @@ var familyQuizz = Quizz(
                 "7",
                 "11"
             ],
-            rightAnswerIndexes: [2],
+            rightAnswerIndexes: [false, false, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -62,7 +62,7 @@ var familyQuizz = Quizz(
                 "La fille de Louis",
                 "Morte"
             ],
-            rightAnswerIndexes: [2,3],
+            rightAnswerIndexes: [false, false, true, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -73,7 +73,7 @@ var familyQuizz = Quizz(
                 "Gillian",
                 "Louis"
             ],
-            rightAnswerIndexes: [1],
+            rightAnswerIndexes: [false, true, false, false],
             IsAnswerCorrect: false
         )
     ],
@@ -92,7 +92,7 @@ var activityQuizz = Quizz(
                 "Jouer au golf",
                 "Faire de la plongée"
             ],
-            rightAnswerIndexes: [2],
+            rightAnswerIndexes: [false, false, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -103,7 +103,7 @@ var activityQuizz = Quizz(
                 "Faire du ski",
                 "Faire du surf"
             ],
-            rightAnswerIndexes: [0,1],
+            rightAnswerIndexes: [true, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -114,7 +114,7 @@ var activityQuizz = Quizz(
                 "Faire du ski",
                 "Faire de la voile"
             ],
-            rightAnswerIndexes: [0,1],
+            rightAnswerIndexes: [true, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -125,7 +125,7 @@ var activityQuizz = Quizz(
                 "Seulement la nuit",
                 "Uniquement en hiver"
             ],
-            rightAnswerIndexes: [3],
+            rightAnswerIndexes: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -136,7 +136,7 @@ var activityQuizz = Quizz(
                 "Tu dors",
                 "Tu lis"
             ],
-            rightAnswerIndexes: [1],
+            rightAnswerIndexes: [false, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -147,7 +147,7 @@ var activityQuizz = Quizz(
                 "Faire du ski nautique",
                 "Faire du parapente"
             ],
-            rightAnswerIndexes: [0],
+            rightAnswerIndexes: [true, false, false, false],
             IsAnswerCorrect: false
         )
     ],
@@ -166,7 +166,7 @@ var mealQuizz = Quizz(
                 "Une salade",
                 "Du poisson"
             ],
-            rightAnswerIndexes: [2],
+            rightAnswerIndexes: [false, false, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -177,7 +177,7 @@ var mealQuizz = Quizz(
                 "Des crêpes",
                 "Une pizza"
             ],
-            rightAnswerIndexes: [3],
+            rightAnswerIndexes: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -188,7 +188,7 @@ var mealQuizz = Quizz(
                 "Une salade",
                 "Du pain"
             ],
-            rightAnswerIndexes: [1],
+            rightAnswerIndexes: [false, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -199,7 +199,7 @@ var mealQuizz = Quizz(
                 "Le chocolat",
                 "Les fraises"
             ],
-            rightAnswerIndexes: [2],
+            rightAnswerIndexes: [false, false, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -210,7 +210,7 @@ var mealQuizz = Quizz(
                 "Du jus d'orange",
                 "Du thé"
             ],
-            rightAnswerIndexes: [3],
+            rightAnswerIndexes: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -221,7 +221,7 @@ var mealQuizz = Quizz(
                 "Le couscous",
                 "Le gratin"
             ],
-            rightAnswerIndexes: [0],
+            rightAnswerIndexes: [true, false, false, false],
             IsAnswerCorrect: false
         )
     ],
@@ -240,7 +240,7 @@ var visitedPlacesQuizz = Quizz(
                 "Bordeaux",
                 "Nice"
             ],
-            rightAnswerIndexes: [3],
+            rightAnswerIndexes: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -251,7 +251,7 @@ var visitedPlacesQuizz = Quizz(
                 "Toulouse",
                 "Nantes"
             ],
-            rightAnswerIndexes: [0],
+            rightAnswerIndexes: [true, false, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -262,7 +262,7 @@ var visitedPlacesQuizz = Quizz(
                 "Tes collègues",
                 "Tu es parti(e) seul(e)"
             ],
-            rightAnswerIndexes: [0],
+            rightAnswerIndexes: [true, false, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -273,7 +273,7 @@ var visitedPlacesQuizz = Quizz(
                 "La campagne",
                 "Une grande ville"
             ],
-            rightAnswerIndexes: [1,2],
+            rightAnswerIndexes: [false, true, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -284,7 +284,7 @@ var visitedPlacesQuizz = Quizz(
                 "L'avion",
                 "Le bateau"
             ],
-            rightAnswerIndexes: [2,3],
+            rightAnswerIndexes: [false, false, true, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -295,7 +295,7 @@ var visitedPlacesQuizz = Quizz(
                 "Des souvenirs",
                 "Rien en particulier"
             ],
-            rightAnswerIndexes: [1],
+            rightAnswerIndexes: [false, true, false, false],
             IsAnswerCorrect: false
         )
     ],

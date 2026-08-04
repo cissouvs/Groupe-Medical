@@ -12,6 +12,8 @@ struct AnswerCard: View {
     @Binding var isAnswerSelected: Bool
     
     var guess: String
+    
+    var answerBackground: Color = .background
         
     var body: some View {
             Text(guess)

@@ -83,7 +83,9 @@ struct QuizzCategoryCard: View {
     
     var body: some View {
         NavigationLink {
-            DetailQuizzView()
+            DetailQuizzView(
+                quizz: quizz
+            )
         } label: {
             VStack(spacing: 10) {
                 ZStack(alignment: .topTrailing){

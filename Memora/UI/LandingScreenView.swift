@@ -8,11 +8,13 @@
 import SwiftUI
 import UIKit
 
-fileprivate enum Screen: Hashable {
+enum Screen: Hashable {
     case appointment
     case medicine
     case calendar
     case quizz
+    case profile
+    case emergencyContact
 }
 
 struct LandingScreenView: View {
@@ -26,7 +28,7 @@ struct LandingScreenView: View {
                 Color.background
                 VStack(alignment: .leading, spacing: 10) {
                     ScrollView {
-                        LandingScreenHeaderView()
+                        LandingScreenHeaderView(path: $path)
                         Divider()
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
@@ -91,6 +93,10 @@ struct LandingScreenView: View {
                     CalendarView(events: events)
                 case .quizz:
                     ContentView()
+                case .profile:
+                    ProfileView(path: $path)
+                case .emergencyContact:
+                    ContactsListView(contacts: emergencyContacts)
                 }
             }
             .ignoresSafeArea()

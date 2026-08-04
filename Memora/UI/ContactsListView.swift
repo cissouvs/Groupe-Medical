@@ -14,50 +14,47 @@ struct ContactsListView: View {
     var body: some View {
         ZStack {
             Color.background
-            NavigationStack {
-                VStack {
-                    List(contacts) { contact in
-                            NavigationLink {
-                                ContactDetailView(contact: contact)
-                            } label: {
-                                HStack {
-                                    if let contactPhoto = contact.photo {
-                                        contactPhoto
-                                            .resizable()
-                                            .scaledToFit()
-                                            .clipShape(.circle)
-                                            .frame(maxWidth: 50)
-                                    } else {
-                                        Image("placeholder")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .clipShape(.circle)
-                                            .frame(maxWidth: 200)
-                                    }
-                                    Text(contact.firstName)
-                                    Text(contact.surName)
-                                }
+            VStack {
+                List(contacts) { contact in
+                    NavigationLink {
+                        ContactDetailView(contact: contact)
+                    } label: {
+                        HStack {
+                            if let contactPhoto = contact.photo {
+                                contactPhoto
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(.circle)
+                                    .frame(maxWidth: 50)
+                            } else {
+                                Image("placeholder")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(.circle)
+                                    .frame(maxWidth: 200)
                             }
+                            Text(contact.firstName)
+                            Text(contact.surName)
                         }
                     }
-                    .sheet(isPresented: $isSelected){
-                        ContactSheet(contacts: $contacts)
-                            .padding(.vertical)
-                    }
-                    .font(.title3)
-                    .toolbar {
-                        ToolbarItem(placement: .principal){
-                            Text("Contacts d'urgence")
-                                .font(.title)
-                                .bold()
-                        }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                isSelected = true
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                        }
+                }
+            }
+            .sheet(isPresented: $isSelected){
+                ContactSheet(contacts: $contacts)
+                    .padding(.vertical)
+            }
+            .font(.title3)
+            .toolbar {
+                ToolbarItem(placement: .principal){
+                    Text("Contacts d'urgence")
+                        .font(.title)
+                        .bold()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isSelected = true
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }

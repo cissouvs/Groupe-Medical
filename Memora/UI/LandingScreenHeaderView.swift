@@ -28,10 +28,10 @@ struct LandingScreenHeaderView: View {
                         .font(.title)
                 }
                 Button {
-
+                    path.append(.profile)
                 } label: {
-                    Image(systemName: "gearshape")
-                        .tint(.secondText)
+                    Image(systemName: "person")
+                        .tint(.accent)
                         .font(.title)
                 }
             }
@@ -40,5 +40,5 @@ struct LandingScreenHeaderView: View {
 }
 
 #Preview {
-    LandingScreenHeaderView()
+    LandingScreenHeaderView(path: .constant([]))
 }

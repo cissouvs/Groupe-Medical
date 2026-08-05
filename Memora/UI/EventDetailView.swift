@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct EventDetailView: View {
-    @Binding var event: Event
-    @Binding var events: [Event]
+    var event: Event
     @State var isDeleteConfirmationPresented: Bool = false
     @State var isModifySheetPresented: Bool = false
     @Environment(\.dismiss) var dismiss
+    @Environment(EventViewModel.self) var eventVM
 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -96,18 +96,14 @@ struct EventDetailView: View {
             .alert("Voulez-vous vraiment supprimer cet évènement ?", isPresented: $isDeleteConfirmationPresented) {
                 Button("Annuler", role: .cancel) {}
                 Button("Supprimer", role: .destructive) {
-                    if let eventIndex = events.firstIndex(of: event) {
-                        events.remove(at: eventIndex)
-                    }
+                    eventVM.deleteEvent(event: event)
                     dismiss()
                 }
             }
             .sheet(isPresented: $isModifySheetPresented) {
                 ModifyEventSheetView(
                     isAddSheetPresented: $isModifySheetPresented,
-                    event: $event,
-                    events: $events,
-                    eventForm: event,
+                    event: event
                 )
             }
             .padding(12)
@@ -117,5 +113,6 @@ struct EventDetailView: View {
 }
 
 #Preview {
-    EventDetailView(event: .constant(crisis[0]), events: .constant(crisis))
+    EventDetailView(event: crisis[0])
+        .environment(EventViewModel())
 }

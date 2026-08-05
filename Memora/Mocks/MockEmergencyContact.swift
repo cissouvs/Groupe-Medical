@@ -36,7 +36,7 @@ var emergencyContacts = [
     Contact(
         emailAdress: "robert@caramail.fr",
         firstName: "Robert",
-        surName: "Livai",
+        surName: "Villiers",
         phoneNumber: "0306060606",
         adress: "45 impasse de la Charette,",
         postalCode: "46800 Montcuq",

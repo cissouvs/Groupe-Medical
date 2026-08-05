@@ -16,39 +16,12 @@ enum Screen: Hashable {
     case emergencyContact
 }
 
-func addNotification() {
-    let center = UNUserNotificationCenter.current()
-    
-    let addRequest = {
-        let content = UNMutableNotificationContent()
-        content.title = "Oublies pas d'ajouter les choses effectués la journée"
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString, content: content, trigger: trigger)
-        center.add(request)
-    }
-    center.getNotificationSettings { settings in
-        if settings.authorizationStatus == .authorized {
-            addRequest()
-        } else {
-            center.requestAuthorization(options: [.alert, .badge, .sound]) { succes, error in
-                if succes {
-                    addRequest()
-                } else if let error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-}
-
 struct LandingScreenView: View {
     
+    @State private var vm = LandingScreenViewModel()
     @State private var path: [Screen] = []
-    @State var events: [Event]
+    @State var eventVM = EventViewModel()
+    @State var medicineVM = MedecineViewModel()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -106,7 +79,7 @@ struct LandingScreenView: View {
                             
                         }
                         Button {
-                            addNotification()
+                            vm.addNotification()
                         } label: {
                             Text("Cliquez ici")
                         }
@@ -123,7 +96,7 @@ struct LandingScreenView: View {
                 case .medicine:
                     ContentView()
                 case .calendar:
-                    CalendarView(events: events)
+                    CalendarView()
                 case .quizz:
                     ContentView()
                 case .profile:
@@ -134,9 +107,11 @@ struct LandingScreenView: View {
             }
             .ignoresSafeArea()
         }
+        .environment(eventVM)
+        .environment(medicineVM)
     }
 }
 
 #Preview {
-    LandingScreenView(events: events)
+    LandingScreenView()
 }

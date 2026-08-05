@@ -8,37 +8,21 @@
 import SwiftUI
 
 struct AddEventSheetView: View {
-
-    @Binding var events: [Event]
     @Binding var isAddSheetPresented: Bool
-    @State var eventForm: Event = Event(
-        title: "",
-        date: .now,
-        isAllDay: false,
-        endTime: .now.addingTimeInterval(15000),
-        description: "",
-        type: .other,
-        participants: []
-    )
+    @State var vm = AddEvenSheetViewModel()
+    @Environment(EventViewModel.self) var eventVM
 
     var body: some View {
         NavigationView {
             EventFormSheetView(
                 isAddSheetPresented: $isAddSheetPresented,
-                eventForm: $eventForm
+                eventForm: $vm.eventForm
             )
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         isAddSheetPresented = false
-                        eventForm.title = ""
-                        eventForm.description = ""
-                        eventForm.isAllDay = false
-                        eventForm.date = Date()
-                        eventForm.endTime = Date().addingTimeInterval(1500.0)
-                        eventForm.type = .other
-                        eventForm.location = ""
-                        eventForm.participants = []
+                        eventVM.resetEventForm()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -49,17 +33,14 @@ struct AddEventSheetView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        events
-                            .append(
-                                Event(from: eventForm)
-                            )
+                        eventVM.addEvent()
                         isAddSheetPresented = false
                     } label: {
                         Image(systemName: "checkmark")
                     }
                     .tint(.accent)
                     .buttonStyle(.glassProminent)
-                    .disabled(eventForm.title.isEmpty)
+                    .disabled(vm.eventForm.title.isEmpty)
                 }
             }
         }
@@ -69,7 +50,7 @@ struct AddEventSheetView: View {
 
 #Preview {
     AddEventSheetView(
-        events: .constant(events),
         isAddSheetPresented: .constant(true)
     )
+    .environment(EventViewModel())
 }

@@ -23,11 +23,13 @@ enum FormType {
 struct EventFormSheetView: View {
     @Binding var isAddSheetPresented: Bool
     @State var newParticipant: String = ""
-    @Binding var eventForm: Event
     @FocusState private var focusedField: FieldType?
-
-
+    @Binding var eventForm: Event
+    //    @Environment(EventViewModel.self)  var eventVM
+    
     var body: some View {
+        //        @Bindable var eventVMBinding = eventVM
+        
         Form {
             Section {
                 TextField("Titre", text: $eventForm.title)
@@ -110,17 +112,9 @@ struct EventFormSheetView: View {
 #Preview {
     EventFormSheetView(
         isAddSheetPresented: .constant(true),
-        eventForm:
-                .constant(
-                    Event(
-                        title: "",
-                        date: .now,
-                        isAllDay: false,
-                        endTime: .now.addingTimeInterval(15000),
-                        description: "",
-                        type: .other,
-                        participants: []
-                    )
-                )
+        eventForm: .constant(
+            crisis[0]
+        )
     )
+
 }

@@ -7,33 +7,46 @@
 
 import SwiftUI
 
+func getTagColor(dayTime: DayMoment) -> Color {
+    switch dayTime {
+    case .getUp:
+        Color.tagOrange
+    case .bedTime:
+        Color.tagBlue
+    case .breakfast:
+        Color.tagGreen
+    case .lunch:
+        Color.tagPurple
+    case .diner:
+        Color.tagBlue
+    }
+}
+
 struct MedicineCardView: View {
+    var medicine: any Medicine
 
     var body: some View {
         HStack(spacing: 20) {
-            Image("")
-                .resizable()
-                .background(.tagBlue)
-                .clipShape(.circle)
-                .frame(width: 70, height: 70)
-                .clipped()
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Donépezil")
-                Text("150 mg, 1 capsule")
-                HStack(spacing: 10) {
-                    Text("Après Petit Déj")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal, 10)
-                        .background(.tagGreen)
-                        .cornerRadius(20)
-                        .font(.callout)
-                    Text("Coucher")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal, 10)
-                        .background(.tagBlue)
-                        .cornerRadius(20)
-                        .font(.callout)
+            ZStack {
+                AsyncImage(url: URL(string: medicine.imageUrl)) { image in
+                    image
+                        .resizable()
+                        .padding(10)
+                } placeholder: {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .padding(15)
                 }
+            }
+            .background(.tagBlue)
+            .clipShape(.circle)
+            .frame(width: 70, height: 70)
+            .clipped()
+            VStack(alignment: .leading, spacing: 10) {
+                Text(medicine.medicineType.rawValue)
+                Text(medicine.posologyString)
+                    .foregroundStyle(.secondText)
+                TakingTimingScrollView(medicine: medicine)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(10)
@@ -46,6 +59,33 @@ struct MedicineCardView: View {
     }
 }
 
+
+struct TakingTimingScrollView: View {
+
+    var medicine: any Medicine
+
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 10) {
+                ForEach(medicine.takingMoments.enumerated(), id: \.offset) {
+                    _,
+                    takingMoment in
+                    Text(
+                        takingMoment.timing == .none ?
+                        takingMoment.dayMoment.rawValue :
+                            "\(takingMoment.timing.rawValue) \(takingMoment.dayMoment.rawValue)"
+                    )
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 10)
+                    .background(getTagColor(dayTime: takingMoment.dayMoment))
+                    .cornerRadius(20)
+                    .font(.callout)
+                }
+            }
+        }
+    }
+}
+
 #Preview {
-    MedicineCardView()
+    MedicineCardView(medicine: mockMedicines[0])
 }

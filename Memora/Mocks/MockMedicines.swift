@@ -7,10 +7,10 @@
 
 import Foundation
 
-let medicines: [Medicine] = [
+let mockMedicines: [any Medicine] = [
     CapsuleMedicineModel(
         medicineType: .aricept,
-        takingMoment: [(timing: Timing.none, dayMoment: DayMoment.bedTime)],
+        takingMoments: [(timing: Timing.none, dayMoment: DayMoment.bedTime)],
         details: "",
         startDate: Date(),
         endDate: .now.addingTimeInterval(2592000),
@@ -20,7 +20,7 @@ let medicines: [Medicine] = [
     ),
     DrinkableMedicineModel(
         medicineType: .reminyl,
-        takingMoment: [
+        takingMoments: [
             (timing: .during, dayMoment: .breakfast),
             (timing: .during, dayMoment: .diner)
         ],
@@ -29,11 +29,11 @@ let medicines: [Medicine] = [
         endDate: .now.addingTimeInterval(597800),
         imageUrl:
             "https://cdn.pim.mesoigner.fr/mesoigner/c23c149d2b855a005ef4b7f04034fb8d/mesoigner-thumbnail-1000-1000-inset/573/585/reminyl-4-mg-ml-solution-buvable.webp",
-        volume: 1
+        volume: 100
     ),
     PatchMedicineModel(
         medicineType: .rivastigmine,
-        takingMoment: [],
+        takingMoments: [],
         details: "",
         startDate: Date(),
         endDate: .now.addingTimeInterval(597800),
@@ -42,3 +42,4 @@ let medicines: [Medicine] = [
         duration: 24
     )
 ]
+

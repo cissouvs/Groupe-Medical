@@ -32,5 +32,5 @@ struct EventListElementView: View {
 }
 
 #Preview {
-    EventListElementView(event: events[0])
+    EventListElementView(event: crisis[0])
 }

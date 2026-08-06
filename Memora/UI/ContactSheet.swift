@@ -12,16 +12,9 @@ struct ContactSheet: View {
     @Environment(\.dismiss) var dismiss
     @State var pickerItem : PhotosPickerItem?
     @State var pickerImage : Image?
-    @State var contactForm : Contact = Contact(
-        emailAdress: "",
-        firstName: "",
-        surName: "",
-        phoneNumber: "",
-        adress: "",
-        postalCode: "",
-        photo: nil
-    )
-    @Binding var contacts : [Contact]
+    @State var vm = ContactSheetViewModel()
+    @Environment(ContactListViewModel.self) var contactVM
+    
     var body: some View {
         VStack {
             HStack(spacing: 30){
@@ -38,18 +31,7 @@ struct ContactSheet: View {
                 Text("Ajoutez un contact")
                     .font(.title)
                 Button {
-                    contacts
-                        .append(
-                            Contact.init(
-                                emailAdress: contactForm.emailAdress,
-                                firstName: contactForm.firstName,
-                                surName: contactForm.surName,
-                                phoneNumber: contactForm.phoneNumber,
-                                adress: contactForm.adress,
-                                postalCode: contactForm.postalCode,
-                                photo: contactForm.photo
-                            )
-                        )
+                    contactVM.addContact(newContact: vm.contactForm)
                     dismiss()
                 } label: {
                     Image(systemName: "checkmark")
@@ -60,7 +42,7 @@ struct ContactSheet: View {
                 }
             }
             PhotosPicker(selection: $pickerItem, matching: .images) {
-                if let contactPhoto = contactForm.photo  {
+                if let contactPhoto = vm.contactForm.photo  {
                     contactPhoto
                         .resizable()
                         .scaledToFit()
@@ -80,21 +62,21 @@ struct ContactSheet: View {
                         return
                     }
                     if let newImage = try? await pickerItem.loadTransferable(type: Image.self) {
-                        contactForm.photo = newImage
+                        vm.contactForm.photo = newImage
                     }
                 }
             }
             Form {
-                TextField("Nom", text: $contactForm.surName)
-                TextField("Prenom", text: $contactForm.firstName)
-                TextField("Adresse Mail", text: $contactForm.emailAdress)
-                TextField("Numéro de téléphone", text: $contactForm.phoneNumber)
-                TextField("Adresse", text: $contactForm.adress)
+                TextField("Nom", text: $vm.contactForm.surName)
+                TextField("Prenom", text: $vm.contactForm.firstName)
+                TextField("Adresse Mail", text: $vm.contactForm.emailAdress)
+                TextField("Numéro de téléphone", text: $vm.contactForm.phoneNumber)
+                TextField("Adresse", text: $vm.contactForm.adress)
             }
         }
     }
 }
 
 #Preview {
-    ContactSheet(contacts: .constant(emergencyContacts))
+    ContactSheet().environment(ContactListViewModel())
 }

@@ -1,11 +1,26 @@
 //
-//  MockQuestion.swift
+//  QuizzViewModel.swift
 //  Memora
 //
-//  Created by apprenant92 on 30/07/2026.
+//  Created by Apprenant76 on 06/08/2026.
 //
 
 import Foundation
+
+
+
+var dailyQuestion = Question(
+    question: "Quand est l'anniversaire de Théo ?",
+    guesses: [
+        "Le 9 juin 1997",
+        "Le 10 janvier 1997",
+        "Le 28 juillet 1997",
+        "Le 15 avril 1997"
+    ],
+    rightAnswerValues: [true, false, false, false],
+    IsAnswerCorrect: false
+)
+
 var familyQuizz = Quizz(
     title: "Quiz de famille",
     category: .family,
@@ -227,7 +242,7 @@ var mealQuizz = Quizz(
     ],
     isCompleted: false
 )
-    
+
 var visitedPlacesQuizz = Quizz(
     title: "Quiz des endroits que tu as visité",
     category: .visitedPlaces,
@@ -301,3 +316,35 @@ var visitedPlacesQuizz = Quizz(
     ],
     isCompleted: false
 )
+
+
+
+@Observable
+final class QuizzViewModel {
+
+    var dailyQuestion: Question = Question(
+        question: "Quand est l'anniversaire de Théo ?",
+        guesses: [
+            "Le 9 juin 1997",
+            "Le 10 janvier 1997",
+            "Le 28 juillet 1997",
+            "Le 15 avril 1997"
+        ],
+        rightAnswerValues: [true, false, false, false],
+        IsAnswerCorrect: false
+    )
+
+    var quizzes: [Quizz] = [familyQuizz, activityQuizz, mealQuizz, visitedPlacesQuizz]
+
+    var selectedAnswers: [Bool] = [false, false, false,false]
+
+    func toggleDailyQuestionGuess(index: Int) {
+        selectedAnswers[index].toggle()
+    }
+
+    func checkDailyQuestionAnswer() {
+        if dailyQuestion.rightAnswerValues == selectedAnswers {
+            dailyQuestion.IsAnswerCorrect = true
+        }
+    }
+}

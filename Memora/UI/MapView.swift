@@ -10,15 +10,9 @@ import MapKit
 
 struct MapView: View {
     
-    @State var camera = MapCameraPosition.automatic
+    @State private var vm = MapViewModel()
     
-    var userPosition = CLLocationCoordinate2D(
-        latitude: 44.340861,
-        longitude: 1.2024031597201768)
-    
-    var careGiversPosition = CLLocationCoordinate2D(
-        latitude: 44.33878193104696,
-        longitude: 1.2116824676429137)
+    @State private var camera = MapCameraPosition.automatic
     
     var body: some View {
         
@@ -26,7 +20,7 @@ struct MapView: View {
             
             Map(position: $camera) {
                 
-                Annotation("Patient", coordinate: userPosition) {
+                Annotation("Patient", coordinate: vm.userPosition) {
                     Image(systemName: "person")
                         .foregroundStyle(.white)
                         .padding()
@@ -34,7 +28,7 @@ struct MapView: View {
                         .clipShape(.circle)
                 }
                 
-                Annotation("Patient", coordinate: careGiversPosition) {
+                Annotation("Patient", coordinate: vm.careGiversPosition) {
                     Image(systemName: "person")
                         .foregroundStyle(.white)
                         .padding()
@@ -44,13 +38,13 @@ struct MapView: View {
                 
             }
             
-            VStack(alignment: .trailing){
+            VStack(alignment: .trailing) {
                 
                 Spacer()
                 
                 Button {
                     camera = .region(MKCoordinateRegion(
-                        center: careGiversPosition,
+                        center: vm.careGiversPosition,
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
@@ -64,7 +58,7 @@ struct MapView: View {
                 
                 Button {
                     camera = .region(MKCoordinateRegion(
-                        center: userPosition,
+                        center: vm.userPosition,
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {

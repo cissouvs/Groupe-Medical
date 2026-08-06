@@ -11,7 +11,7 @@ struct TabBarView: View {
     var body: some View {
         TabView {
             Tab("Accueil", systemImage: "house.fill") {
-                LandingScreenView(events: events)
+                LandingScreenView()
             }
             Tab("Communauté", systemImage: "person.3.fill") {
 

@@ -13,25 +13,16 @@ enum CalendarSelectedView: Hashable {
 }
 
 struct CalendarView: View {
-    @State var date = Date()
+    
+    @State private var vm = CalendarViewModel()
     @State var isAddSheetPresented: Bool = false
     @State private var selectedCalendarType: CalendarSelectedView = .medications
-
-    @State private var vm = CalendarViewModel()
-
-    var calendar = Calendar.current
-
-    @State var events: [Event]
-    var selectedDayEvents: [Event] {
-        events.filter({
-            calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame
-        })
-    }
-
-
+    @Environment(EventViewModel.self) var eventVM
+    @Environment(MedecineViewModel.self) var medicineVM
+   
     var body: some View {
         VStack {
-            DatePicker("", selection: $date, displayedComponents: [.date])
+            DatePicker("", selection: $vm.date, displayedComponents: [.date])
                 .datePickerStyle(.graphical)
                 .environment(\.locale, Locale.init(identifier: "fr"))
                 .tint(.accent)
@@ -47,15 +38,18 @@ struct CalendarView: View {
                     switch selectedCalendarType {
                     case .medications:
                         ForEach(
-                            vm.getFilteredMedicines(at: date).enumerated(),
+                            medicineVM.getFilteredMedicines(at: vm.date).enumerated(),
                             id: \.offset
                         ) { _, medicine in
                             MedicineCardView(medicine: medicine)
                         }
                     case .events:
-                        ForEach(selectedDayEvents.enumerated(), id: \.offset) { index, event in
+                        ForEach(
+                            eventVM.getSelectedDayEvents(at: vm.date).enumerated(),
+                            id: \.offset
+                        ) { index, event in
                             NavigationLink {
-                                EventDetailView(event: $events[index], events: $events)
+                                EventDetailView(event: eventVM.events[index])
                             } label: {
                                 EventListElementView(event: event)
                             }
@@ -80,7 +74,6 @@ struct CalendarView: View {
             }
             .sheet(isPresented: $isAddSheetPresented) {
                 AddEventSheetView(
-                    events: $events,
                     isAddSheetPresented: $isAddSheetPresented
                 )
             }
@@ -91,5 +84,7 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(events: crisis)
+    CalendarView()
+        .environment(EventViewModel())
+        .environment(MedecineViewModel())
 }

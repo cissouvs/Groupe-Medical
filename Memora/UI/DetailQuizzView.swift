@@ -65,28 +65,32 @@ struct DetailQuizzView: View {
                         }
                         .padding(.vertical, 10)
                         VStack {
-                            Button(action: {
-                                selectedAnswers[0].toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $selectedAnswers[0], guess: currentQuestion.guesses[0])
-                            }
-                            Button(action: {
-                                selectedAnswers[1].toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $selectedAnswers[1], guess: currentQuestion.guesses[1])
-                            }
-                            
-                            
-                            Button(action: {
-                                selectedAnswers[2].toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $selectedAnswers[2], guess: currentQuestion.guesses[2])
-                            }
-                            Button(action: {
-                                selectedAnswers[3].toggle()
-                            }) {
-                                AnswerCard(isAnswerSelected: $selectedAnswers[3], guess: currentQuestion.guesses[3])
-                            }
+//                            Button(action: {
+//                                selectedAnswers[0].toggle()
+//                            }) {
+//                                AnswerCard(isAnswerSelected: $selectedAnswers[0], guess: currentQuestion.guesses[0])
+//                            }
+//                            Button(action: {
+//                                selectedAnswers[1].toggle()
+//                            }) {
+//                                AnswerCard(isAnswerSelected: $selectedAnswers[1], guess: currentQuestion.guesses[1])
+//                            }
+//                            
+//                            
+//                            Button(action: {
+//                                selectedAnswers[2].toggle()
+//                            }) {
+//                                AnswerCard(isAnswerSelected: $selectedAnswers[2], guess: currentQuestion.guesses[2])
+//                            }
+//                            Button(action: {
+//                                selectedAnswers[3].toggle()
+//                            }) {
+//                                AnswerCard(isAnswerSelected: $selectedAnswers[3], guess: currentQuestion.guesses[3])
+//                            }
+                            AnswerCard(guessIndex: 0)
+                            AnswerCard(guessIndex: 1)
+                            AnswerCard(guessIndex: 2)
+                            AnswerCard(guessIndex: 3)
                         }
                         .frame(maxHeight: 300)
                     }
@@ -122,5 +126,6 @@ struct DetailQuizzView: View {
 #Preview {
     DetailQuizzView(quizz: familyQuizz
     )
-    
+    .environment(QuizzViewModel())
+
 }

@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ModifyEventSheetView: View {
     @Binding var isAddSheetPresented: Bool
-    @Binding var event: Event
-    @Binding var events: [Event]
-    @State var eventForm: Event
+    var event: Event
+    @State private var vm = ModifyEventSheetViewModel()
+    @Environment(EventViewModel.self) var eventVM
+    
     var body: some View {
         NavigationView {
-            EventFormSheetView(isAddSheetPresented: $isAddSheetPresented, eventForm: $eventForm)
+            EventFormSheetView(isAddSheetPresented: $isAddSheetPresented, eventForm: $vm.eventForm)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button {
@@ -29,7 +30,7 @@ struct ModifyEventSheetView: View {
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button {
-                            event = eventForm
+                            eventVM.updateEvent(event: event, updatedEvent: event, eventForm: event)
                             isAddSheetPresented = false
                         } label: {
                             Image(systemName: "checkmark")
@@ -40,5 +41,6 @@ struct ModifyEventSheetView: View {
                     }
                 }
         }
+        .environment(vm)
     }
 }

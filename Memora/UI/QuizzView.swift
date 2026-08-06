@@ -9,13 +9,9 @@ import SwiftUI
 
 struct QuizzView: View {
     
-    @State var question: Question
-    
-    @State var quizz: Quizz
-    
-    @State var selectedAnswers: [Bool] = [false, false, false,false]
-    
-    @State var dailyQuestion = false
+    @State private var vm = QuizzViewModel()
+
+    @State var isDailyQuestionAnswered = false
     
     var body: some View {
         
@@ -27,10 +23,10 @@ struct QuizzView: View {
                     Text("Question du jour")
                         .font(.title)
                         .fontWeight(.regular)
-                    if dailyQuestion == false {
+                    if isDailyQuestionAnswered == false {
                         VStack(spacing: 10) {
                             HStack {
-                                Text(question.question)
+                                Text(vm.dailyQuestion.question)
                                     .font(.title2)
                                     .fontWeight(.semibold)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -39,38 +35,28 @@ struct QuizzView: View {
                             }
                             .padding(.vertical, 10)
                             HStack {
-                                Button(action: {
-                                    selectedAnswers[0].toggle()
-                                }) {
-                                    AnswerCard(isAnswerSelected: $selectedAnswers[0], guess: question.guesses[0])
-                                }
-                                Button(action: {
-                                    selectedAnswers[1].toggle()
-                                }) {
-                                    AnswerCard(isAnswerSelected: $selectedAnswers[1], guess: question.guesses[1])
-                                }
+                                AnswerCard(
+                                    guessIndex: 0
+                                )
+                                AnswerCard(
+                                    guessIndex: 1
+                                )
                             }
                             HStack {
-                                Button(action: {
-                                    selectedAnswers[2].toggle()
-                                }) {
-                                    AnswerCard(isAnswerSelected: $selectedAnswers[2], guess: question.guesses[2])
-                                }
-                                Button(action: {
-                                    selectedAnswers[3].toggle()
-                                }) {
-                                    AnswerCard(isAnswerSelected: $selectedAnswers[3], guess: question.guesses[3])
-                                }
+                                AnswerCard(
+                                    guessIndex: 2
+                                )
+                                AnswerCard(
+                                    guessIndex: 3
+                                )
                             }
                             Button{
-                                dailyQuestion.toggle()
-                                if question.rightAnswerValues == selectedAnswers {
-                                    question.IsAnswerCorrect = true
-                                }
+                                isDailyQuestionAnswered.toggle()
+                                vm.checkDailyQuestionAnswer()
                             } label: {
                                 HStack {
                                     Image(systemName: "arrow.right")
-                                    Text(question.IsAnswerCorrect ? "Bien joué" : "Répondre")
+                                    Text(vm.dailyQuestion.IsAnswerCorrect ? "Bien joué" : "Répondre")
                                 }
                                 .font(.title2)
                                 .foregroundStyle(.whiteBackground)
@@ -92,12 +78,12 @@ struct QuizzView: View {
                         .fontWeight(.regular)
                     VStack(alignment: .center, spacing: 10){
                         HStack(alignment: .center, spacing: 10){
-                            QuizzCategoryCard(quizz: familyQuizz)
-                            QuizzCategoryCard(quizz: mealQuizz)
+                            QuizzCategoryCard(quizz: vm.quizzes[0])
+                            QuizzCategoryCard(quizz: vm.quizzes[1])
                         }
                         HStack(alignment: .center, spacing: 10){
-                            QuizzCategoryCard(quizz: activityQuizz)
-                            QuizzCategoryCard(quizz: visitedPlacesQuizz)
+                            QuizzCategoryCard(quizz: vm.quizzes[2])
+                            QuizzCategoryCard(quizz: vm.quizzes[3])
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: 500)
@@ -106,21 +92,11 @@ struct QuizzView: View {
                 .padding(.horizontal, 12)
             }
         }
+        .environment(vm)
     }
 }
 
 #Preview {
-    QuizzView(question: Question(
-        question: "Quand est l'anniversaire de Théo ?",
-        guesses: [
-            "Le 9 juin 1997",
-            "Le 10 janvier 1997",
-            "Le 28 juillet 1997",
-            "Le 15 avril 1997"
-        ],
-        rightAnswerValues: [true, false, false, false],
-        IsAnswerCorrect: false
-    ), quizz: familyQuizz
-)
+    QuizzView()
 }
 

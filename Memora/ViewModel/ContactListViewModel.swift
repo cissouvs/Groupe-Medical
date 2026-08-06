@@ -1,8 +1,8 @@
 //
-//  MockEmergencyContact.swift
+//  ContactListViewModel.swift
 //  Memora
 //
-//  Created by Leskeu  on 22/07/2026.
+//  Created by Apprenant76 on 06/08/2026.
 //
 
 import Foundation
@@ -36,10 +36,36 @@ var emergencyContacts = [
     Contact(
         emailAdress: "robert@caramail.fr",
         firstName: "Robert",
-        surName: "Livai",
+        surName: "Villiers",
         phoneNumber: "0306060606",
         adress: "45 impasse de la Charette,",
         postalCode: "46800 Montcuq",
         photo: Image("robert")
     ),
 ]
+
+
+@Observable
+final class ContactListViewModel {
+    var contacts : [Contact] = emergencyContacts
+
+    func getContact(id: UUID) -> Contact {
+        let contactIndex = contacts.firstIndex(where: { $0.id == id })!
+        return contacts[contactIndex]
+    }
+    
+    func addContact(newContact: Contact) {
+        contacts
+            .append(
+                Contact(
+                    emailAdress: newContact.emailAdress,
+                    firstName: newContact.firstName,
+                    surName: newContact.surName,
+                    phoneNumber: newContact.phoneNumber,
+                    adress: newContact.adress,
+                    postalCode: newContact.postalCode,
+                    photo: newContact.photo
+                )
+            )
+    }
+}

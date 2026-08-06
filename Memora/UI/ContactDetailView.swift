@@ -10,14 +10,15 @@ import UIKit
 import MapKit
 
 struct ContactDetailView: View {
-    @Environment(\.openURL) private var openUrl
     @State var showingSheet = false
-    let contact : Contact
-    func sendEmail(openUrl: OpenURLAction) {
-        let urlString = "mailto:\(contact.emailAdress)"
-        guard let url = URL(string: urlString) else { return }
-        openUrl(url)
+    @Environment(\.openURL) private var openUrl
+    @Environment(ContactListViewModel.self) var contactVM
+    var contactID: UUID
+
+    var contact : Contact {
+        contactVM.getContact(id: contactID)
     }
+
     var body: some View {
         ZStack {
             Color.background
@@ -116,7 +117,15 @@ struct ContactDetailView: View {
             
         }
     }
+
+    func sendEmail(openUrl: OpenURLAction) {
+        let urlString = "mailto:\(contact.emailAdress)"
+        guard let url = URL(string: urlString) else { return }
+        openUrl(url)
+    }
 }
 #Preview {
-    ContactDetailView(contact: emergencyContacts[0])
+    let vm = ContactListViewModel()
+    ContactDetailView(contactID: vm.contacts[0].id)
+        .environment(vm)
 }

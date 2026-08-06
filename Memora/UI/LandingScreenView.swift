@@ -102,7 +102,7 @@ struct LandingScreenView: View {
                 case .profile:
                     ProfileView(path: $path)
                 case .emergencyContact:
-                    ContactsListView(contacts: emergencyContacts)
+                    ContactsListView()
                 }
             }
             .ignoresSafeArea()

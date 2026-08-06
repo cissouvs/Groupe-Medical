@@ -1,8 +1,8 @@
 //
-//  MockEmergencyContact.swift
+//  ContactListViewModel.swift
 //  Memora
 //
-//  Created by Leskeu  on 22/07/2026.
+//  Created by Apprenant76 on 06/08/2026.
 //
 
 import Foundation
@@ -43,3 +43,14 @@ var emergencyContacts = [
         photo: Image("robert")
     ),
 ]
+
+
+@Observable
+final class ContactListViewModel {
+    var contacts : [Contact] = emergencyContacts
+
+    func getContact(id: UUID) -> Contact {
+        let contactIndex = contacts.firstIndex(where: { $0.id == id })!
+        return contacts[contactIndex]
+    }
+}

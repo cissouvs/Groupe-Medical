@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContactsListView: View {
-    @State var contacts : [Contact]
-    @State var selectedContact : Contact?
+
+    @State private var vm = ContactListViewModel()
     @State var isSelected : Bool = false
+
     var body: some View {
         ZStack {
             Color.background
             VStack {
-                List(contacts) { contact in
+                List(vm.contacts) { contact in
                     NavigationLink {
-                        ContactDetailView(contact: contact)
+                        ContactDetailView(contactID: contact.id)
+                            .environment(vm)
                     } label: {
                         HStack {
                             if let contactPhoto = contact.photo {
@@ -40,7 +42,7 @@ struct ContactsListView: View {
                 }
             }
             .sheet(isPresented: $isSelected){
-                ContactSheet(contacts: $contacts)
+                ContactSheet(contacts: $vm.contacts)
                     .padding(.vertical)
             }
             .font(.title3)
@@ -63,7 +65,8 @@ struct ContactsListView: View {
 }
 
 #Preview {
-    ContactsListView(contacts: emergencyContacts)
+    ContactsListView()
+        .environment(ContactListViewModel())
 }
 
 

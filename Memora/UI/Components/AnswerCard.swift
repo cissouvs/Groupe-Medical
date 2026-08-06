@@ -8,26 +8,34 @@
 import SwiftUI
 
 struct AnswerCard: View {
-    
-    @Binding var isAnswerSelected: Bool
-    
-    var guess: String
-    
+
+    @Environment(QuizzViewModel.self) var quizzVM
+
+//    @Binding var isAnswerSelected: Bool
+
+//    var guess: String
+    let guessIndex: Int
+
     var answerBackground: Color = .background
-        
+
     var body: some View {
-            Text(guess)
+        Button {
+            quizzVM.toggleDailyQuestionGuess(index: guessIndex)
+        } label: {
+            Text(quizzVM.dailyQuestion.guesses[guessIndex])
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.background)
                 .cornerRadius(20)
                 .foregroundStyle(Color.accent)
                 .font(.system(size: 16))
-                .fontWeight(isAnswerSelected ? .bold : .regular)
+                .fontWeight(quizzVM.selectedAnswers[guessIndex] ? .bold : .regular)
                 .lineLimit(2)
                 .padding(.horizontal)
+        }
     }
 }
 
 #Preview {
-    AnswerCard(isAnswerSelected: .constant(false), guess: "Boire un café ensemble")
+    AnswerCard(guessIndex: 0)
+        .environment(QuizzViewModel())
 }

@@ -53,4 +53,19 @@ final class ContactListViewModel {
         let contactIndex = contacts.firstIndex(where: { $0.id == id })!
         return contacts[contactIndex]
     }
+    
+    func addContact(newContact: Contact) {
+        contacts
+            .append(
+                Contact(
+                    emailAdress: newContact.emailAdress,
+                    firstName: newContact.firstName,
+                    surName: newContact.surName,
+                    phoneNumber: newContact.phoneNumber,
+                    adress: newContact.adress,
+                    postalCode: newContact.postalCode,
+                    photo: newContact.photo
+                )
+            )
+    }
 }

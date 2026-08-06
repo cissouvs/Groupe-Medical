@@ -42,8 +42,9 @@ struct ContactsListView: View {
                 }
             }
             .sheet(isPresented: $isSelected){
-                ContactSheet(contacts: $vm.contacts)
+                ContactSheet()
                     .padding(.vertical)
+                    .environment(vm)
             }
             .font(.title3)
             .toolbar {

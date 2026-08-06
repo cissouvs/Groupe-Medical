@@ -22,7 +22,7 @@ struct AddEventSheetView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         isAddSheetPresented = false
-                        eventVM.resetEventForm()
+                        vm.resetEventForm()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -33,7 +33,7 @@ struct AddEventSheetView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        eventVM.addEvent()
+                        eventVM.addEvent(eventForm: vm.eventForm)
                         isAddSheetPresented = false
                     } label: {
                         Image(systemName: "checkmark")

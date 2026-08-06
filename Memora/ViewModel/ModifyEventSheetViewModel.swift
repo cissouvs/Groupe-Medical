@@ -17,8 +17,12 @@ final class ModifyEventSheetViewModel {
         type: .other,
         participants: []
     )
-    
-    func resetEventForm(eventForm: Event) {
+
+    func setEventForm(event: Event) {
+        eventForm = event
+    }
+
+    func resetEventForm() {
         eventForm.title = ""
         eventForm.description = ""
         eventForm.isAllDay = false

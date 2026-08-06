@@ -17,7 +17,7 @@ final class AddEvenSheetViewModel {
         type: .other,
         participants: []
     )
-    func resetEventForm(eventForm: Event) {
+    func resetEventForm() {
         eventForm.title = ""
         eventForm.description = ""
         eventForm.isAllDay = false

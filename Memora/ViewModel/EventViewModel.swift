@@ -55,7 +55,7 @@ final class EventViewModel {
         })
     }
     
-    func updateEvent(event: Event, updatedEvent: Event) {
+    func updateEvent(event: Event, updatedEvent: Event, eventForm: Event) {
         if let eventIndex = events.firstIndex(of: event) {
             events[eventIndex] = eventForm
         }
@@ -67,20 +67,8 @@ final class EventViewModel {
         }
     }
     
-    func addEvent() {
+    func addEvent(eventForm: Event) {
         events.append(Event(from: eventForm))
     }
-    
-    func resetEventForm() {
-        eventForm.title = ""
-        eventForm.description = ""
-        eventForm.isAllDay = false
-        eventForm.date = Date()
-        eventForm.endTime = Date().addingTimeInterval(1500.0)
-        eventForm.type = .other
-        eventForm.location = ""
-        eventForm.participants = []
-    }
-
 }
 

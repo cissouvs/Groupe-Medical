@@ -17,4 +17,14 @@ final class AddEvenSheetViewModel {
         type: .other,
         participants: []
     )
+    func resetEventForm(eventForm: Event) {
+        eventForm.title = ""
+        eventForm.description = ""
+        eventForm.isAllDay = false
+        eventForm.date = Date()
+        eventForm.endTime = Date().addingTimeInterval(1500.0)
+        eventForm.type = .other
+        eventForm.location = ""
+        eventForm.participants = []
+    }
 }

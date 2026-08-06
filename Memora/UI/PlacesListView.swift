@@ -15,15 +15,18 @@ struct PlacesListView: View {
                 Color.background
                     .ignoresSafeArea()
                 List(places) { place in
-//                    NavigationLink {
-                        
+                    NavigationLink {
+                        PlaceDetailView(place: place)
+                    } label: {
+                        PlacesListRowView(place: place)
                     }
                 }
             }
+            .navigationTitle("Lieu de prise en charge")
         }
     }
-//}
+}
 
 #Preview {
-    PlacesListView(places: EmergencyPlace)
+    PlacesListView(places: emergencyPlace)
 }

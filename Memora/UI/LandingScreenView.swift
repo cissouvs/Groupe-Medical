@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Screen: Hashable {
     case appointment
-    case medicine
+    case medicine(UUID)
     case calendar
     case quizz
     case profile
@@ -17,7 +17,7 @@ enum Screen: Hashable {
 }
 
 struct LandingScreenView: View {
-    
+
     @State private var vm = LandingScreenViewModel()
     @State private var path: [Screen] = []
     @State var eventVM = EventViewModel()
@@ -88,7 +88,7 @@ struct LandingScreenView: View {
                             } label: {
                                 LandingScreenQuizzButtonView()
                             }
-                            
+
                         }
                         Button {
                             vm.addNotification()
@@ -105,10 +105,10 @@ struct LandingScreenView: View {
                 switch screen {
                 case .appointment:
                     ContentView()
-                case .medicine:
-                    ContentView()
+                case .medicine(let medicineId):
+                    MedicineDetailView(path: $path, medicineId: medicineId)
                 case .calendar:
-                    CalendarView()
+                    CalendarView(path: $path)
                 case .quizz:
                     ContentView()
                 case .profile:

@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Screen: Hashable {
     case appointment
-    case medicine
+    case medicine(UUID)
     case calendar
     case quizz
     case profile
@@ -17,12 +17,16 @@ enum Screen: Hashable {
 }
 
 struct LandingScreenView: View {
-    
+
     @State private var vm = LandingScreenViewModel()
     @State private var path: [Screen] = []
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
-    
+
+    var todayMedicines: [any Medicine] {
+        medicineVM.getFilteredMedicines(at: Date())
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -41,10 +45,18 @@ struct LandingScreenView: View {
                             }
                             Text("Rappel")
                                 .foregroundStyle(.secondText)
-                            Button {
-                                path.append(.medicine)
-                            } label: {
-                                MedicineCardView(medicine: mockMedicines[0])
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(
+                                        todayMedicines.enumerated()
+                                        , id: \.offset) { _, medicine in
+                                            Button {
+                                                path.append(.medicine(medicine.id))
+                                            } label: {
+                                                MedicineCardView(medicine: medicine)
+                                            }
+                                        }
+                                }
                             }
                             Text("Vue d'ensemble")
                             HStack {
@@ -76,7 +88,7 @@ struct LandingScreenView: View {
                             } label: {
                                 LandingScreenQuizzButtonView()
                             }
-                            
+
                         }
                         Button {
                             vm.addNotification()
@@ -93,10 +105,10 @@ struct LandingScreenView: View {
                 switch screen {
                 case .appointment:
                     ContentView()
-                case .medicine:
-                    ContentView()
+                case .medicine(let medicineId):
+                    MedicineDetailView(path: $path, medicineId: medicineId)
                 case .calendar:
-                    CalendarView()
+                    CalendarView(path: $path)
                 case .quizz:
                     ContentView()
                 case .profile:

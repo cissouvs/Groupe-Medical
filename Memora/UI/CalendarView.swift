@@ -17,6 +17,7 @@ struct CalendarView: View {
     @State private var vm = CalendarViewModel()
     @State var isAddSheetPresented: Bool = false
     @State private var selectedCalendarType: CalendarSelectedView = .medications
+    @Binding var path: [Screen]
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
    
@@ -41,7 +42,11 @@ struct CalendarView: View {
                             medicineVM.getFilteredMedicines(at: vm.date).enumerated(),
                             id: \.offset
                         ) { _, medicine in
-                            MedicineCardView(medicine: medicine)
+                            Button {
+                                path.append(.medicine(medicine.id))
+                            } label: {
+                                MedicineCardView(medicine: medicine)
+                            }
                         }
                     case .events:
                         ForEach(
@@ -84,7 +89,7 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView()
+    CalendarView(path: .constant([]))
         .environment(EventViewModel())
         .environment(MedecineViewModel())
 }

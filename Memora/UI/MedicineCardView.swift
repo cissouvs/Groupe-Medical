@@ -46,7 +46,7 @@ struct MedicineCardView: View {
                 Text(medicine.medicineType.rawValue)
                 Text(medicine.posologyString)
                     .foregroundStyle(.secondText)
-                TakingTimingScrollView(medicine: medicine)
+                TakingTimingScrollView(takingMoments: medicine.takingMoments)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(10)
@@ -61,32 +61,7 @@ struct MedicineCardView: View {
 }
 
 
-struct TakingTimingScrollView: View {
 
-    var medicine: any Medicine
-
-    var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 10) {
-                ForEach(medicine.takingMoments.enumerated(), id: \.offset) {
-                    _,
-                    takingMoment in
-                    Text(
-                        takingMoment.timing == .none ?
-                        takingMoment.dayMoment.rawValue :
-                            "\(takingMoment.timing.rawValue) \(takingMoment.dayMoment.rawValue)"
-                    )
-                    .padding(.vertical, 5)
-                    .padding(.horizontal, 10)
-                    .background(getTagColor(dayTime: takingMoment.dayMoment))
-                    .cornerRadius(20)
-                    .font(.callout)
-                }
-            }
-        }
-        .frame(minHeight: 30)
-    }
-}
 
 #Preview {
     MedicineCardView(medicine: mockMedicines[1])

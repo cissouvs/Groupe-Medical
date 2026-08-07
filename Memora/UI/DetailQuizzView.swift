@@ -9,7 +9,11 @@ import SwiftUI
 
 struct DetailQuizzView: View {
     
-    @State var quizz: Quizz
+    @Environment(QuizzViewModel.self) var quizzVM
+    
+    @State private var currentQuestionIndex = 0
+    
+    @State var discovery: Double = 0
     
     var mainColorCategory: Color {
         switch quizz.category {
@@ -29,94 +33,121 @@ struct DetailQuizzView: View {
         }
     }
     
-    @State var selectedAnswers: [Bool] = [false, false, false,false]
+    var quizzIndex: Int
     
-    @State var isValid = false
-    
-    @State private var currentQuestionIndex = 0
-    
-    var currentQuestion: Question {
-        quizz.questions[currentQuestionIndex]
+    var quizz: Quizz {
+        quizzVM.getQuizz(quizzIndex: quizzIndex)
     }
     
-    @State private var isAnswerCorrect = false
+    //    var currentQuestion: Question {
+    //        quizz.questions[currentQuestionIndex]
+    //    }
     
-    @State private var quizFinished = false
+    var currentQuestion: Question {
+        if currentQuestionIndex < quizz.questions.count {
+            return quizz.questions[currentQuestionIndex]
+        } else {
+            return quizz.questions[0]
+        }
+    }
     
     var body: some View {
         
         ZStack {
-            mainColorCategory
+            Color.whiteBackground
                 .ignoresSafeArea()
             VStack {
-                if quizFinished {
-                    CardFinishTaskView()
-                        .frame(height: 400)
+                if quizzVM.quizzes[quizzIndex].isCompleted
+                {
+                    CardFinishTaskView(quizzIndex: quizzIndex)
+                        .environment(quizzVM)
+                        .frame(height: 500)
                         .cornerRadius(20)
                         .padding()
                 } else {
-                    VStack(spacing: 10) {
-                        HStack {
-                            Text(currentQuestion.question)
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(2)
-                        }
-                        .padding(.vertical, 10)
-                        VStack {
-//                            Button(action: {
-//                                selectedAnswers[0].toggle()
-//                            }) {
-//                                AnswerCard(isAnswerSelected: $selectedAnswers[0], guess: currentQuestion.guesses[0])
-//                            }
-//                            Button(action: {
-//                                selectedAnswers[1].toggle()
-//                            }) {
-//                                AnswerCard(isAnswerSelected: $selectedAnswers[1], guess: currentQuestion.guesses[1])
-//                            }
-//                            
-//                            
-//                            Button(action: {
-//                                selectedAnswers[2].toggle()
-//                            }) {
-//                                AnswerCard(isAnswerSelected: $selectedAnswers[2], guess: currentQuestion.guesses[2])
-//                            }
-//                            Button(action: {
-//                                selectedAnswers[3].toggle()
-//                            }) {
-//                                AnswerCard(isAnswerSelected: $selectedAnswers[3], guess: currentQuestion.guesses[3])
-//                            }
-                            AnswerCard(guessIndex: 0)
-                            AnswerCard(guessIndex: 1)
-                            AnswerCard(guessIndex: 2)
-                            AnswerCard(guessIndex: 3)
-                        }
-                        .frame(maxHeight: 300)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 10)
-                    .cornerRadius(20)
-                    Button {
-                        if currentQuestionIndex < quizz.questions.count - 1 {
-                            currentQuestionIndex += 1
-                            isAnswerCorrect = false
-                            selectedAnswers = [false, false, false, false]
-                        } else {
-                            quizFinished = true
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "arrow.right")
-                            Text(currentQuestion.IsAnswerCorrect ? "Suivant" : "Validé")
-                        }
+                    ProgressView("\(Int(discovery)) sur 6", value: discovery, total: 6.0)
                         .font(.title2)
-                        .foregroundStyle(.whiteBackground)
-                        .frame(maxWidth: 150)
                         .padding()
-                        .background(.accent)
-                        .cornerRadius(20)
+                    VStack {
+                        VStack(spacing: 10) {
+                            HStack {
+                                Text(currentQuestion.question)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .lineLimit(2)
+                            }
+                            .padding(.vertical, 10)
+                            VStack {
+                                ForEach(currentQuestion.guesses.enumerated(), id: \.offset) { index, _ in
+                                    Button {
+                                        quizzVM.toggleGuess(index: index)
+                                    } label: {
+                                        QuizzAnswerCard(guessIndex: index, quizzIndex: quizzIndex, questionIndex: currentQuestionIndex)
+                                            .environment(quizzVM)
+                                    }
+                                    .disabled(quizzVM.isQuestionAnswered)
+                                }
+                            }
+                            .frame(maxHeight: 300)
+                        }
+                        //                    Button {
+                        //                        if let correctIndex = currentQuestion.rightAnswerValues.firstIndex(of: true),
+                        //                               let selectedIndex = quizzVM.selectedAnswers.firstIndex(of: true) {
+                        //
+                        //                                if correctIndex == selectedIndex {
+                        //                                    quizzVM.quizzes[quizzIndex].correctAnswer += 1
+                        //                                }
+                        //                            }
+                        //                        if quizzVM.isQuestionAnswered == false {
+                        //                            quizzVM.isQuestionAnswered.toggle()
+                        //                        } else {
+                        //                            if currentQuestionIndex < quizz.questions.count - 1 {
+                        //                                currentQuestionIndex += 1
+                        //                                quizzVM.isQuestionAnswered.toggle()
+                        //                                quizzVM.selectedAnswers = [false, false, false, false]
+                        //                            } else {
+                        //                                quizzVM.quizzes[quizzIndex].isCompleted = true
+                        //                                quizzVM.isQuestionAnswered = false
+                        //                            }
+                        //                        }
+                        //                    } label: {
+                        Button {
+                            if !quizzVM.isQuestionAnswered {
+                                discovery += 1
+                                if quizzVM.selectedAnswers == currentQuestion.rightAnswerValues {
+                                    quizzVM.quizzes[quizzIndex].correctAnswer += 1
+                                }
+                                quizzVM.isQuestionAnswered = true
+                            } else {
+                                if currentQuestionIndex < quizz.questions.count - 1 {
+                                    currentQuestionIndex += 1
+                                    quizzVM.isQuestionAnswered = false
+                                    quizzVM.selectedAnswers = [false, false, false, false]
+                                } else {
+                                    quizzVM.quizzes[quizzIndex].isCompleted = true
+                                    quizzVM.isQuestionAnswered = false
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: quizzVM.isQuestionAnswered ?  "arrow.right" : "checkmark")
+                                Text(quizzVM.isQuestionAnswered ? "Suivant" : "Validé")
+                            }
+                            .font(.title2)
+                            .foregroundStyle(quizzVM.isQuestionAnswered ? .mainText : .whiteBackground)
+                            .fontWeight(quizzVM.isQuestionAnswered ? .bold : .regular)
+                            .frame(maxWidth: 150)
+                            .padding()
+                            .background(quizzVM.isQuestionAnswered ? .background : .accent)
+                            .cornerRadius(20)
+                        }
+                        .padding(.top)
                     }
+                    .frame(width: 350)
+                    .padding()
+                    .background(mainColorCategory)
+                    .cornerRadius(20)
                 }
             }
         }
@@ -124,8 +155,11 @@ struct DetailQuizzView: View {
 }
 
 #Preview {
-    DetailQuizzView(quizz: familyQuizz
+    DetailQuizzView(quizzIndex: 0
     )
     .environment(QuizzViewModel())
-
 }
+
+//#Preview {
+//    QuizzView()
+//}

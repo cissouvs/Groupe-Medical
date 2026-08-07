@@ -26,11 +26,11 @@ struct Question {
 }
 
 
-struct Quizz {
-    
+struct Quizz: Identifiable {
+    var id = UUID()
     var title: String
     var category: QuizzCategory
     var questions: [Question]
     var isCompleted: Bool
-    
+    var correctAnswer: Int = 0
 }

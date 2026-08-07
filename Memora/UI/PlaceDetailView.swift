@@ -14,6 +14,7 @@ struct PlaceDetailView: View {
     var body: some View {
         ZStack{
             Color.background
+                .ignoresSafeArea()
             ScrollView {
                 Image(place.image)
                     .resizable()
@@ -22,32 +23,32 @@ struct PlaceDetailView: View {
                     .clipped()
                 VStack(alignment:.leading, spacing: 20){
                     Text(place.name)
-                        .foregroundStyle(.supportRed)
+                        .foregroundStyle(.black)
                         .font(.largeTitle)
                         .bold()
                     VStack(alignment: .leading, spacing: 10){
                         Text("Description:")
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(.whiteBackground)
+                            .foregroundStyle(.black)
                         Text(place.detail)
                             .font(.title2)
-                            .foregroundStyle(.whiteBackground)
+                            .foregroundStyle(.black)
                     } .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .padding(20)
-                        .background(.supportGreen)
+                        .background(.tagGreen)
                         .cornerRadius(20)
                     VStack(alignment: .leading, spacing: 10){
                         Text("Adresse:")
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(.whiteBackground)
+                            .foregroundStyle(.black)
                         Text(place.adresse)
                             .font(.title3)
-                            .foregroundStyle(.whiteBackground)
+                            .foregroundStyle(.black)
                     } .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .padding(20)
-                        .background(.supportBlue)
+                        .background(.tagPurple)
                         .cornerRadius(20)
                     Map(position: $cameraPosition) {
                         Annotation("",coordinate: place.coordinate, anchor: .center) {
@@ -80,5 +81,5 @@ struct PlaceDetailView: View {
     }
 }
 #Preview {
-    PlaceDetailView(place: emergencyPlace[0])
+    PlaceDetailView(place: allPlaces[0])
 }

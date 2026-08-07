@@ -8,25 +8,49 @@
 import SwiftUI
 
 struct PlacesListView: View {
-    var places : [Place]
+    @State private var vm = PlacesListViewModel()
+    
     var body: some View {
         NavigationStack {
             ZStack{
                 Color.background
                     .ignoresSafeArea()
-                List(places) { place in
+                List(vm.filteredPlaces) { place in
                     NavigationLink {
                         PlaceDetailView(place: place)
                     } label: {
                         PlacesListRowView(place: place)
                     }
                 }
+                .navigationTitle("Lieux fréquentés")
             }
-            .navigationTitle("Lieu de prise en charge")
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        ForEach(DifferentPlaces.allCases) { type in
+                            Button {
+                                vm.selectedFilter = type
+                            } label: {
+                                if vm.selectedFilter == type {
+                                    Text(type.rawValue)
+                                        .foregroundStyle(.tagRed)
+                                        .font(.title)
+                                } else {
+                                    Text(type.rawValue)
+                                        .foregroundStyle(.mainText)
+                                        .font(.title)
+                                }
+                            }
+                        }
+                    } label: {
+                        Label("Filtre", systemImage: "line.3.horizontal.decrease.circle")
+                    }
+                }
+            }
         }
     }
 }
 
 #Preview {
-    PlacesListView(places: emergencyPlace)
+    PlacesListView()
 }

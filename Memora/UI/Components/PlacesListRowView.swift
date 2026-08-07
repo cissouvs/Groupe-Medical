@@ -34,6 +34,7 @@ struct PlacesListRowView: View {
         name: "Médiathèque Intercommunale",
         adresse: "6 Place de la Halle aux Grains, 46800 Montcuq",
         detail: "Médiathèque calme proposant livres, animations et espace de lecture.",
-        coordinate: mediathequePosition
+        coordinate: mediathequePosition,
+        places: .favorite
     ))
 }

@@ -22,7 +22,11 @@ struct LandingScreenView: View {
     @State private var path: [Screen] = []
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
-    
+
+    var todayMedicines: [any Medicine] {
+        medicineVM.getFilteredMedicines(at: Date())
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -41,10 +45,18 @@ struct LandingScreenView: View {
                             }
                             Text("Rappel")
                                 .foregroundStyle(.secondText)
-                            Button {
-                                path.append(.medicine)
-                            } label: {
-                                MedicineCardView(medicine: mockMedicines[0])
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(
+                                        todayMedicines.enumerated()
+                                        , id: \.offset) { _, medicine in
+                                            Button {
+                                                path.append(.medicine(medicine.id))
+                                            } label: {
+                                                MedicineCardView(medicine: medicine)
+                                            }
+                                        }
+                                }
                             }
                             Text("Vue d'ensemble")
                             HStack {

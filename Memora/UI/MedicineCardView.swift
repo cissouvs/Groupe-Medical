@@ -33,7 +33,7 @@ struct MedicineCardView: View {
                         .resizable()
                         .padding(10)
                 } placeholder: {
-                    Image(systemName: "photo")
+                    Image(systemName: "pilss.fill")
                         .resizable()
                         .padding(15)
                 }
@@ -53,8 +53,9 @@ struct MedicineCardView: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
-        .foregroundStyle(.black)
+        .frame(minWidth: 300)
         .background(.whiteBackground)
+        .foregroundStyle(.black)
         .cornerRadius(20)
     }
 }
@@ -83,9 +84,10 @@ struct TakingTimingScrollView: View {
                 }
             }
         }
+        .frame(minHeight: 30)
     }
 }
 
 #Preview {
-    MedicineCardView(medicine: mockMedicines[0])
+    MedicineCardView(medicine: mockMedicines[1])
 }

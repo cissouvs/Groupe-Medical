@@ -46,9 +46,9 @@ let mockMedicines: [any Medicine] = [
 
 @Observable
 final class MedecineViewModel {
-    
+
     var medicines: [any Medicine] = mockMedicines
-    
+
     func getFilteredMedicines(at date: Date) -> [any Medicine] {
         medicines.filter( {
             calendar.compare($0.startDate, to: date, toGranularity: .day) == .orderedAscending &&
@@ -56,5 +56,18 @@ final class MedecineViewModel {
             calendar.compare($0.startDate, to: date, toGranularity: .day) == .orderedSame ||
             calendar.compare($0.endDate, to: date, toGranularity: .day) == .orderedSame
         })
+    }
+
+    func getMedicine(medicineID: UUID) -> (any Medicine)? {
+        if let index = medicines.firstIndex(where: { $0.id == medicineID }) {
+            return medicines[index]
+        }
+        return nil
+    }
+
+    func deleteMedicine(medicineID: UUID) {
+        if let medicineIndex = medicines.firstIndex(where: { $0.id == medicineID}) {
+            medicines.remove(at: medicineIndex)
+        }
     }
 }

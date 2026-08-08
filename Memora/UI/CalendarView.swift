@@ -16,7 +16,7 @@ struct CalendarView: View {
     
     @State private var vm = CalendarViewModel()
     @State var isAddSheetPresented: Bool = false
-    @State private var selectedCalendarType: CalendarSelectedView = .medications
+    @State var selectedCalendarType: CalendarSelectedView
     @Binding var path: [Screen]
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
@@ -89,7 +89,7 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(path: .constant([]))
+    CalendarView(selectedCalendarType: .medications, path: .constant([]))
         .environment(EventViewModel())
         .environment(MedecineViewModel())
 }

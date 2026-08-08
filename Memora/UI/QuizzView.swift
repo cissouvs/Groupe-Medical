@@ -9,9 +9,11 @@ import SwiftUI
 
 struct QuizzView: View {
     
-    @State private var vm = QuizzViewModel()
-
-    @State var isDailyQuestionAnswered = false
+    @State private var dailyQuestionVM = DailyQuestionViewModel()
+    
+    @State private var quizzVM = QuizzViewModel()
+    
+    var columns = [ GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         
@@ -23,67 +25,60 @@ struct QuizzView: View {
                     Text("Question du jour")
                         .font(.title)
                         .fontWeight(.regular)
-                    if isDailyQuestionAnswered == false {
                         VStack(spacing: 10) {
                             HStack {
-                                Text(vm.dailyQuestion.question)
+                                Text(dailyQuestionVM.dailyQuestion.question)
                                     .font(.title2)
                                     .fontWeight(.semibold)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .lineLimit(2)
-                                
                             }
                             .padding(.vertical, 10)
-                            HStack {
-                                AnswerCard(
-                                    guessIndex: 0
-                                )
-                                AnswerCard(
-                                    guessIndex: 1
-                                )
-                            }
-                            HStack {
-                                AnswerCard(
-                                    guessIndex: 2
-                                )
-                                AnswerCard(
-                                    guessIndex: 3
-                                )
+                            LazyVGrid(columns: columns, spacing: 10) {
+                                ForEach(dailyQuestionVM.dailyQuestion.guesses.indices, id: \.self) { guess in
+                                    Button {
+                                        dailyQuestionVM.toggleGuess(index: guess)
+                                    } label: {
+                                        DailyQuestionAnswerCard(guessIndex: guess)
+                                            .environment(dailyQuestionVM)
+                                    }
+                                    .disabled(dailyQuestionVM.isDailyQuestionAnswered)
+                                }
                             }
                             Button{
-                                isDailyQuestionAnswered.toggle()
-                                vm.checkDailyQuestionAnswer()
+                                dailyQuestionVM.isDailyQuestionAnswered.toggle()
                             } label: {
                                 HStack {
                                     Image(systemName: "arrow.right")
-                                    Text(vm.dailyQuestion.IsAnswerCorrect ? "Bien joué" : "Répondre")
+                                    Text(dailyQuestionVM.dailyQuestion.IsAnswerCorrect ? "Bien joué" : "Répondre")
                                 }
                                 .font(.title2)
-                                .foregroundStyle(.whiteBackground)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(.accent)
+                                .foregroundStyle(dailyQuestionVM.isDailyQuestionAnswered ?.secondText : .whiteBackground)
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                                .background(dailyQuestionVM.isDailyQuestionAnswered ?.background : .accent)
                                 .cornerRadius(20)
+                                
                             }
+                            .disabled(dailyQuestionVM.isDailyQuestionAnswered)
                         }
                         .padding(.horizontal, 12)
                         .padding(.bottom, 10)
-                        .frame(maxWidth: .infinity, maxHeight: 250)
+                        .frame(maxWidth: .infinity, maxHeight: 260)
                         .background(.whiteBackground)
                         .cornerRadius(20)
-                    } else {
-                        CardFinishTaskView()
-                    }
                     Text("Quiz hebdomadaire")
                         .font(.title)
                         .fontWeight(.regular)
                     VStack(alignment: .center, spacing: 10){
-                        HStack(alignment: .center, spacing: 10){
-                            QuizzCategoryCard(quizz: vm.quizzes[0])
-                            QuizzCategoryCard(quizz: vm.quizzes[1])
-                        }
-                        HStack(alignment: .center, spacing: 10){
-                            QuizzCategoryCard(quizz: vm.quizzes[2])
-                            QuizzCategoryCard(quizz: vm.quizzes[3])
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(quizzVM.quizzes.enumerated(), id: \.offset) { index, quizz  in
+                                NavigationLink {
+                                    DetailQuizzView(quizzIndex: index)
+                                        .environment(quizzVM)
+                                } label: {
+                                    QuizzCategoryCard(quizz: quizz)
+                                }
+                            }
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: 500)
@@ -92,7 +87,7 @@ struct QuizzView: View {
                 .padding(.horizontal, 12)
             }
         }
-        .environment(vm)
+        .environment(quizzVM)
     }
 }
 

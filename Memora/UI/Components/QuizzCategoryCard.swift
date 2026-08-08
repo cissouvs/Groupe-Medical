@@ -9,8 +9,6 @@ import SwiftUI
 
 struct QuizzCategoryCard: View {
     
-    var quizz: Quizz
-    
     var mainColorCategory: Color {
         switch quizz.category {
                 case .family: return .supportRed
@@ -81,12 +79,9 @@ struct QuizzCategoryCard: View {
         }
     }
     
+    var quizz: Quizz
+    
     var body: some View {
-        NavigationLink {
-            DetailQuizzView(
-                quizz: quizz
-            )
-        } label: {
             VStack(spacing: 10) {
                 ZStack(alignment: .topTrailing){
                     Image(categoryPicture)
@@ -118,7 +113,6 @@ struct QuizzCategoryCard: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondText)
-                    
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 12)
@@ -127,7 +121,6 @@ struct QuizzCategoryCard: View {
             .frame(width: 180, height: 200)
             .background(Color.whiteBackground)
             .cornerRadius(20)
-        }
     }
 }
 

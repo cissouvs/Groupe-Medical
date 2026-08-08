@@ -2,24 +2,10 @@
 //  QuizzViewModel.swift
 //  Memora
 //
-//  Created by Apprenant76 on 06/08/2026.
+//  Created by apprenant92 on 07/08/2026.
 //
 
 import Foundation
-
-
-
-var dailyQuestion = Question(
-    question: "Quand est l'anniversaire de Théo ?",
-    guesses: [
-        "Le 9 juin 1997",
-        "Le 10 janvier 1997",
-        "Le 28 juillet 1997",
-        "Le 15 avril 1997"
-    ],
-    rightAnswerValues: [true, false, false, false],
-    IsAnswerCorrect: false
-)
 
 var familyQuizz = Quizz(
     title: "Quiz de famille",
@@ -77,7 +63,7 @@ var familyQuizz = Quizz(
                 "La fille de Louis",
                 "Morte"
             ],
-            rightAnswerValues: [false, false, true, true],
+            rightAnswerValues: [false, true, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -118,7 +104,7 @@ var activityQuizz = Quizz(
                 "Faire du ski",
                 "Faire du surf"
             ],
-            rightAnswerValues: [true, true, false, false],
+            rightAnswerValues: [false, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -129,7 +115,7 @@ var activityQuizz = Quizz(
                 "Faire du ski",
                 "Faire de la voile"
             ],
-            rightAnswerValues: [true, true, false, false],
+            rightAnswerValues: [false, true, false, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -288,7 +274,7 @@ var visitedPlacesQuizz = Quizz(
                 "La campagne",
                 "Une grande ville"
             ],
-            rightAnswerValues: [false, true, true, false],
+            rightAnswerValues: [false, false, true, false],
             IsAnswerCorrect: false
         ),
         Question(
@@ -299,7 +285,7 @@ var visitedPlacesQuizz = Quizz(
                 "L'avion",
                 "Le bateau"
             ],
-            rightAnswerValues: [false, false, true, true],
+            rightAnswerValues: [false, false, false, true],
             IsAnswerCorrect: false
         ),
         Question(
@@ -321,30 +307,18 @@ var visitedPlacesQuizz = Quizz(
 
 @Observable
 final class QuizzViewModel {
-
-    var dailyQuestion: Question = Question(
-        question: "Quand est l'anniversaire de Théo ?",
-        guesses: [
-            "Le 9 juin 1997",
-            "Le 10 janvier 1997",
-            "Le 28 juillet 1997",
-            "Le 15 avril 1997"
-        ],
-        rightAnswerValues: [true, false, false, false],
-        IsAnswerCorrect: false
-    )
-
+    
     var quizzes: [Quizz] = [familyQuizz, activityQuizz, mealQuizz, visitedPlacesQuizz]
-
+    
     var selectedAnswers: [Bool] = [false, false, false,false]
-
-    func toggleDailyQuestionGuess(index: Int) {
+    
+    var isQuestionAnswered = false
+    
+    func toggleGuess(index: Int) {
         selectedAnswers[index].toggle()
     }
-
-    func checkDailyQuestionAnswer() {
-        if dailyQuestion.rightAnswerValues == selectedAnswers {
-            dailyQuestion.IsAnswerCorrect = true
-        }
+    
+    func getQuizz(quizzIndex: Int) -> Quizz {
+        quizzes[quizzIndex]
     }
 }

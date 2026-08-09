@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-func getTagColor(dayTime: DayMoment) -> Color {
-    switch dayTime {
+func getTagColor(timing: MedicineTakeTiming) -> Color {
+    switch timing {
     case .getUp:
         Color.tagOrange
     case .bedTime:
         Color.tagBlue
-    case .breakfast:
+    case .beforeBreakfast, .afterBreakfast, .duringBreakfast:
         Color.tagGreen
-    case .lunch:
+    case .beforeLunch, .duringLunch, .afterLunch:
         Color.tagPurple
-    case .diner:
+    case .beforeDiner, .duringDiner, .afterDiner:
         Color.tagBlue
     }
 }
@@ -43,7 +43,7 @@ struct MedicineCardView: View {
             .frame(width: 70, height: 70)
             .clipped()
             VStack(alignment: .leading, spacing: 10) {
-                Text(medicine.medicineType.rawValue)
+                Text(medicine.medicineName.rawValue)
                 Text(medicine.posologyString)
                     .foregroundStyle(.secondText)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)

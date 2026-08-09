@@ -79,7 +79,7 @@ struct MedicineDetailContenView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: 20) {
-                Text(medicine.medicineType.rawValue)
+                Text(medicine.medicineName.rawValue)
                     .font(.title)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)

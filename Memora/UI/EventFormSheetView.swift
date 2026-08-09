@@ -25,11 +25,9 @@ struct EventFormSheetView: View {
     @State var newParticipant: String = ""
     @FocusState private var focusedField: FieldType?
     @Binding var eventForm: Event
-    //    @Environment(EventViewModel.self)  var eventVM
     
     var body: some View {
-        //        @Bindable var eventVMBinding = eventVM
-        
+
         Form {
             Section {
                 TextField("Titre", text: $eventForm.title)

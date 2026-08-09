@@ -7,16 +7,19 @@
 
 import SwiftUI
 
-enum CalendarSelectedView: Hashable {
+enum CalendarType: Identifiable, Hashable {
     case medications
+    case appointment
     case events
+
+    var id: Self  { self }
 }
 
 struct CalendarView: View {
     
     @State private var vm = CalendarViewModel()
     @State var isAddSheetPresented: Bool = false
-    @State private var selectedCalendarType: CalendarSelectedView = .medications
+    @State var selectedCalendarType: CalendarType
     @Binding var path: [Screen]
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
@@ -30,9 +33,9 @@ struct CalendarView: View {
             VStack(spacing: 20) {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
-                        .tag(CalendarSelectedView.medications)
+                        .tag(CalendarType.medications)
                     Text("Evènements")
-                        .tag(CalendarSelectedView.events)
+                        .tag(CalendarType.events)
                 }
                 .pickerStyle(.segmented)
                 ScrollView {
@@ -48,6 +51,8 @@ struct CalendarView: View {
                                 MedicineCardView(medicine: medicine)
                             }
                         }
+                    case .appointment:
+                        VStack {}
                     case .events:
                         ForEach(
                             eventVM.getSelectedDayEvents(at: vm.date).enumerated(),
@@ -78,7 +83,7 @@ struct CalendarView: View {
                 }
             }
             .sheet(isPresented: $isAddSheetPresented) {
-                AddEventSheetView(
+                AddSheetView(
                     isAddSheetPresented: $isAddSheetPresented
                 )
             }
@@ -89,7 +94,7 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(path: .constant([]))
+    CalendarView(selectedCalendarType: .medications, path: .constant([]))
         .environment(EventViewModel())
         .environment(MedecineViewModel())
 }

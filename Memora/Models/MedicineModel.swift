@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum MedicineType: String , Identifiable {
+enum MedicineName: String , Identifiable, CaseIterable {
     case aricept = "Aricept"
     case donepezil = "Donépezil"
     case exelon = "Exelon"
@@ -21,26 +21,26 @@ enum MedicineType: String , Identifiable {
     var id: Self { self }
 }
 
-
-enum DayMoment: String {
+enum MedicineTakeTiming: String, Identifiable, CaseIterable {
     case getUp = "Lever"
     case bedTime = "Coucher"
-    case breakfast = "Petit déj."
-    case lunch = "Déjeuner"
-    case diner = "Dîner"
-}
+    case beforeBreakfast = "Avant Petit Déj."
+    case duringBreakfast = "Pendant Petit Déj."
+    case afterBreakfast = "Après Petit Déj."
+    case beforeLunch = "Avant Déjeuner"
+    case duringLunch = "Pendant Déjeuner"
+    case afterLunch = "Après Déjeuner"
+    case beforeDiner = "Avant Dîner"
+    case duringDiner = "Pendant Dîner."
+    case afterDiner = "Après Dîner"
 
-enum Timing: String {
-    case before = "Avant"
-    case during = "Pendant"
-    case after = "Après"
-    case none
+    var id: Self { self }
 }
 
 protocol Medicine: Identifiable {
     var id: UUID { get }
-    var medicineType: MedicineType { get set }
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)] { get set }
+    var medicineName: MedicineName { get set }
+    var takingMoments: [MedicineTakeTiming] { get set }
     var details: String { get set }
     var startDate: Date { get set }
     var endDate: Date { get set }
@@ -52,8 +52,8 @@ protocol Medicine: Identifiable {
 
 struct CapsuleMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var medicineName: MedicineName
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date
@@ -67,8 +67,8 @@ struct CapsuleMedicineModel: Medicine, Identifiable {
 
 struct DrinkableMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var medicineName: MedicineName
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date
@@ -81,8 +81,8 @@ struct DrinkableMedicineModel: Medicine, Identifiable {
 
 struct PatchMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var medicineName: MedicineName
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date
@@ -91,5 +91,29 @@ struct PatchMedicineModel: Medicine, Identifiable {
     var duration: Int
     var posologyString: String {
         "\(patchNumber) patch pendant \(duration) h"
+    }
+}
+
+struct MedicineFormModel {
+    var id: UUID = UUID()
+    var medicineName: MedicineName = .aricept
+    var takingMoments: [MedicineTakeTiming] = []
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    var weight: Int?
+    var capsuleNumber: Int?
+    var volume: Int?
+    var patchNumber: Int?
+    var duration: Int?
+    
+    var medicineType: MedicineType {
+        switch medicineName {
+        case .aricept, .donepezil, .exelon, .galantamine, .ebixa, .memantine:
+                .capsule
+        case .reminyl:
+                .drinkable
+        case .rivastigmine:
+                .patch
+        }
     }
 }

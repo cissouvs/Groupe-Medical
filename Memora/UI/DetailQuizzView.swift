@@ -39,10 +39,6 @@ struct DetailQuizzView: View {
         quizzVM.getQuizz(quizzIndex: quizzIndex)
     }
     
-    //    var currentQuestion: Question {
-    //        quizz.questions[currentQuestionIndex]
-    //    }
-    
     var currentQuestion: Question {
         if currentQuestionIndex < quizz.questions.count {
             return quizz.questions[currentQuestionIndex]
@@ -65,19 +61,20 @@ struct DetailQuizzView: View {
                         .cornerRadius(20)
                         .padding()
                 } else {
-                    ProgressView("\(Int(discovery)) sur 6", value: discovery, total: 6.0)
-                        .font(.title2)
-                        .padding()
+                    QuizzProgressBarView(currentQuestion: currentQuestionIndex + 1, color: mainColorCategory)
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 60)
                     VStack {
-                        VStack(spacing: 10) {
-                            HStack {
+                        VStack(alignment: .leading, spacing: 10) {
                                 Text(currentQuestion.question)
-                                    .font(.title2)
+                                    .font(.title)
                                     .fontWeight(.semibold)
                                     .fixedSize(horizontal: false, vertical: true)
                                     .lineLimit(2)
-                            }
                             .padding(.vertical, 10)
+                            Text("Choisissez la bonne réponse")
+                                .foregroundStyle(.secondText)
+                                .padding(.bottom)
                             VStack {
                                 ForEach(currentQuestion.guesses.enumerated(), id: \.offset) { index, _ in
                                     Button {
@@ -91,27 +88,6 @@ struct DetailQuizzView: View {
                             }
                             .frame(maxHeight: 300)
                         }
-                        //                    Button {
-                        //                        if let correctIndex = currentQuestion.rightAnswerValues.firstIndex(of: true),
-                        //                               let selectedIndex = quizzVM.selectedAnswers.firstIndex(of: true) {
-                        //
-                        //                                if correctIndex == selectedIndex {
-                        //                                    quizzVM.quizzes[quizzIndex].correctAnswer += 1
-                        //                                }
-                        //                            }
-                        //                        if quizzVM.isQuestionAnswered == false {
-                        //                            quizzVM.isQuestionAnswered.toggle()
-                        //                        } else {
-                        //                            if currentQuestionIndex < quizz.questions.count - 1 {
-                        //                                currentQuestionIndex += 1
-                        //                                quizzVM.isQuestionAnswered.toggle()
-                        //                                quizzVM.selectedAnswers = [false, false, false, false]
-                        //                            } else {
-                        //                                quizzVM.quizzes[quizzIndex].isCompleted = true
-                        //                                quizzVM.isQuestionAnswered = false
-                        //                            }
-                        //                        }
-                        //                    } label: {
                         Button {
                             if !quizzVM.isQuestionAnswered {
                                 discovery += 1
@@ -136,19 +112,18 @@ struct DetailQuizzView: View {
                             }
                             .font(.title2)
                             .foregroundStyle(quizzVM.isQuestionAnswered ? .mainText : .whiteBackground)
-                            .fontWeight(quizzVM.isQuestionAnswered ? .bold : .regular)
+                            .fontWeight(quizzVM.isQuestionAnswered ? .semibold : .regular)
                             .frame(maxWidth: 150)
                             .padding()
-                            .background(quizzVM.isQuestionAnswered ? .background : .accent)
+                            .background(mainColorCategory)
                             .cornerRadius(20)
                         }
                         .padding(.top)
                     }
                     .frame(width: 350)
                     .padding()
-                    .background(mainColorCategory)
-                    .cornerRadius(20)
                 }
+                Spacer()
             }
         }
     }

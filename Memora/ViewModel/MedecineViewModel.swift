@@ -9,7 +9,7 @@ import Foundation
 
 let mockMedicines: [any Medicine] = [
     CapsuleMedicineModel(
-        medicineType: .aricept,
+        medicineName: .aricept,
         takingMoments: [(timing: Timing.none, dayMoment: DayMoment.bedTime)],
         details: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que le donépézil améliore certaines fonctions cérébrales chez les malades.",
         startDate: Date(),
@@ -19,7 +19,7 @@ let mockMedicines: [any Medicine] = [
         capsuleNumber: 2,
     ),
     DrinkableMedicineModel(
-        medicineType: .reminyl,
+        medicineName: .reminyl,
         takingMoments: [
             (timing: .during, dayMoment: .breakfast),
             (timing: .during, dayMoment: .diner)
@@ -32,7 +32,7 @@ let mockMedicines: [any Medicine] = [
         volume: 100
     ),
     PatchMedicineModel(
-        medicineType: .rivastigmine,
+        medicineName: .rivastigmine,
         takingMoments: [],
         details: "La rivastigmine est susceptible d'avoir un effet favorable sur les déficits cognitifs dépendants de ces voies cholinergiques au cours de la maladie d'Alzheimer et d'une démence associée à la maladie de Parkinson.",
         startDate: Date(),

@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum MedicineType: String , Identifiable {
+enum MedicineName: String , Identifiable, CaseIterable {
     case aricept = "Aricept"
     case donepezil = "Donépezil"
     case exelon = "Exelon"
@@ -39,7 +39,7 @@ enum Timing: String {
 
 protocol Medicine: Identifiable {
     var id: UUID { get }
-    var medicineType: MedicineType { get set }
+    var medicineName: MedicineName { get set }
     var takingMoments: [(timing: Timing, dayMoment: DayMoment)] { get set }
     var details: String { get set }
     var startDate: Date { get set }
@@ -52,7 +52,7 @@ protocol Medicine: Identifiable {
 
 struct CapsuleMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
+    var medicineName: MedicineName
     var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
     var details: String
     var startDate: Date
@@ -67,7 +67,7 @@ struct CapsuleMedicineModel: Medicine, Identifiable {
 
 struct DrinkableMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
+    var medicineName: MedicineName
     var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
     var details: String
     var startDate: Date
@@ -81,7 +81,7 @@ struct DrinkableMedicineModel: Medicine, Identifiable {
 
 struct PatchMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
-    var medicineType: MedicineType
+    var medicineName: MedicineName
     var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
     var details: String
     var startDate: Date

@@ -93,3 +93,27 @@ struct PatchMedicineModel: Medicine, Identifiable {
         "\(patchNumber) patch pendant \(duration) h"
     }
 }
+
+struct MedicineFormModel {
+    var id: UUID = UUID()
+    var medicineName: MedicineName = .aricept
+    var takingMoments: [MedicineTakeTiming] = []
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    var weight: Int?
+    var capsuleNumber: Int?
+    var volume: Int?
+    var patchNumber: Int?
+    var duration: Int?
+    
+    var medicineType: MedicineType {
+        switch medicineName {
+        case .aricept, .donepezil, .exelon, .galantamine, .ebixa, .memantine:
+                .capsule
+        case .reminyl:
+                .drinkable
+        case .rivastigmine:
+                .patch
+        }
+    }
+}

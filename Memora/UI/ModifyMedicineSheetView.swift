@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ModifyMedicineSheeView: View {
+struct ModifyMedicineSheetView: View {
     @Binding var isModifySheetPresented: Bool
     var medicine: any Medicine
     @State private var vm = ModifyMedicineSheetViewModel()
@@ -35,43 +35,47 @@ struct ModifyMedicineSheeView: View {
     }
 
     var body: some View {
-        MedicineSheetFormView(medicineForm: $medicineForm)
-            .environment(vm)
-            .onAppear {
-                setMedicineForm()
-            }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        isModifySheetPresented = false
-                    } label: {
-                        Image(systemName: "xmark")
+        NavigationView {
+            MedicineSheetFormView(medicineForm: $medicineForm)
+                .environment(vm)
+                .onAppear {
+                    setMedicineForm()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            isModifySheetPresented = false
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                    ToolbarItem(placement: .principal) {
+                        Text("Modifier")
+                            .font(.title2)
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button {
+                            medicineVM.updateMedicine(from: medicine, to: medicineForm)
+                            isModifySheetPresented = false
+                        } label: {
+                            Image(systemName: "checkmark")
+                        }
+                        .tint(.accent)
+                        .buttonStyle(.glassProminent)
+                        .disabled(isConfirmationButtonDisabled)
                     }
                 }
-                ToolbarItem(placement: .principal) {
-                    Text("Modifier")
-                        .font(.title2)
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        medicineVM.updateEvent(from: medicine, to: medicineForm)
-                        isModifySheetPresented = false
-                    } label: {
-                        Image(systemName: "checkmark")
-                    }
-                    .tint(.accent)
-                    .buttonStyle(.glassProminent)
-                    .disabled(isConfirmationButtonDisabled)
-                }
-            }
+        }
     }
 
 
     func setMedicineForm() {
+        print(medicine)
         switch medicine {
         case is CapsuleMedicineModel:
             let medicine = medicine as! CapsuleMedicineModel
             medicineForm = MedicineFormModel(
+                id: medicine.id,
                 medicineName: medicine.medicineName,
                 takingMoments: medicine.takingMoments,
                 startDate: medicine.startDate,
@@ -82,6 +86,7 @@ struct ModifyMedicineSheeView: View {
         case is DrinkableMedicineModel:
             let medicine = medicine as! DrinkableMedicineModel
             medicineForm =  MedicineFormModel(
+                id: medicine.id,
                 medicineName: medicine.medicineName,
                 takingMoments: medicine.takingMoments,
                 startDate: medicine.startDate,
@@ -91,6 +96,7 @@ struct ModifyMedicineSheeView: View {
         case is PatchMedicineModel:
             let medicine = medicine as! PatchMedicineModel
             medicineForm = MedicineFormModel(
+                id: medicine.id,
                 medicineName: medicine.medicineName,
                 takingMoments: medicine.takingMoments,
                 startDate: medicine.startDate,
@@ -101,10 +107,12 @@ struct ModifyMedicineSheeView: View {
         default:
             break
         }
+        print(medicine.id)
+        print(medicineForm.id)
     }
 }
 
 #Preview {
-    ModifyMedicineSheeView(isModifySheetPresented: .constant(true), medicine: mockMedicines[0])
+    ModifyMedicineSheetView(isModifySheetPresented: .constant(true), medicine: mockMedicines[0])
         .environment(MedecineViewModel())
 }

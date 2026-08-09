@@ -30,7 +30,7 @@ struct ModifyEventSheetView: View {
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button {
-                            eventVM.updateEvent(event: event, updatedEvent: event, eventForm: event)
+                            eventVM.updateEvent(event: event, eventForm: event)
                             isAddSheetPresented = false
                         } label: {
                             Image(systemName: "checkmark")

@@ -17,6 +17,7 @@ var dateFormatter: DateFormatter {
 struct MedicineDetailView: View {
 
     @State private var isDeleteConfirmationPresented = false
+    @State private var isModifySheetPresented = false
     @Binding var path: [Screen]
     @Environment(MedecineViewModel.self) var medicineVM
     @Environment(\.dismiss) private var dismiss
@@ -53,13 +54,26 @@ struct MedicineDetailView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .destructiveAction) {
-                        Button {
-                            isDeleteConfirmationPresented = true
-                        } label: {
-                            Image(systemName: "trash")
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Modifier", systemImage: "pencil.line") {
+                            isModifySheetPresented = true
                         }
+                        .buttonStyle(.glass)
                     }
+                    ToolbarItem(placement: .destructiveAction) {
+                        Button("Supprimer", systemImage: "trash") {
+                            isDeleteConfirmationPresented = true
+                        }
+                        .buttonStyle(.glass)
+                    }
+
+                }
+                .sheet(isPresented: $isModifySheetPresented) {
+                    ModifyMedicineSheetView(
+                        isModifySheetPresented: $isModifySheetPresented,
+                        medicine: medicine,
+                    )
+                    .environment(medicineVM)
                 }
             }
             else {

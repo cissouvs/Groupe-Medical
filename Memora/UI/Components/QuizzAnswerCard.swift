@@ -28,17 +28,28 @@ struct QuizzAnswerCard: View {
         }
         return Color.background
     }
-
+    
     var body: some View {
-        Text(quizzVM.quizzes[quizzIndex].questions[questionIndex].guesses[guessIndex])
-            .frame(width: 300, height: 40)
-            .padding(.vertical)
-            .background(answerBackground)
-            .cornerRadius(20)
-            .foregroundStyle(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText)
-            .font(.system(size: 16))
-            .fontWeight(quizzVM.selectedAnswers[guessIndex] ? .bold : .regular)
-            .lineLimit(2)
+        HStack {
+            Text(quizzVM.quizzes[quizzIndex].questions[questionIndex].guesses[guessIndex])
+                .frame(width: 270, height: 40, alignment: .leading)
+                .lineLimit(2)
+            Image(systemName: "circle")
+        }
+        .foregroundStyle(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText)
+        .fontWeight(quizzVM.selectedAnswers[guessIndex] ? .semibold : .regular)
+        .font(.system(size: 16))
+        .frame(width: 350, height: 40)
+        .padding(.vertical)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(answerBackground)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText
+                        , lineWidth: quizzVM.selectedAnswers[guessIndex] ? 1 : 0.5)
+        }
     }
 }
 

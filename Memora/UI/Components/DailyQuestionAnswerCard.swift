@@ -27,15 +27,27 @@ struct DailyQuestionAnswerCard: View {
     var correctIndex = dailyQuestion.rightAnswerValues.firstIndex(of: true)
     
     var body: some View {
-        Text(dailyQuestionVM.dailyQuestion.guesses[guessIndex])
-            .frame(width: 170, height: 40)
-            .padding(.vertical)
-            .background(answerBackground)
-            .cornerRadius(20)
-            .foregroundStyle(Color.accent)
-            .font(.system(size: 16))
-            .fontWeight(dailyQuestionVM.selectedAnswers[guessIndex] ? .bold : .regular)
-            .lineLimit(2)
+        HStack {
+            Text(dailyQuestionVM.dailyQuestion.guesses[guessIndex])
+                .lineLimit(2)
+                .padding(.horizontal)
+                .frame(width: 270, height: 40, alignment: .leading)
+            Image(systemName: dailyQuestionVM.selectedAnswers[guessIndex] ? "checkmark.circle.fill" : "circle")
+        }
+        .foregroundStyle(dailyQuestionVM.selectedAnswers[guessIndex] ? .accent : .mainText)
+        .fontWeight(dailyQuestionVM.selectedAnswers[guessIndex] ? .bold : .regular)
+        .font(.system(size: 16))
+        .frame(width: 350, height: 40)
+        .padding(.vertical, 8)
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(answerBackground)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(dailyQuestionVM.selectedAnswers[guessIndex] ? .accent : .secondText
+                        , lineWidth: dailyQuestionVM.selectedAnswers[guessIndex] ? 1 : 0.5)
+        }
     }
 }
 

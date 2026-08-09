@@ -17,7 +17,6 @@ struct MedicineSheetFormView: View {
     @State private var currentTiming: MedicineTakeTiming?
     @Binding var medicineForm: MedicineFormModel
 
-    @State var takingTimings: [MedicineTakeTiming] = []
 
     var body: some View {
         Form {
@@ -71,12 +70,9 @@ struct MedicineSheetFormView: View {
                             guard let currentTiming else {
                                 return
                             }
-                            if !takingTimings.contains(where: {$0 == currentTiming}) {
-                                takingTimings.append(currentTiming)
+                            if !medicineForm.takingMoments.contains(where: {$0 == currentTiming}) {
+                                medicineForm.takingMoments.append(currentTiming)
                             }
-//                            if !medicineForm.takingMoments.contains(where: {$0 == currentTiming}) {
-//                                medicineForm.takingMoments.append(currentTiming)
-//                            }
                         }
                         .buttonStyle(.glass)
                         .tint(.accentColor)
@@ -105,10 +101,7 @@ struct MedicineSheetFormView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     .frame(alignment: .trailing)
-                    Text(currentTiming?.rawValue ?? "")
-                    Text("\(medicineForm.takingMoments)")
-                    TakingTimingScrollView(takingMoments: takingTimings)
-//                    TakingTimingScrollView(takingMoments: medicineForm.takingMoments)
+                    TakingTimingScrollView(takingMoments: medicineForm.takingMoments)
                 }
             }
         }

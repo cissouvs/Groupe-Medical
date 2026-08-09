@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TakingTimingScrollView: View {
 
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var takingMoments: [MedicineTakeTiming]
 
     var body: some View {
         ScrollView(.horizontal) {
@@ -18,13 +18,11 @@ struct TakingTimingScrollView: View {
                     _,
                     takingMoment in
                     Text(
-                        takingMoment.timing == .none ?
-                        takingMoment.dayMoment.rawValue :
-                            "\(takingMoment.timing.rawValue) \(takingMoment.dayMoment.rawValue)"
+                        takingMoment.rawValue
                     )
                     .padding(.vertical, 5)
                     .padding(.horizontal, 10)
-                    .background(getTagColor(dayTime: takingMoment.dayMoment))
+                    .background(getTagColor(timing: takingMoment))
                     .cornerRadius(20)
                     .font(.callout)
                 }

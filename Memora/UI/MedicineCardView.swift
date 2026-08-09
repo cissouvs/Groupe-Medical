@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-func getTagColor(dayTime: DayMoment) -> Color {
-    switch dayTime {
+func getTagColor(timing: MedicineTakeTiming) -> Color {
+    switch timing {
     case .getUp:
         Color.tagOrange
     case .bedTime:
         Color.tagBlue
-    case .breakfast:
+    case .beforeBreakfast, .afterBreakfast, .duringBreakfast:
         Color.tagGreen
-    case .lunch:
+    case .beforeLunch, .duringLunch, .afterLunch:
         Color.tagPurple
-    case .diner:
+    case .beforeDiner, .duringDiner, .afterDiner:
         Color.tagBlue
     }
 }

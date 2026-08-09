@@ -10,7 +10,7 @@ import Foundation
 let mockMedicines: [any Medicine] = [
     CapsuleMedicineModel(
         medicineName: .aricept,
-        takingMoments: [(timing: Timing.none, dayMoment: DayMoment.bedTime)],
+        takingMoments: [MedicineTakeTiming.bedTime],
         details: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que le donépézil améliore certaines fonctions cérébrales chez les malades.",
         startDate: Date(),
         endDate: .now.addingTimeInterval(2592000),
@@ -21,8 +21,8 @@ let mockMedicines: [any Medicine] = [
     DrinkableMedicineModel(
         medicineName: .reminyl,
         takingMoments: [
-            (timing: .during, dayMoment: .breakfast),
-            (timing: .during, dayMoment: .diner)
+            .duringBreakfast,
+            .duringDiner
         ],
         details: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que la galantamine améliore certaines fonctions cérébrales chez les malades.",
         startDate: Date(),

@@ -21,26 +21,26 @@ enum MedicineName: String , Identifiable, CaseIterable {
     var id: Self { self }
 }
 
-
-enum DayMoment: String {
+enum MedicineTakeTiming: String, Identifiable, CaseIterable {
     case getUp = "Lever"
     case bedTime = "Coucher"
-    case breakfast = "Petit déj."
-    case lunch = "Déjeuner"
-    case diner = "Dîner"
-}
+    case beforeBreakfast = "Avant Petit Déj."
+    case duringBreakfast = "Pendant Petit Déj."
+    case afterBreakfast = "Après Petit Déj."
+    case beforeLunch = "Avant Déjeuner"
+    case duringLunch = "Pendant Déjeuner"
+    case afterLunch = "Après Déjeuner"
+    case beforeDiner = "Avant Dîner"
+    case duringDiner = "Pendant Dîner."
+    case afterDiner = "Après Dîner"
 
-enum Timing: String {
-    case before = "Avant"
-    case during = "Pendant"
-    case after = "Après"
-    case none
+    var id: Self { self }
 }
 
 protocol Medicine: Identifiable {
     var id: UUID { get }
     var medicineName: MedicineName { get set }
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)] { get set }
+    var takingMoments: [MedicineTakeTiming] { get set }
     var details: String { get set }
     var startDate: Date { get set }
     var endDate: Date { get set }
@@ -53,7 +53,7 @@ protocol Medicine: Identifiable {
 struct CapsuleMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
     var medicineName: MedicineName
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date
@@ -68,7 +68,7 @@ struct CapsuleMedicineModel: Medicine, Identifiable {
 struct DrinkableMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
     var medicineName: MedicineName
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date
@@ -82,7 +82,7 @@ struct DrinkableMedicineModel: Medicine, Identifiable {
 struct PatchMedicineModel: Medicine, Identifiable {
     var id: UUID = UUID()
     var medicineName: MedicineName
-    var takingMoments: [(timing: Timing, dayMoment: DayMoment)]
+    var takingMoments: [MedicineTakeTiming]
     var details: String
     var startDate: Date
     var endDate: Date

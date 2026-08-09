@@ -49,6 +49,29 @@ final class MedecineViewModel {
 
     var medicines: [any Medicine] = mockMedicines
 
+    private let medicinePhotoUrl: [MedicineName: String] = [
+        .aricept: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que le donépézil améliore certaines fonctions cérébrales chez les malades.",
+        .donepezil: "",
+        .ebixa: "",
+        .exelon: "",
+        .galantamine: "",
+        .memantine: "",
+        .reminyl: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que la galantamine améliore certaines fonctions cérébrales chez les malades.",
+        .rivastigmine: "La rivastigmine est susceptible d'avoir un effet favorable sur les déficits cognitifs dépendants de ces voies cholinergiques au cours de la maladie d'Alzheimer et d'une démence associée à la maladie de Parkinson."
+    ]
+
+    private let medicineDetails: [MedicineName: String] = [
+        .aricept:"https://cdn.pim.mesoigner.fr/mesoigner/8cc2bb4cda8b3bc00d4c81930eefbc91/mesoigner-thumbnail-1000-1000-inset/737/076/aricept-5-mg-comprime-pellicule.webp",
+        .donepezil: "",
+        .ebixa: "",
+        .exelon: "",
+        .galantamine: "",
+        .memantine: "",
+        .reminyl:"https://cdn.pim.mesoigner.fr/mesoigner/c23c149d2b855a005ef4b7f04034fb8d/mesoigner-thumbnail-1000-1000-inset/573/585/reminyl-4-mg-ml-solution-buvable.webp",
+        .rivastigmine: "https://cdn.pim.mesoigner.fr/mesoigner/6dc1c928cbb2afff29b4c64148816534/mesoigner-thumbnail-1000-1000-inset/684/026/rivastigmine-arrow-9-5-mg-24-heures-dispositif-transdermique.webp"
+    ]
+
+
     func getFilteredMedicines(at date: Date) -> [any Medicine] {
         medicines.filter( {
             calendar.compare($0.startDate, to: date, toGranularity: .day) == .orderedAscending &&
@@ -63,6 +86,47 @@ final class MedecineViewModel {
             return medicines[index]
         }
         return nil
+    }
+
+    func addMedicine(medicineForm: MedicineFormModel) {
+        switch medicineForm.medicineType {
+        case .capsule:
+            medicines.append(CapsuleMedicineModel(
+                medicineName: medicineForm.medicineName,
+                takingMoments: medicineForm.takingMoments,
+                details: medicineDetails[medicineForm.medicineName] ?? "",
+                startDate: medicineForm.startDate,
+                endDate: medicineForm.endDate,
+                imageUrl: medicinePhotoUrl[medicineForm.medicineName] ?? "",
+                weight: medicineForm.weight!,
+                capsuleNumber: medicineForm.capsuleNumber!
+            ))
+        case .drinkable:
+            medicines.append(
+                DrinkableMedicineModel(
+                    medicineName: medicineForm.medicineName,
+                    takingMoments: medicineForm.takingMoments,
+                    details: medicineDetails[medicineForm.medicineName] ?? "",
+                    startDate: medicineForm.startDate,
+                    endDate: medicineForm.endDate,
+                    imageUrl: medicinePhotoUrl[medicineForm.medicineName] ?? "",
+                    volume: medicineForm.volume!
+                )
+            )
+        case .patch:
+            medicines.append(
+PatchMedicineModel(
+                medicineName: medicineForm.medicineName,
+                takingMoments: medicineForm.takingMoments,
+                details: medicineDetails[medicineForm.medicineName] ?? "",
+                startDate: medicineForm.startDate,
+                endDate: medicineForm.endDate,
+                imageUrl: medicinePhotoUrl[medicineForm.medicineName] ?? "",
+                patchNumber: medicineForm.patchNumber!,
+                duration: medicineForm.duration!
+            )
+)
+        }
     }
 
     func deleteMedicine(medicineID: UUID) {

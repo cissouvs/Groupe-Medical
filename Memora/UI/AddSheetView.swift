@@ -11,26 +11,27 @@ struct AddSheetView: View {
     @Binding var isAddSheetPresented: Bool
     @State private var selectedType: CalendarType = .events
     @State var addEventVM = AddEvenSheetViewModel()
-    @State var medicineVM = MedicineSheetFormViewModel()
+    @State var medicineFormVM = MedicineSheetFormViewModel()
     @Environment(EventViewModel.self) var eventVM
+    @Environment(MedecineViewModel.self) var medicineVM
 
     var isAddButtonDisabled: Bool {
         if selectedType == .events {
             return addEventVM.eventForm.title.isEmpty
         }
-        switch medicineVM.medicineForm.medicineType {
+        switch medicineFormVM.medicineForm.medicineType {
         case .capsule:
-            if  medicineVM.medicineForm.capsuleNumber == nil ||
-                    medicineVM.medicineForm.weight == nil {
+            if  medicineFormVM.medicineForm.capsuleNumber == nil ||
+                    medicineFormVM.medicineForm.weight == nil {
                 return true
             }
         case .drinkable:
-            if medicineVM.medicineForm.volume == nil {
+            if medicineFormVM.medicineForm.volume == nil {
                 return true
             }
         case .patch:
-            if medicineVM.medicineForm.patchNumber == nil ||
-                medicineVM.medicineForm.duration == nil {
+            if medicineFormVM.medicineForm.patchNumber == nil ||
+                medicineFormVM.medicineForm.duration == nil {
                 return true
             }
         }
@@ -50,7 +51,7 @@ struct AddSheetView: View {
                 VStack {
                     switch selectedType {
                     case .medications:
-                        MedicineSheetFormView(medicineForm: $medicineVM.medicineForm)
+                        MedicineSheetFormView(medicineForm: $medicineFormVM.medicineForm)
                     case .appointment:
                         VStack {}
                     case .events:
@@ -75,7 +76,14 @@ struct AddSheetView: View {
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button {
-                            eventVM.addEvent(eventForm: addEventVM.eventForm)
+                            switch selectedType {
+                            case .medications:
+                                medicineVM.addMedicine(medicineForm: medicineFormVM.medicineForm)
+                            case .appointment:
+                                return
+                            case .events:
+                                eventVM.addEvent(eventForm: addEventVM.eventForm)
+                            }
                             isAddSheetPresented = false
                         } label: {
                             Image(systemName: "checkmark")
@@ -97,4 +105,5 @@ struct AddSheetView: View {
         isAddSheetPresented: .constant(true)
     )
     .environment(EventViewModel())
+    .environment(MedecineViewModel())
 }

@@ -55,7 +55,7 @@ final class EventViewModel {
         })
     }
     
-    func updateEvent(event: Event, updatedEvent: Event, eventForm: Event) {
+    func updateEvent(event: Event, eventForm: Event) {
         if let eventIndex = events.firstIndex(of: event) {
             events[eventIndex] = eventForm
         }

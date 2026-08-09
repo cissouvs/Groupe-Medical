@@ -16,7 +16,6 @@ var dateFormatter: DateFormatter {
 
 struct MedicineDetailView: View {
 
-    @State private var vm = MedicineDetailViewModel()
     @State private var isDeleteConfirmationPresented = false
     @Binding var path: [Screen]
     @Environment(MedecineViewModel.self) var medicineVM

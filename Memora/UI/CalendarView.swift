@@ -23,7 +23,8 @@ struct CalendarView: View {
     @Binding var path: [Screen]
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
-   
+    @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+
     var body: some View {
         VStack {
             DatePicker("", selection: $vm.date, displayedComponents: [.date])
@@ -34,6 +35,8 @@ struct CalendarView: View {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
                         .tag(CalendarType.medications)
+                    Text("Rendez-vous")
+                        .tag(CalendarType.appointment)
                     Text("Evènements")
                         .tag(CalendarType.events)
                 }
@@ -52,7 +55,13 @@ struct CalendarView: View {
                             }
                         }
                     case .appointment:
-                        VStack {}
+                        ForEach(appointmentVM.getFilteredAppointments(at: vm.date)) { appointment in
+                            Button {
+                                path.append(.appointment)
+                            } label: {
+                                AppointmentCardView(medicalAppointment: appointment)
+                            }
+                        }
                     case .events:
                         ForEach(
                             eventVM.getSelectedDayEvents(at: vm.date).enumerated(),
@@ -97,4 +106,5 @@ struct CalendarView: View {
     CalendarView(selectedCalendarType: .medications, path: .constant([]))
         .environment(EventViewModel())
         .environment(MedecineViewModel())
+        .environment(MedicalAppointmentViewModel())
 }

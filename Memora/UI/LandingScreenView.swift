@@ -22,9 +22,14 @@ struct LandingScreenView: View {
     @State private var path: [Screen] = []
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
+    @State var medicalAppointmentVM = MedicalAppointmentViewModel()
 
     var todayMedicines: [any Medicine] {
         medicineVM.getFilteredMedicines(at: Date())
+    }
+
+    var todayAppointments: [MedicalAppointmentModel] {
+        medicalAppointmentVM.getFilteredAppointments(at: Date())
     }
 
     var body: some View {
@@ -38,10 +43,14 @@ struct LandingScreenView: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
-                            Button {
-                                path.append(.appointment)
-                            } label: {
-                                AppointmentCardView()
+                            ScrollView(.horizontal) {
+                                ForEach(todayAppointments) { medicalAppointment in
+                                    Button {
+                                        path.append(.appointment)
+                                    } label: {
+                                        AppointmentCardView(medicalAppointment: medicalAppointment)
+                                    }
+                                }
                             }
                             Text("Rappel")
                                 .foregroundStyle(.secondText)
@@ -121,6 +130,7 @@ struct LandingScreenView: View {
         }
         .environment(eventVM)
         .environment(medicineVM)
+        .environment(medicalAppointmentVM)
     }
 }
 

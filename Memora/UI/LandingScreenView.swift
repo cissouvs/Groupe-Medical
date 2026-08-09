@@ -10,7 +10,7 @@ import SwiftUI
 enum Screen: Hashable {
     case appointment
     case medicine(UUID)
-    case calendar(CalendarSelectedView)
+    case calendar(CalendarType)
     case quizz
     case profile
     case emergencyContact
@@ -63,7 +63,7 @@ struct LandingScreenView: View {
                                 Button {
                                     path.append(.calendar(.medications))
                                 } label: {
-                                    LandingScreenCalendarButtonView(calendarViewType: .medecine)
+                                    LandingScreenCalendarButtonView(calendarViewType: .medications)
                                 }
                                 Spacer()
                                 Button {
@@ -75,7 +75,7 @@ struct LandingScreenView: View {
                                 Button {
                                     path.append(.calendar(.events))
                                 } label: {
-                                    LandingScreenCalendarButtonView(calendarViewType: .event)
+                                    LandingScreenCalendarButtonView(calendarViewType: .events)
                                 }
                             }
                             .padding(10)

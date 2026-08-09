@@ -7,47 +7,39 @@
 
 import SwiftUI
 
-enum CalendarType: CaseIterable, Identifiable {
-    case medecine
-    case appointment
-    case event
-
-    var id: Self { self }
-}
-
 struct LandingScreenCalendarButtonView: View {
 
     var calendarViewType: CalendarType
 
     var logoName: String {
         switch calendarViewType {
-        case .medecine:
+        case .medications:
             "cross.vial"
         case .appointment:
             "stethoscope"
-        case .event:
+        case .events:
             "1.calendar"
         }
     }
 
     var title: String {
         switch calendarViewType {
-        case .medecine:
+        case .medications:
             "Médicaments"
         case .appointment:
             "Rendez-vous"
-        case .event:
+        case .events:
             "Evénements"
         }
     }
 
     var color: Color {
         switch calendarViewType {
-        case .medecine:
+        case .medications:
             Color.supportRed
         case .appointment:
             Color.supportOrange
-        case .event:
+        case .events:
             Color.supportGreen
         }
     }
@@ -73,5 +65,5 @@ struct LandingScreenCalendarButtonView: View {
 }
 
 #Preview {
-    LandingScreenCalendarButtonView(calendarViewType: .medecine)
+    LandingScreenCalendarButtonView(calendarViewType: .medications)
 }

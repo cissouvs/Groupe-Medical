@@ -18,3 +18,14 @@ let mockAppointments: [MedicalAppointmentModel] = [
             emailAdress: "ledocteur@medecin.fr"
         )
     ]
+
+@Observable
+final class MedicalAppointmentViewModel {
+    var appointments: [MedicalAppointmentModel] = mockAppointments
+
+    func getFilteredAppointments(at date: Date) -> [MedicalAppointmentModel] {
+        let calendar = Calendar.current
+        return appointments
+            .filter({ calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame})
+    }
+}

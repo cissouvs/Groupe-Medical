@@ -9,41 +9,44 @@ import SwiftUI
 
 struct AppointmentCardView: View {
 
+    var medicalAppointment: MedicalAppointmentModel
+
     var body: some View {
         HStack(spacing: 10) {
-            Image(systemName: "person.fill")
+            Image(medicalAppointment.profilePicture)
                 .resizable()
-                .padding(15)
-                .background(Color.gray)
-                .foregroundStyle(.black)
                 .clipShape(.circle)
                 .frame(width: 70, height: 70)
                 .clipped()
             VStack(alignment: .leading, spacing: 10) {
-                Text("Dr Martin")
+                Text(medicalAppointment.name)
                     .foregroundStyle(.black)
-                Text("Médecin Généraliste")
+                Text(medicalAppointment.specialty.rawValue)
                     .foregroundStyle(Color.secondText)
                     .font(.subheadline)
             }
             .padding(10)
             .frame(maxWidth: .infinity, alignment: .topLeading)
             VStack(alignment: .center, spacing: 10) {
-                Text("11:00")
-                    .font(.title)
+                Text(medicalAppointment.date.formatted(.dateTime.hour().minute()))
+                    .font(.largeTitle)
                     .fontWeight(.semibold)
                 HStack(alignment: .center, spacing: 15) {
-                    Button {
+                    if let phoneNumber = medicalAppointment.phoneNumber {
+                        Button {
 
-                    } label: {
-                        Image(systemName: "phone.circle.fill")
-                            .font(.largeTitle)
+                        } label: {
+                            Image(systemName: "phone.circle.fill")
+                                .font(.largeTitle)
+                        }
                     }
-                    Button {
+                    if let emailAdress = medicalAppointment.emailAdress {
+                        Button {
 
-                    } label: {
-                        Image(systemName: "message.circle.fill")
-                            .font(.largeTitle)
+                        } label: {
+                            Image(systemName: "message.circle.fill")
+                                .font(.largeTitle)
+                        }
                     }
                 }
             }
@@ -56,5 +59,6 @@ struct AppointmentCardView: View {
 }
 
 #Preview {
-    AppointmentCardView()
+    AppointmentCardView(medicalAppointment: mockAppointments[0])
+
 }

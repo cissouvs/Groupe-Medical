@@ -17,6 +17,7 @@ struct AddSheetView: View {
     @Environment(MedecineViewModel.self) var medicineVM
     @Environment(MedicalAppointmentViewModel.self) var appointmentVM
 
+
     var isAddButtonDisabled: Bool {
         switch selectedType {
         case .medications:
@@ -37,6 +38,17 @@ struct AddSheetView: View {
                 }
             }
         case .appointment:
+            if let phoneNumber = appointmentFormVM.appointmentForm.phoneNumber {
+                if !appointmentFormVM.validatePhoneNumber(phoneNumber: phoneNumber) {
+                    return true
+                }
+            }
+            if let emailAdress = appointmentFormVM.appointmentForm.emailAdress {
+                if !appointmentFormVM
+                    .validateEmailAddress(emailAdress: emailAdress) {
+                    return true
+                }
+            }
             return appointmentFormVM.appointmentForm.name.isEmpty
         case .events:
             return addEventVM.eventForm.title.isEmpty

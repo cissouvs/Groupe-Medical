@@ -130,8 +130,7 @@ struct DetailQuizzView: View {
 }
 
 #Preview {
-    DetailQuizzView(quizzIndex: 0
-    )
+    DetailQuizzView(quizzIndex: 0)
     .environment(QuizzViewModel())
 }
 

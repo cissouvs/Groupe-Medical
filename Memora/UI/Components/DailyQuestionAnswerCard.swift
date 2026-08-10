@@ -51,12 +51,3 @@ struct DailyQuestionAnswerCard: View {
     }
 }
 
-//#Preview {
-//    AnswerCard(guessIndex: 0)
-//        .environment(DailyQuizzViewModel())
-//}
-
-#Preview {
-    QuizzView()
-}
-

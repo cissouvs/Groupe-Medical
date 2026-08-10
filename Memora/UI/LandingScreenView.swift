@@ -12,6 +12,8 @@ enum Screen: Hashable {
     case medicine(UUID)
     case calendar(CalendarType)
     case quizz
+    case detailQuizz(Int)
+    case quizzFinished(Int)
     case profile
     case emergencyContact
 }
@@ -23,6 +25,9 @@ struct LandingScreenView: View {
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
     @State var medicalAppointmentVM = MedicalAppointmentViewModel()
+    @State private var quizzVM = QuizzViewModel()
+    @State var dailyQuestionVM = DailyQuestionViewModel()
+
 
     var todayMedicines: [any Medicine] {
         medicineVM.getFilteredMedicines(at: Date())
@@ -119,7 +124,11 @@ struct LandingScreenView: View {
                 case .calendar(let selectedCalendarType):
                     CalendarView(selectedCalendarType: selectedCalendarType ,path: $path)
                 case .quizz:
-                    ContentView()
+                    QuizzView(path: $path)
+                case .detailQuizz(let index):
+                    DetailQuizzView(quizzIndex: index)
+                case .quizzFinished(let index):
+                    CardFinishTaskView(quizzIndex: index)
                 case .profile:
                     ProfileView(path: $path)
                 case .emergencyContact:
@@ -131,6 +140,8 @@ struct LandingScreenView: View {
         .environment(eventVM)
         .environment(medicineVM)
         .environment(medicalAppointmentVM)
+        .environment(quizzVM)
+        .environment(dailyQuestionVM)
     }
 }
 

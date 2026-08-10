@@ -16,7 +16,6 @@ struct CardFinishTaskView: View {
     @Environment(QuizzViewModel.self) var quizzVM
     
     var body: some View {
-        NavigationStack {
             VStack {
                 Image(systemName: "checkmark.seal")
                     .foregroundStyle(.white)
@@ -49,7 +48,6 @@ struct CardFinishTaskView: View {
             .cornerRadius(20)
         }
     }
-}
 
 
 #Preview {

@@ -10,9 +10,21 @@ import MapKit
 
 struct MapView: View {
     
-    @State private var vm = MapViewModel()
+    @State private var placesListVM = PlacesListViewModel()
     
     @State private var camera = MapCameraPosition.automatic
+    
+    @State private var selectedPlace : Place?
+    
+//    var place: Place
+    
+    var userPosition = CLLocationCoordinate2D(
+        latitude: 44.340861,
+        longitude: 1.2024031597201768)
+    
+    var careGiversPosition = CLLocationCoordinate2D(
+        latitude: 44.33878193104696,
+        longitude: 1.2116824676429137)
     
     var body: some View {
         
@@ -20,7 +32,7 @@ struct MapView: View {
             
             Map(position: $camera) {
                 
-                Annotation("Patient", coordinate: vm.userPosition) {
+                Annotation("Patient", coordinate: userPosition) {
                     Image(systemName: "person")
                         .foregroundStyle(.white)
                         .padding()
@@ -28,14 +40,30 @@ struct MapView: View {
                         .clipShape(.circle)
                 }
                 
-                Annotation("Patient", coordinate: vm.careGiversPosition) {
+                Annotation("Patient", coordinate: careGiversPosition) {
                     Image(systemName: "person")
                         .foregroundStyle(.white)
                         .padding()
                         .background(.supportRed)
                         .clipShape(.circle)
                 }
-                
+                ForEach(placesListVM.filteredPlaces) { place in
+                    Annotation(place.name, coordinate: place.coordinate) {
+                        
+                        Button(action: {
+                            selectedPlace = place
+                        }) {
+                            
+                            Image(place.image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 25, height: 25)
+                                .clipShape(Circle())
+                                .padding(.trailing, 5)
+                            
+                        }
+                    }
+                }
             }
             
             VStack(alignment: .trailing) {
@@ -44,7 +72,7 @@ struct MapView: View {
                 
                 Button {
                     camera = .region(MKCoordinateRegion(
-                        center: vm.careGiversPosition,
+                        center: careGiversPosition,
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
@@ -58,7 +86,7 @@ struct MapView: View {
                 
                 Button {
                     camera = .region(MKCoordinateRegion(
-                        center: vm.userPosition,
+                        center: userPosition,
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {

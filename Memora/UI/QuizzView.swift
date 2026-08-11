@@ -118,5 +118,6 @@ struct QuizzView: View {
 #Preview {
     QuizzView(path: .constant([]))
         .environment(QuizzViewModel())
+        .environment(DailyQuestionViewModel())
 }
 

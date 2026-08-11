@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Screen: Hashable {
-    case appointment
+    case appointment(UUID)
     case medicine(UUID)
     case calendar(CalendarType)
     case quizz
@@ -52,7 +52,7 @@ struct LandingScreenView: View {
                                 HStack {
                                     ForEach(todayAppointments) { medicalAppointment in
                                         Button {
-                                            path.append(.appointment)
+                                            path.append(.appointment(medicalAppointment.id))
                                         } label: {
                                             AppointmentCardView(medicalAppointment: medicalAppointment)
                                         }
@@ -119,8 +119,8 @@ struct LandingScreenView: View {
             }
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
-                case .appointment:
-                    ContentView()
+                case .appointment(let appointmentID):
+                    MedicalAppointmentDetailView(appointmentID: appointmentID)
                 case .medicine(let medicineId):
                     MedicineDetailView(path: $path, medicineId: medicineId)
                 case .calendar(let selectedCalendarType):

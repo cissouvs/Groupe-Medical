@@ -11,6 +11,7 @@ import MapKit
 struct MedicalAppointmentDetailView: View {
     var appointmentID: UUID
     @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+    @Environment(\.openURL) private var openUrl
 
     var appointment: MedicalAppointmentModel? {
         appointmentVM.getAppointment(appointmentID: appointmentID)
@@ -42,7 +43,7 @@ struct MedicalAppointmentDetailView: View {
                             .clipped()
                     }
                 }
-                .frame(width: 250, height: 250)
+                .frame(width: 150, height: 150)
                 .padding(.top, 100)
                 VStack(alignment: .leading, spacing: 25) {
                     VStack(alignment: .leading) {
@@ -64,15 +65,18 @@ struct MedicalAppointmentDetailView: View {
                         HStack(spacing: 20) {
                             if let phoneNumber = appointment.phoneNumber {
                                 Button {
-
+                                    guard let number = URL(string: "tel://" + phoneNumber) else {
+                                        return
+                                    }
+                                    UIApplication.shared.open(number)
                                 } label: {
                                     Image(systemName: "phone.circle.fill")
                                         .font(.system(size: 50))
                                 }
                             }
-                            if let emailAdress = appointment.emailAdress {
+                            if let _ = appointment.emailAdress {
                                 Button {
-
+                                    appointmentVM.sendEmail(openUrl: openUrl, appointment: appointment)
                                 } label: {
                                     Image(systemName: "message.circle.fill")
                                         .font(.system(size: 50))

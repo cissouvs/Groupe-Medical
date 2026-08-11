@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AppointmentCardView: View {
 
+    @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+    @Environment(\.openURL) var openUrl
     var medicalAppointment: MedicalAppointmentModel
 
     var body: some View {
@@ -45,15 +47,19 @@ struct AppointmentCardView: View {
                 HStack(alignment: .center, spacing: 15) {
                     if let phoneNumber = medicalAppointment.phoneNumber {
                         Button {
-
+                            guard let number = URL(string: "tel://" + phoneNumber) else {
+                                return
+                            }
+                            UIApplication.shared.open(number)
                         } label: {
                             Image(systemName: "phone.circle.fill")
                                 .font(.largeTitle)
                         }
                     }
-                    if let emailAdress = medicalAppointment.emailAdress {
+                    if let _ = medicalAppointment.emailAdress {
                         Button {
-
+                            appointmentVM
+                                .sendEmail(openUrl: openUrl, appointment: medicalAppointment)
                         } label: {
                             Image(systemName: "message.circle.fill")
                                 .font(.largeTitle)
@@ -71,5 +77,5 @@ struct AppointmentCardView: View {
 
 #Preview {
     AppointmentCardView(medicalAppointment: mockAppointments[0])
-
+        .environment(MedicalAppointmentViewModel())
 }

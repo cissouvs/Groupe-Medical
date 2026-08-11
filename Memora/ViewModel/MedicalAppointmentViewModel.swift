@@ -48,4 +48,13 @@ final class MedicalAppointmentViewModel {
     func addAppointment(appointmentForm: MedicalAppointmentModel) {
         appointments.append(appointmentForm)
     }
+
+    func sendEmail(openUrl: OpenURLAction, appointment: MedicalAppointmentModel) {
+        guard let emailAdress = appointment.emailAdress else {
+            return
+        }
+        let urlString = "mailto:\(emailAdress)"
+        guard let url = URL(string: urlString) else { return }
+        openUrl(url)
+    }
 }

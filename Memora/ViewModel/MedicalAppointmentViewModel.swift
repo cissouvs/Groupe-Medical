@@ -54,6 +54,13 @@ final class MedicalAppointmentViewModel {
             appointments.remove(at: appointmentIndex)
         }
     }
+
+    func updateAppointment(appointmentID: UUID, with appointmentForm: MedicalAppointmentModel) {
+        if let appointmentIndex = appointments.firstIndex(where: { $0.id == appointmentID }) {
+            appointments[appointmentIndex] = appointmentForm
+        }
+    }
+
     func sendEmail(openUrl: OpenURLAction, appointment: MedicalAppointmentModel) {
         let urlString = "mailto:\(appointment.emailAdress)"
         guard let url = URL(string: urlString) else { return }

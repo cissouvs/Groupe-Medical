@@ -63,25 +63,23 @@ struct MedicalAppointmentDetailView: View {
                         }
                         Spacer()
                         HStack(spacing: 20) {
-                            if let phoneNumber = appointment.phoneNumber {
-                                Button {
-                                    guard let number = URL(string: "tel://" + phoneNumber) else {
-                                        return
-                                    }
-                                    UIApplication.shared.open(number)
-                                } label: {
-                                    Image(systemName: "phone.circle.fill")
-                                        .font(.system(size: 50))
+                            Button {
+                                guard let number = URL(string: "tel://" + appointment.phoneNumber) else {
+                                    return
                                 }
+                                UIApplication.shared.open(number)
+                            } label: {
+                                Image(systemName: "phone.circle.fill")
+                                    .font(.system(size: 50))
                             }
-                            if let _ = appointment.emailAdress {
-                                Button {
-                                    appointmentVM.sendEmail(openUrl: openUrl, appointment: appointment)
-                                } label: {
-                                    Image(systemName: "message.circle.fill")
-                                        .font(.system(size: 50))
-                                }
+                            .disabled(appointment.phoneNumber.isEmpty)
+                            Button {
+                                appointmentVM.sendEmail(openUrl: openUrl, appointment: appointment)
+                            } label: {
+                                Image(systemName: "message.circle.fill")
+                                    .font(.system(size: 50))
                             }
+                            .disabled(appointment.emailAdress.isEmpty)
                         }
                     }
                     if let mapPosition = position,

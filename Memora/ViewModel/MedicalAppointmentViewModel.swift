@@ -15,11 +15,11 @@ let mockAppointments: [MedicalAppointmentModel] = [
             specialty: .generalist,
             date: Date(),
             adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
-            phoneNumber: "0606060606",
-            emailAdress: "ledocteur@medecin.fr"
+            phoneNumber: "0706060606",
+            emailAdress: "leteur@medecin.fr"
         ),
         MedicalAppointmentModel(
-            name: "Dr Martin",
+            name: "Dr Martinaaa",
             specialty: .generalist,
             date: Date(),
             adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
@@ -49,11 +49,13 @@ final class MedicalAppointmentViewModel {
         appointments.append(appointmentForm)
     }
 
-    func sendEmail(openUrl: OpenURLAction, appointment: MedicalAppointmentModel) {
-        guard let emailAdress = appointment.emailAdress else {
-            return
+    func deleteAppointment(appointmentID: UUID) {
+        if let appointmentIndex = appointments.firstIndex(where: { $0.id == appointmentID }) {
+            appointments.remove(at: appointmentIndex)
         }
-        let urlString = "mailto:\(emailAdress)"
+    }
+    func sendEmail(openUrl: OpenURLAction, appointment: MedicalAppointmentModel) {
+        let urlString = "mailto:\(appointment.emailAdress)"
         guard let url = URL(string: urlString) else { return }
         openUrl(url)
     }

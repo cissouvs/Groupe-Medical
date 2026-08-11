@@ -12,9 +12,11 @@ final class MedicalAppointmentFormViewModel {
 
     var appointmentForm = MedicalAppointmentModel(
         name: "",
-        specialty: .other,
+        specialty: .generalist,
         date: Date(),
-        adress: ""
+        adress: "",
+        phoneNumber: "",
+        emailAdress: ""
     )
 
     func validatePhoneNumber(phoneNumber: String) -> Bool {
@@ -23,7 +25,6 @@ final class MedicalAppointmentFormViewModel {
             !phoneNumber.allSatisfy({ $0.isNumber }) ||
             !prefixes.contains(String(phoneNumber.prefix(2)))
         {
-            print("le numéro est pas bon")
             return false
         }
         return true
@@ -31,7 +32,6 @@ final class MedicalAppointmentFormViewModel {
 
     func validateEmailAddress(emailAdress: String) -> Bool {
         if let emailRegex = try? Regex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}") {
-            print("l'email est pas bon")
             return emailAdress.contains(emailRegex)
         }
         return false

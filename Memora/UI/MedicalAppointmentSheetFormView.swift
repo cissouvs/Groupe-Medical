@@ -34,7 +34,7 @@ struct MedicalAppointmentSheetFormView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
-            .frame(width: .infinity, height: 150)
+            .frame(height: 150)
             .onChange(of: pickerItem) {
                 Task {
                     if let loadedImage = try? await pickerItem?.loadTransferable(type: Image.self) {
@@ -58,36 +58,24 @@ struct MedicalAppointmentSheetFormView: View {
                     displayedComponents: [.date, .hourAndMinute]
                 )
                 TextField("Adresse", text: $appointmentForm.adress)
-                TextField("N° Téléphone", text: $phoneNumber)
-                    .onChange(of: phoneNumber) {
-                        if phoneNumber.isEmpty {
-                            appointmentForm.phoneNumber = nil
-                        } else {
-                            appointmentForm.phoneNumber = phoneNumber
-                        }
-                    }
-                TextField("Email", text: $emailAdress)
-                    .onChange(of: emailAdress) {
-                        if emailAdress.isEmpty {
-                            appointmentForm.emailAdress = nil
-                        } else {
-                            appointmentForm.emailAdress = emailAdress
-                        }
-                    }
+                TextField("N° Téléphone", text: $appointmentForm.phoneNumber)
+                TextField("Email", text: $appointmentForm.emailAdress)
             }
         }
     }
 }
 
 #Preview {
-    MedicalAppointmentSheetFormView(
-        appointmentForm:
-                .constant(MedicalAppointmentModel(
+    MedicalAppointmentSheetFormView(appointmentForm:
+            .constant(
+                MedicalAppointmentModel(
                     name: "",
                     specialty: .other,
                     date: Date(),
-                    adress: ""
+                    adress: "",
+                    phoneNumber: "",
+                    emailAdress: ""
                 )
-                )
+            )
     )
 }

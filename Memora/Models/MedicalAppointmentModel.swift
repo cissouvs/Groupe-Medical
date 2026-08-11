@@ -29,6 +29,7 @@ struct MedicalAppointmentModel: Identifiable {
     var specialty: MedicalSpeciality
     var date: Date
     var adress: String
-    var phoneNumber: String?
-    var emailAdress: String?
+    var phoneNumber: String
+    var emailAdress: String
+
 }

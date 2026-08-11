@@ -25,6 +25,7 @@ struct LandingScreenView: View {
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
     @State var medicalAppointmentVM = MedicalAppointmentViewModel()
+    @State var medicalAppointmentFormVM = MedicalAppointmentFormViewModel()
     @State private var quizzVM = QuizzViewModel()
     @State var dailyQuestionVM = DailyQuestionViewModel()
 
@@ -120,7 +121,7 @@ struct LandingScreenView: View {
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
                 case .appointment(let appointmentID):
-                    MedicalAppointmentDetailView(appointmentID: appointmentID)
+                    MedicalAppointmentDetailView(appointmentID: appointmentID, path: $path)
                 case .medicine(let medicineId):
                     MedicineDetailView(path: $path, medicineId: medicineId)
                 case .calendar(let selectedCalendarType):
@@ -142,6 +143,7 @@ struct LandingScreenView: View {
         .environment(eventVM)
         .environment(medicineVM)
         .environment(medicalAppointmentVM)
+        .environment(medicalAppointmentFormVM)
         .environment(quizzVM)
         .environment(dailyQuestionVM)
     }

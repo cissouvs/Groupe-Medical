@@ -45,26 +45,24 @@ struct AppointmentCardView: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 HStack(alignment: .center, spacing: 15) {
-                    if let phoneNumber = medicalAppointment.phoneNumber {
-                        Button {
-                            guard let number = URL(string: "tel://" + phoneNumber) else {
-                                return
-                            }
-                            UIApplication.shared.open(number)
-                        } label: {
-                            Image(systemName: "phone.circle.fill")
-                                .font(.largeTitle)
+                    Button {
+                        guard let number = URL(string: "tel://" + medicalAppointment.phoneNumber) else {
+                            return
                         }
+                        UIApplication.shared.open(number)
+                    } label: {
+                        Image(systemName: "phone.circle.fill")
+                            .font(.largeTitle)
                     }
-                    if let _ = medicalAppointment.emailAdress {
-                        Button {
-                            appointmentVM
-                                .sendEmail(openUrl: openUrl, appointment: medicalAppointment)
-                        } label: {
-                            Image(systemName: "message.circle.fill")
-                                .font(.largeTitle)
-                        }
+                    .disabled(medicalAppointment.phoneNumber.isEmpty)
+                    Button {
+                        appointmentVM
+                            .sendEmail(openUrl: openUrl, appointment: medicalAppointment)
+                    } label: {
+                        Image(systemName: "message.circle.fill")
+                            .font(.largeTitle)
                     }
+                    .disabled(medicalAppointment.emailAdress.isEmpty)
                 }
             }
             .padding(.horizontal, 5)

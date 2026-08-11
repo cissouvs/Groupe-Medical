@@ -12,6 +12,9 @@ struct MedicalAppointmentDetailView: View {
     var appointmentID: UUID
     @Environment(MedicalAppointmentViewModel.self) var appointmentVM
     @Environment(\.openURL) private var openUrl
+    @Binding var path: [Screen]
+    @State private var isModifySheetPresented: Bool = false
+    @State private var isDeletionConfirmationPresented: Bool = false
 
     var appointment: MedicalAppointmentModel? {
         appointmentVM.getAppointment(appointmentID: appointmentID)
@@ -63,25 +66,23 @@ struct MedicalAppointmentDetailView: View {
                         }
                         Spacer()
                         HStack(spacing: 20) {
-                            if let phoneNumber = appointment.phoneNumber {
-                                Button {
-                                    guard let number = URL(string: "tel://" + phoneNumber) else {
-                                        return
-                                    }
-                                    UIApplication.shared.open(number)
-                                } label: {
-                                    Image(systemName: "phone.circle.fill")
-                                        .font(.system(size: 50))
+                            Button {
+                                guard let number = URL(string: "tel://" + appointment.phoneNumber) else {
+                                    return
                                 }
+                                UIApplication.shared.open(number)
+                            } label: {
+                                Image(systemName: "phone.circle.fill")
+                                    .font(.system(size: 50))
                             }
-                            if let _ = appointment.emailAdress {
-                                Button {
-                                    appointmentVM.sendEmail(openUrl: openUrl, appointment: appointment)
-                                } label: {
-                                    Image(systemName: "message.circle.fill")
-                                        .font(.system(size: 50))
-                                }
+                            .disabled(appointment.phoneNumber.isEmpty)
+                            Button {
+                                appointmentVM.sendEmail(openUrl: openUrl, appointment: appointment)
+                            } label: {
+                                Image(systemName: "message.circle.fill")
+                                    .font(.system(size: 50))
                             }
+                            .disabled(appointment.emailAdress.isEmpty)
                         }
                     }
                     if let mapPosition = position,
@@ -128,6 +129,33 @@ struct MedicalAppointmentDetailView: View {
 
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Modifier", systemImage: "pencil.line") {
+                        isModifySheetPresented = true
+                    }
+                    .buttonStyle(.glass)
+                }
+                ToolbarItem(placement: .destructiveAction) {
+                    Button("Supprimer", systemImage: "trash") {
+                        isDeletionConfirmationPresented = true
+                    }
+                    .buttonStyle(.glass)
+                }
+            }
+            .alert("Voulez-vous vraiment supprimer ce médicament?", isPresented: $isDeletionConfirmationPresented) {
+                Button("Annuler", role: .cancel) {}
+                Button("Supprimer", role: .destructive) {
+                    appointmentVM.deleteAppointment(appointmentID: appointment.id)
+                    path.removeLast()
+                }
+            }
+            .sheet(isPresented: $isModifySheetPresented) {
+                ModifyAppointmentSheetView(
+                    appointmentID: appointment.id,
+                    isModifySheetPresented: $isModifySheetPresented,
+                )
+            }
             .ignoresSafeArea()
         } else {
             ContentUnavailableView {
@@ -138,6 +166,6 @@ struct MedicalAppointmentDetailView: View {
 }
 
 #Preview {
-    MedicalAppointmentDetailView(appointmentID: mockAppointments[0].id)
+    MedicalAppointmentDetailView(appointmentID: mockAppointments[0].id, path: .constant([]))
         .environment(MedicalAppointmentViewModel())
 }

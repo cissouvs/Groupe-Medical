@@ -10,12 +10,12 @@ import MapKit
 
 struct Place: Identifiable  {
     var id = UUID()
-    var image: String
+    var picture: String
     var name: String
     var adresse: String
     var detail: String
     var coordinate: CLLocationCoordinate2D
-    var places: DifferentPlaces 
+    var places: DifferentPlaces
 }
 
 enum DifferentPlaces : String, Identifiable, CaseIterable {

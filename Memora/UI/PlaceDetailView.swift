@@ -16,7 +16,7 @@ struct PlaceDetailView: View {
             Color.background
                 .ignoresSafeArea()
             ScrollView {
-                Image(place.image)
+                Image(place.picture)
                     .resizable()
                     .scaledToFill()
                     .frame(maxWidth: .infinity, maxHeight: 250)
@@ -52,7 +52,7 @@ struct PlaceDetailView: View {
                         .cornerRadius(20)
                     Map(position: $cameraPosition) {
                         Annotation("",coordinate: place.coordinate, anchor: .center) {
-                            Image(place.image)
+                            Image(place.picture)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 40, height: 40)

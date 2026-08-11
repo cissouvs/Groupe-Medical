@@ -12,28 +12,46 @@ struct AddSheetView: View {
     @State private var selectedType: CalendarType = .events
     @State var addEventVM = AddEvenSheetViewModel()
     @State var medicineFormVM = MedicineSheetFormViewModel()
+    @State var appointmentFormVM = MedicalAppointmentFormViewModel()
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
+    @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+
 
     var isAddButtonDisabled: Bool {
-        if selectedType == .events {
+        switch selectedType {
+        case .medications:
+            switch medicineFormVM.medicineForm.medicineType {
+            case .capsule:
+                if  medicineFormVM.medicineForm.capsuleNumber == nil ||
+                        medicineFormVM.medicineForm.weight == nil {
+                    return true
+                }
+            case .drinkable:
+                if medicineFormVM.medicineForm.volume == nil {
+                    return true
+                }
+            case .patch:
+                if medicineFormVM.medicineForm.patchNumber == nil ||
+                    medicineFormVM.medicineForm.duration == nil {
+                    return true
+                }
+            }
+        case .appointment:
+            if let phoneNumber = appointmentFormVM.appointmentForm.phoneNumber {
+                if !appointmentFormVM.validatePhoneNumber(phoneNumber: phoneNumber) {
+                    return true
+                }
+            }
+            if let emailAdress = appointmentFormVM.appointmentForm.emailAdress {
+                if !appointmentFormVM
+                    .validateEmailAddress(emailAdress: emailAdress) {
+                    return true
+                }
+            }
+            return appointmentFormVM.appointmentForm.name.isEmpty
+        case .events:
             return addEventVM.eventForm.title.isEmpty
-        }
-        switch medicineFormVM.medicineForm.medicineType {
-        case .capsule:
-            if  medicineFormVM.medicineForm.capsuleNumber == nil ||
-                    medicineFormVM.medicineForm.weight == nil {
-                return true
-            }
-        case .drinkable:
-            if medicineFormVM.medicineForm.volume == nil {
-                return true
-            }
-        case .patch:
-            if medicineFormVM.medicineForm.patchNumber == nil ||
-                medicineFormVM.medicineForm.duration == nil {
-                return true
-            }
         }
         return false
     }
@@ -44,6 +62,8 @@ struct AddSheetView: View {
                 Picker("Type Picker", selection: $selectedType) {
                     Text("Evènements")
                         .tag(CalendarType.events)
+                    Text("Rendez-vous")
+                        .tag(CalendarType.appointment)
                     Text("Médicaments")
                         .tag(CalendarType.medications)
                 }
@@ -53,7 +73,9 @@ struct AddSheetView: View {
                     case .medications:
                         MedicineSheetFormView(medicineForm: $medicineFormVM.medicineForm)
                     case .appointment:
-                        VStack {}
+                        MedicalAppointmentSheetFormView(
+                            appointmentForm: $appointmentFormVM.appointmentForm
+                        )
                     case .events:
                         EventFormSheetView(
                             isAddSheetPresented: $isAddSheetPresented,
@@ -80,7 +102,10 @@ struct AddSheetView: View {
                             case .medications:
                                 medicineVM.addMedicine(medicineForm: medicineFormVM.medicineForm)
                             case .appointment:
-                                return
+                                appointmentVM
+                                    .addAppointment(
+                                        appointmentForm: appointmentFormVM.appointmentForm
+                                    )
                             case .events:
                                 eventVM.addEvent(eventForm: addEventVM.eventForm)
                             }
@@ -106,4 +131,5 @@ struct AddSheetView: View {
     )
     .environment(EventViewModel())
     .environment(MedecineViewModel())
+    .environment(MedicalAppointmentViewModel())
 }

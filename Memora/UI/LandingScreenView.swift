@@ -49,11 +49,13 @@ struct LandingScreenView: View {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
                             ScrollView(.horizontal) {
-                                ForEach(todayAppointments) { medicalAppointment in
-                                    Button {
-                                        path.append(.appointment)
-                                    } label: {
-                                        AppointmentCardView(medicalAppointment: medicalAppointment)
+                                HStack {
+                                    ForEach(todayAppointments) { medicalAppointment in
+                                        Button {
+                                            path.append(.appointment)
+                                        } label: {
+                                            AppointmentCardView(medicalAppointment: medicalAppointment)
+                                        }
                                     }
                                 }
                             }
@@ -81,7 +83,7 @@ struct LandingScreenView: View {
                                 }
                                 Spacer()
                                 Button {
-                                    path.append(.calendar(.medications))
+                                    path.append(.calendar(.appointment))
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType:.appointment)
                                 }

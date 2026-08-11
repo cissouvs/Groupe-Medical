@@ -16,6 +16,15 @@ let mockAppointments: [MedicalAppointmentModel] = [
             adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
             phoneNumber: "0606060606",
             emailAdress: "ledocteur@medecin.fr"
+        ),
+        MedicalAppointmentModel(
+            name: "Dr Martin",
+            profilePicture: "",
+            specialty: .generalist,
+            date: Date(),
+            adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
+            phoneNumber: "0606060606",
+            emailAdress: "ledocteur@medecin.fr"
         )
     ]
 
@@ -27,5 +36,9 @@ final class MedicalAppointmentViewModel {
         let calendar = Calendar.current
         return appointments
             .filter({ calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame})
+    }
+
+    func addAppointment(appointmentForm: MedicalAppointmentModel) {
+        appointments.append(appointmentForm)
     }
 }

@@ -7,15 +7,18 @@
 
 import Foundation
 
-enum MedicalSpeciality: String, CaseIterable {
+enum MedicalSpeciality: String, Identifiable, CaseIterable {
     case generalist = "Médecin généraliste"
-    case neurologist = "Neurologist"
+    case neurologist = "Neurologiste"
     case geriatrician = "Gériatre"
     case psychiatrist = "Psychiatre"
     case neuropsychologist = "Neuropsychologue"
     case occupationalTherapist = "Ergothérapeute"
     case psychomotrician = "Psychomtricien"
     case nurse = "Infirmier"
+    case other = "Autre"
+
+    var id: Self { self }
 }
 
 struct MedicalAppointmentModel: Identifiable {

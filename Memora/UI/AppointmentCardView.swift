@@ -13,11 +13,22 @@ struct AppointmentCardView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            Image(medicalAppointment.profilePicture)
-                .resizable()
-                .clipShape(.circle)
-                .frame(width: 70, height: 70)
-                .clipped()
+            if medicalAppointment.profilePicture.isEmpty {
+                Image(systemName: "stethoscope")
+                    .font(.largeTitle)
+                    .padding(15)
+                    .foregroundStyle(.black)
+                    .background(.tagOrange)
+                    .clipShape(.circle)
+                    .frame(width: 70, height: 70)
+                    .clipped()
+            } else {
+                Image(medicalAppointment.profilePicture)
+                    .resizable()
+                    .clipShape(.circle)
+                    .frame(width: 70, height: 70)
+                    .clipped()
+            }
             VStack(alignment: .leading, spacing: 10) {
                 Text(medicalAppointment.name)
                     .foregroundStyle(.black)

@@ -12,7 +12,6 @@ final class MedicalAppointmentFormViewModel {
 
     var appointmentForm = MedicalAppointmentModel(
         name: "",
-        profilePicture: "",
         specialty: .other,
         date: Date(),
         adress: ""

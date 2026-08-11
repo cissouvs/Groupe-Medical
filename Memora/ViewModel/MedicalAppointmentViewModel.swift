@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 let mockAppointments: [MedicalAppointmentModel] = [
         MedicalAppointmentModel(
             name: "Dr Martin",
-            profilePicture: "drMartin",
+            profilePicture: Image("drMartin"),
             specialty: .generalist,
             date: Date(),
             adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
@@ -19,7 +20,6 @@ let mockAppointments: [MedicalAppointmentModel] = [
         ),
         MedicalAppointmentModel(
             name: "Dr Martin",
-            profilePicture: "",
             specialty: .generalist,
             date: Date(),
             adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
@@ -36,6 +36,13 @@ final class MedicalAppointmentViewModel {
         let calendar = Calendar.current
         return appointments
             .filter({ calendar.compare($0.date, to: date, toGranularity: .day) == .orderedSame})
+    }
+
+    func getAppointment(appointmentID: UUID) -> MedicalAppointmentModel? {
+        if let appointmentIndex = appointments.firstIndex(where: { $0.id == appointmentID }) {
+            return appointments[appointmentIndex]
+        }
+        return nil
     }
 
     func addAppointment(appointmentForm: MedicalAppointmentModel) {

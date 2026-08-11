@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum MedicalSpeciality: String, Identifiable, CaseIterable {
     case generalist = "Médecin généraliste"
@@ -24,7 +25,7 @@ enum MedicalSpeciality: String, Identifiable, CaseIterable {
 struct MedicalAppointmentModel: Identifiable {
     var id: UUID = UUID()
     var name: String
-    var profilePicture: String
+    var profilePicture: Image?
     var specialty: MedicalSpeciality
     var date: Date
     var adress: String

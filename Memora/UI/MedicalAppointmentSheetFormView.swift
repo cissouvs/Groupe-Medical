@@ -84,7 +84,6 @@ struct MedicalAppointmentSheetFormView: View {
         appointmentForm:
                 .constant(MedicalAppointmentModel(
                     name: "",
-                    profilePicture: "",
                     specialty: .other,
                     date: Date(),
                     adress: ""

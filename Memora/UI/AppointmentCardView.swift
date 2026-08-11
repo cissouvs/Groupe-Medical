@@ -13,18 +13,18 @@ struct AppointmentCardView: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            if medicalAppointment.profilePicture.isEmpty {
+            if let profilePicture = medicalAppointment.profilePicture {
+                profilePicture
+                    .resizable()
+                    .clipShape(.circle)
+                    .frame(width: 70, height: 70)
+                    .clipped()
+            } else {
                 Image(systemName: "stethoscope")
                     .font(.largeTitle)
                     .padding(15)
                     .foregroundStyle(.black)
                     .background(.tagOrange)
-                    .clipShape(.circle)
-                    .frame(width: 70, height: 70)
-                    .clipped()
-            } else {
-                Image(medicalAppointment.profilePicture)
-                    .resizable()
                     .clipShape(.circle)
                     .frame(width: 70, height: 70)
                     .clipped()

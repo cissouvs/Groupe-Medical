@@ -11,7 +11,7 @@ struct QuizzView: View {
     
     @Environment(DailyQuestionViewModel.self) var dailyQuestionVM
     @Environment(QuizzViewModel.self) var quizzVM
-    @Binding var path: [Screen]
+    @Environment(NotificationViewModel.self) var notificationVM
     
     var columns = [ GridItem(.flexible()), GridItem(.flexible())]
     
@@ -77,7 +77,8 @@ struct QuizzView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.bottom, 10)
-                    .frame(width: .infinity, height: 420)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 420)
                     .background {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(.whiteBackground)
@@ -98,7 +99,8 @@ struct QuizzView: View {
                         LazyVGrid(columns: columns, spacing: 10) {
                             ForEach(quizzVM.quizzes.enumerated(), id: \.offset) { index, quizz  in
                                 Button {
-                                    path.append(.detailQuizz(index))
+                                    notificationVM.mainPageNavigationPath
+                                        .append(.detailQuizz(index))
                                 } label: {
                                     QuizzCategoryCard(quizz: quizz)
                                 }
@@ -116,7 +118,9 @@ struct QuizzView: View {
 }
 
 #Preview {
-    QuizzView(path: .constant([]))
+    QuizzView()
         .environment(QuizzViewModel())
+        .environment(DailyQuestionViewModel())
+        .environment(NotificationViewModel())
 }
 

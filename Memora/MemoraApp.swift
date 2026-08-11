@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MemoraApp: App {
+    @UIApplicationDelegateAdaptor(NotificationViewModel.self) var notificationVM
     var body: some Scene {
         WindowGroup {
             TabBarView()
+                .environment(notificationVM)
         }
     }
 }

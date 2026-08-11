@@ -9,7 +9,9 @@ import SwiftUI
 
 struct LandingScreenHeaderView: View {
 
-    @Binding var path: [Screen]
+
+    @Environment(NotificationViewModel.self) var notificationVM
+    @State var vm = NotificationViewModel()
 
     var body: some View {
         HStack {
@@ -22,14 +24,14 @@ struct LandingScreenHeaderView: View {
             Spacer()
             HStack(spacing: 20) {
                 Button {
-
+                    vm.addNotification()
                 } label: {
                     Image(systemName: "bell")
                         .tint(.accent)
                         .font(.title)
                 }
                 Button {
-                    path.append(.profile)
+                    notificationVM.mainPageNavigationPath.append(.profile)
                 } label: {
                     Image(systemName: "person")
                         .tint(.accent)
@@ -41,5 +43,6 @@ struct LandingScreenHeaderView: View {
 }
 
 #Preview {
-    LandingScreenHeaderView(path: .constant([]))
+    LandingScreenHeaderView()
+        .environment(NotificationViewModel())
 }

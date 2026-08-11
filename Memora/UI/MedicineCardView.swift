@@ -33,7 +33,7 @@ struct MedicineCardView: View {
                         .resizable()
                         .padding(10)
                 } placeholder: {
-                    Image(systemName: "pilss.fill")
+                    Image(systemName: "pills.fill")
                         .resizable()
                         .padding(15)
                 }

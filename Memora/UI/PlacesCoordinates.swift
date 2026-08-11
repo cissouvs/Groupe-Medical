@@ -49,8 +49,8 @@ let cafeFrancePosition = CLLocationCoordinate2D(
 )
 
 let salleAinesPosition = CLLocationCoordinate2D(
-    latitude: 44.3388,
-    longitude: 1.2117
+    latitude: 44.33985491724095,
+    longitude: 1.2052881717896686
 )
 
 let tourMontcuqPosition = CLLocationCoordinate2D(

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnnotationView: View {
+struct AnnotationPlacesView: View {
     
     var place : Place
     
@@ -29,8 +29,9 @@ struct AnnotationView: View {
     }
 }
 
+
 #Preview {
-    AnnotationView(place: Place(
+    AnnotationPlacesView(place: Place(
         picture: "https://mairie-montcuq-en-quercy-blanc.fr/wp-content/uploads/2024/03/mediatheque_mtq.jpg",
         name: "Médiathèque Intercommunale du Quercy Blanc",
         adresse: "6 Place de la Halle aux Grains, 46800 Montcuq",

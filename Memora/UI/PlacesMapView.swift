@@ -8,9 +8,11 @@
 import SwiftUI
 import MapKit
 
-struct MapView: View {
+struct PlacesMapView: View {
     
-    @State var placesListVM = PlacesListViewModel()
+    @Environment(PlacesListViewModel.self) var placesListVM
+    
+    @Binding var path: [PlaceScreen]
     
     @State var camera = MapCameraPosition.automatic
     
@@ -21,36 +23,31 @@ struct MapView: View {
         longitude: 1.2024031597201768)
     
     var careGiversPosition = CLLocationCoordinate2D(
-        latitude: 44.33878193104696,
-        longitude: 1.2116824676429137)
+        latitude: 44.339932,
+        longitude: 1.212311)
     
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
             Map(position: $camera) {
                                 Annotation("Patient", coordinate: userPosition) {
-                                    Image(systemName: "person")
-                                        .foregroundStyle(.white)
-                                        .padding()
-                                        .background(.supportBlue)
-                                        .frame(width: 30, height: 30)
-                                        .clipShape(.circle)
+                                    AnnotationPersonView(color: .supportBlue)
+//                                        .foregroundStyle(.white)
+//                                        .padding()
+//                                        .background(.supportBlue)
+//                                        .frame(width: 30, height: 30)
+//                                        .clipShape(.circle)
                                 }
                                 Annotation("Vous", coordinate: careGiversPosition) {
-                                    Image(systemName: "person")
-                                        .foregroundStyle(.white)
-                                        .padding()
-                                        .background(.supportRed)
-                                        .frame(width: 30, height: 30)
-                                        .clipShape(.circle)
+                                    AnnotationPersonView(color: .supportRed)
                                 }
                 ForEach(placesListVM.filteredPlaces) { place in
                     Annotation(place.name, coordinate: place.coordinate)
                     {
                         Button(action: {
-                            selectedPlace = place
+                            path.append(.detail(place))
                         }) {
-                            AnnotationView(place: place)
+                            AnnotationPlacesView(place: place)
                         }
                     }
                 }
@@ -89,25 +86,12 @@ struct MapView: View {
                 }
             }
             .padding()
-            .environment(placesListVM)
         }
     }
 }
 
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        path.move(to: CGPoint(x: rect.midX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-        
-        return path
-    }
-}
 
 #Preview {
-    MapView()
+    PlacesMapView(path: .constant([]))
         .environment(PlacesListViewModel())
 }

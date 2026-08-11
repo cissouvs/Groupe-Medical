@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Place: Identifiable  {
+struct Place: Identifiable, Hashable {
     var id = UUID()
     var picture: String
     var name: String
@@ -16,7 +16,16 @@ struct Place: Identifiable  {
     var detail: String
     var coordinate: CLLocationCoordinate2D
     var places: DifferentPlaces
+
+    static func == (lhs: Place, rhs: Place) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
+
 
 enum DifferentPlaces : String, Identifiable, CaseIterable {
     var id: RawValue { rawValue}

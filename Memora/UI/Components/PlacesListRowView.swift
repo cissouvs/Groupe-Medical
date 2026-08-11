@@ -11,10 +11,15 @@ struct PlacesListRowView: View {
     var place : Place
     var body: some View {
         HStack{
-            Image(place.picture)
-                .resizable()
-                .cornerRadius(400)
-                .frame(width: 60, height: 60)
+            AsyncImage(url: URL(string: place.picture)) { image in
+                    image
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(400)
+                    .clipped()
+            } placeholder: {
+                Image(systemName: "pills.fill")
+            }
             VStack(alignment: .leading) {
                 Text(place.name)
                     .bold()

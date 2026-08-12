@@ -65,8 +65,6 @@ struct ModifyAppointmentSheetView: View {
                 .onAppear {
                     if let appointment = appointmentVM.getAppointment(appointmentID: appointmentID) {
                         appointmentForm = appointment
-                        print(appointment)
-                        print(appointmentForm)
                     }
                 }
         }

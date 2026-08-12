@@ -59,7 +59,8 @@ struct CalendarView: View {
                     case .appointment:
                         ForEach(appointmentVM.getFilteredAppointments(at: vm.date)) { appointment in
                             Button {
-                                notificationVM.mainPageNavigationPath.append(.appointment)
+                                notificationVM.mainPageNavigationPath
+                                    .append(.appointment(appointment.id))
                             } label: {
                                 AppointmentCardView(medicalAppointment: appointment)
                             }

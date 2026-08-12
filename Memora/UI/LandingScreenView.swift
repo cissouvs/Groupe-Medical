@@ -44,7 +44,8 @@ struct LandingScreenView: View {
                                 HStack {
                                     ForEach(todayAppointments) { medicalAppointment in
                                         Button {
-                                            notificationVM.mainPageNavigationPath.append(.appointment)
+                                            notificationVM.mainPageNavigationPath
+                                                .append(.appointment(medicalAppointment.id))
                                         } label: {
                                             AppointmentCardView(medicalAppointment: medicalAppointment)
                                         }
@@ -111,7 +112,7 @@ struct LandingScreenView: View {
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
                 case .appointment(let appointmentID):
-                    MedicalAppointmentDetailView(appointmentID: appointmentID, path: $path)
+                    MedicalAppointmentDetailView(appointmentID: appointmentID)
                 case .medicine(let medicineId):
                     MedicineDetailView(medicineId: medicineId)
                 case .calendar(let selectedCalendarType):

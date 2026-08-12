@@ -11,8 +11,8 @@ import MapKit
 struct MedicalAppointmentDetailView: View {
     var appointmentID: UUID
     @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+    @Environment(NotificationViewModel.self) var notificationVM
     @Environment(\.openURL) private var openUrl
-    @Binding var path: [Screen]
     @State private var isModifySheetPresented: Bool = false
     @State private var isDeletionConfirmationPresented: Bool = false
 
@@ -147,7 +147,7 @@ struct MedicalAppointmentDetailView: View {
                 Button("Annuler", role: .cancel) {}
                 Button("Supprimer", role: .destructive) {
                     appointmentVM.deleteAppointment(appointmentID: appointment.id)
-                    path.removeLast()
+                    notificationVM.mainPageNavigationPath.removeLast()
                 }
             }
             .sheet(isPresented: $isModifySheetPresented) {
@@ -166,6 +166,7 @@ struct MedicalAppointmentDetailView: View {
 }
 
 #Preview {
-    MedicalAppointmentDetailView(appointmentID: mockAppointments[0].id, path: .constant([]))
+    MedicalAppointmentDetailView(appointmentID: mockAppointments[0].id)
         .environment(MedicalAppointmentViewModel())
+        .environment(NotificationViewModel())
 }

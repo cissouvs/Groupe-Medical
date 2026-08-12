@@ -29,6 +29,7 @@ struct TakingTimingScrollView: View {
                 }
             }
         }
+        .scrollIndicators(.hidden)
         .frame(minHeight: 30)
     }
 }

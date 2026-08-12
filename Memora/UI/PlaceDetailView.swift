@@ -80,7 +80,8 @@ struct PlaceDetailView: View {
                 } .padding(.horizontal)
                 
             } .ignoresSafeArea()
-            
+                .scrollIndicators(.hidden)
+
         }
     }
 }

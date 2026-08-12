@@ -105,6 +105,7 @@ struct LandingScreenView: View {
                         }
                         Spacer(minLength: 100)
                     }
+                    .scrollIndicators(.hidden)
                 }
                 .padding(.horizontal, 12)
                 .padding(.top, 60)

@@ -101,6 +101,7 @@ struct MedicineDetailContenView: View {
                     Text(medicine.details)
                         .font(.custom("Lexend-Light", size: 16))
                 }
+                .scrollIndicators(.hidden)
                 .frame(height: 100)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)
                 InfoCardSectionView(medicine: medicine)
@@ -178,11 +179,11 @@ struct InfoCardView: View {
     var color: Color {
         switch cardType {
         case .date:
-                .accent
+                .supportRed
         case .amount, .volume, .patchDuration:
                 .supportGreen
         case .capsuleWeight:
-                .supportOrange
+                .accent
         }
     }
 

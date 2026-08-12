@@ -35,11 +35,14 @@ struct LandingScreenView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     ScrollView {
                         LandingScreenHeaderView()
+                            .padding(.horizontal, 12)
                         Divider()
+                            .padding(.horizontal, 12)
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
                                 .font(.custom("Legend-Regular", size: 20))
+                                .padding(.horizontal, 12)
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(todayAppointments) { medicalAppointment in
@@ -48,6 +51,8 @@ struct LandingScreenView: View {
                                                 .append(.appointment(medicalAppointment.id))
                                         } label: {
                                             AppointmentCardView(medicalAppointment: medicalAppointment)
+                                                .frame(width: 350)
+                                                .padding(.leading, 12)
                                         }
                                     }
                                 }
@@ -55,6 +60,7 @@ struct LandingScreenView: View {
                             Text("Rappel")
                                 .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
+                                .padding(.horizontal, 12)
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(
@@ -64,6 +70,8 @@ struct LandingScreenView: View {
                                                 notificationVM.mainPageNavigationPath.append(.medicine(medicine.id))
                                             } label: {
                                                 MedicineCardView(medicine: medicine)
+                                                    .frame(width: 350)
+                                                    .padding(.leading, 12)
                                             }
                                         }
                                 }
@@ -71,6 +79,7 @@ struct LandingScreenView: View {
                             Text("Vue d'ensemble")
                                 .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
+                                .padding(.horizontal, 12)
                             HStack {
                                 Button {
                                     notificationVM.mainPageNavigationPath.append(.calendar(.medications))
@@ -90,39 +99,53 @@ struct LandingScreenView: View {
                                     LandingScreenCalendarButtonView(calendarViewType: .events)
                                 }
                             }
-                            .padding(10)
+                            .padding(12)
                             .background(.whiteBackground)
                             .cornerRadius(20)
                             Text("S'exercer")
                                 .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
+                                .padding(.horizontal, 12)
                             Button {
                                 notificationVM.mainPageNavigationPath.append(.quizz)
                             } label: {
                                 LandingScreenQuizzButtonView()
+                                    .padding(.horizontal, 12)
                             }
 
                         }
                         Spacer(minLength: 100)
                     }
+                    .scrollIndicators(.hidden)
                 }
-                .padding(.horizontal, 12)
                 .padding(.top, 60)
             }
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
                 case .appointment(let appointmentID):
                     MedicalAppointmentDetailView(appointmentID: appointmentID)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .medicine(let medicineId):
                     MedicineDetailView(medicineId: medicineId)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .calendar(let selectedCalendarType):
                     CalendarView(selectedCalendarType: selectedCalendarType)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .quizz:
                     QuizzView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .detailQuizz(let index):
                     DetailQuizzView(quizzIndex: index)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .quizzFinished(let index):
                     CardFinishTaskView(quizzIndex: index)
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                case .profile:
+                    ProfileView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                case .emergencyContact:
+                    ContactsListView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
             .ignoresSafeArea()

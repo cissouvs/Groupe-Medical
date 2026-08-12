@@ -44,18 +44,17 @@ struct MedicineCardView: View {
             .clipped()
             VStack(alignment: .leading, spacing: 10) {
                 Text(medicine.medicineName.rawValue)
-                    .font(.custom("Lexend-Regular", size: 16))
+                    .font(.custom("Lexend-Regular", size: 20))
                 Text(medicine.posologyString)
-                    .font(.custom("Lexend-Regular", size: 16))
+                    .font(.custom("Lexend-Regular", size: 20))
                     .foregroundStyle(.secondText)
-                TakingTimingScrollView(takingMoments: medicine.takingMoments)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(10)
+            TakingTimingStackView(takingMoments: medicine.takingMoments)
         }
         .padding(.horizontal, 10)
-        .padding(.vertical, 5)
-        .frame(minWidth: 300)
+        .padding(.vertical, 7)
+        .frame(width: .infinity, height: 130)
         .background(.whiteBackground)
         .foregroundStyle(.black)
         .cornerRadius(20)

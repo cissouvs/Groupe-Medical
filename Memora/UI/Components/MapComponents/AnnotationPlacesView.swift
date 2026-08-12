@@ -15,13 +15,13 @@ struct AnnotationPlacesView: View {
         ZStack {
             Triangle()
                 .fill(.supportRed)
-                .frame(width: 25, height: 20)
+                .frame(width: 40, height: 30)
                 .offset(x: 0, y: 20)
             AsyncImage(url: URL(string: place.picture)) {
                 image in image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 40, height: 40)
                     .clipShape(Circle())
                     .overlay {
                         Circle()

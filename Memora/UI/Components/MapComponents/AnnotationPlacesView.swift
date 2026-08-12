@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnnotationView: View {
+struct AnnotationPlacesView: View {
     
     var place : Place
     
@@ -15,22 +15,28 @@ struct AnnotationView: View {
         ZStack {
             Triangle()
                 .fill(.supportRed)
-                .frame(width: 25, height: 20)
+                .frame(width: 40, height: 30)
                 .offset(x: 0, y: 20)
-            AsyncImage(url: URL(string: place.picture))
-                .scaledToFill()
-                .frame(width: 30, height: 30)
-                .clipShape(Circle())
-                .overlay {
-                    Circle()
-                        .stroke(.supportRed, lineWidth: 3)
-                }
+            AsyncImage(url: URL(string: place.picture)) {
+                image in image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(.supportRed, lineWidth: 3)
+                    }
+            } placeholder: {
+                Image(systemName: "photo.artframe")
+            }
         }
     }
 }
 
+
 #Preview {
-    AnnotationView(place: Place(
+    AnnotationPlacesView(place: Place(
         picture: "https://mairie-montcuq-en-quercy-blanc.fr/wp-content/uploads/2024/03/mediatheque_mtq.jpg",
         name: "Médiathèque Intercommunale du Quercy Blanc",
         adresse: "6 Place de la Halle aux Grains, 46800 Montcuq",

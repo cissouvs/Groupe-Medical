@@ -9,6 +9,11 @@ import SwiftUI
 import MapKit
 
 struct PlaceDetailView: View {
+    
+    @Environment(PlacesListViewModel.self) var placesListVM
+    
+    @Binding var path: [PlaceScreen]
+    
     @State private var cameraPosition: MapCameraPosition = .automatic
     var place : Place
     var body: some View {
@@ -16,11 +21,14 @@ struct PlaceDetailView: View {
             Color.background
                 .ignoresSafeArea()
             ScrollView {
-                Image(place.picture)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity, maxHeight: 250)
-                    .clipped()
+                AsyncImage(url: URL(string: place.picture)) { image in
+                        image
+                        .resizable()
+                        .frame(maxWidth: .infinity, maxHeight: 250)
+                        .clipped()
+                } placeholder: {
+                    Image(systemName: "photo.artframe")
+                }
                 VStack(alignment:.leading, spacing: 20){
                     Text(place.name)
                         .foregroundStyle(.black)
@@ -52,11 +60,7 @@ struct PlaceDetailView: View {
                         .cornerRadius(20)
                     Map(position: $cameraPosition) {
                         Annotation("",coordinate: place.coordinate, anchor: .center) {
-                            Image(place.picture)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 40, height: 40)
-                                .clipShape(.circle)
+                            AnnotationPlacesView(place: place)
                         }
                     }
                     .onAppear {
@@ -81,5 +85,6 @@ struct PlaceDetailView: View {
     }
 }
 #Preview {
-    PlaceDetailView(place: allPlaces[0])
+    PlaceDetailView(path: .constant([]), place: allPlaces[0])
+        .environment(PlacesListViewModel())
 }

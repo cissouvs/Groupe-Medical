@@ -17,7 +17,7 @@ struct TabBarView: View {
 
             }
             Tab("Carte", systemImage: "map.fill") {
-                MapView()
+                PlacesView()
             }
         }
         .tint(.accent)

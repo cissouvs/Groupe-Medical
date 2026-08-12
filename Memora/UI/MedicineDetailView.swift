@@ -179,11 +179,11 @@ struct InfoCardView: View {
     var color: Color {
         switch cardType {
         case .date:
-                .accent
+                .supportRed
         case .amount, .volume, .patchDuration:
                 .supportGreen
         case .capsuleWeight:
-                .supportOrange
+                .accent
         }
     }
 

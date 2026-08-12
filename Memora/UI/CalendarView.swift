@@ -32,7 +32,7 @@ struct CalendarView: View {
                 .datePickerStyle(.graphical)
                 .environment(\.locale, Locale.init(identifier: "fr"))
                 .tint(.accent)
-            VStack(spacing: 20) {
+            VStack {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
                         .foregroundStyle(.secondText)

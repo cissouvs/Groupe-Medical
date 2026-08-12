@@ -15,8 +15,6 @@ enum Screen: Hashable {
     case quizz
     case detailQuizz(Int)
     case quizzFinished(Int)
-    case profile
-    case emergencyContact
 }
 
 @Observable

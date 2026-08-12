@@ -13,11 +13,11 @@ struct TabBarView: View {
             Tab("Accueil", systemImage: "house.fill") {
                 LandingScreenView()
             }
-            Tab("Communauté", systemImage: "person.3.fill") {
-
-            }
             Tab("Carte", systemImage: "map.fill") {
                 PlacesView()
+            }
+            Tab("Profil", systemImage: "person.fill") {
+                ProfileView()
             }
         }
         .tint(.accent)

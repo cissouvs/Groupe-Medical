@@ -31,13 +31,13 @@ struct LandingScreenHeaderView: View {
                         .tint(.accent)
                         .font(.title)
                 }
-                Button {
-                    notificationVM.mainPageNavigationPath.append(.profile)
-                } label: {
-                    Image(systemName: "person")
-                        .tint(.accent)
-                        .font(.title)
-                }
+//                Button {
+//                    notificationVM.mainPageNavigationPath.append(.profile)
+//                } label: {
+//                    Image(systemName: "person")
+//                        .tint(.accent)
+//                        .font(.title)
+//                }
             }
         }
     }

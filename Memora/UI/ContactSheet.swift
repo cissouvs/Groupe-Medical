@@ -47,13 +47,14 @@ struct ContactSheet: View {
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
-                        .frame(maxWidth: 400)
+                        .frame(maxWidth: 200)
                 } else {
-                    Image("placeholder")
+                    Image(systemName: "photo.artframe")
                         .resizable()
                         .scaledToFit()
                         .clipShape(.circle)
                         .frame(maxWidth: 200)
+                        .foregroundStyle(Color.background)
                 }
             }
             .onChange(of: pickerItem) {

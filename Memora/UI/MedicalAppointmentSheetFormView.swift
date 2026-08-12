@@ -12,8 +12,6 @@ struct MedicalAppointmentSheetFormView: View {
     @Binding var appointmentForm: MedicalAppointmentModel
     @State private var pickerItem: PhotosPickerItem?
     @State private var pickerImage: Image?
-    @State private var phoneNumber: String = ""
-    @State private var emailAdress: String = ""
 
     var body: some View {
         Form {
@@ -47,7 +45,7 @@ struct MedicalAppointmentSheetFormView: View {
                     Text("Nom")
                         .font(.custom("Lexend-Regular", size: 16))
                 }
-                
+
                 Picker(selection: $appointmentForm.specialty) {
                     ForEach(MedicalSpeciality.allCases) { specialty in
                         Text(specialty.rawValue)
@@ -55,7 +53,7 @@ struct MedicalAppointmentSheetFormView: View {
                 } label: {
                     Text("Spécialités")
                         .font(.custom("Lexend-Regular", size: 16))
-                         
+
                 }
                 .tint(.accentColor)
             }
@@ -71,28 +69,14 @@ struct MedicalAppointmentSheetFormView: View {
                     Text("Adresse")
                         .font(.custom("Lexend-Regular", size: 16))
                 }
-                TextField(text: $phoneNumber){
+                TextField(text: $appointmentForm.phoneNumber){
                     Text("N° de téléphone")
                         .font(.custom("Lexend-Regular", size: 16))
                 }
-                    .onChange(of: phoneNumber) {
-                        if phoneNumber.isEmpty {
-                            appointmentForm.phoneNumber = nil
-                        } else {
-                            appointmentForm.phoneNumber = phoneNumber
-                        }
-                    }
-                TextField(text: $emailAdress){
+                TextField(text: $appointmentForm.emailAdress){
                     Text("Email")
                         .font(.custom("Lexend-Regular", size: 16))
                 }
-                    .onChange(of: emailAdress) {
-                        if emailAdress.isEmpty {
-                            appointmentForm.emailAdress = nil
-                        } else {
-                            appointmentForm.emailAdress = emailAdress
-                        }
-                    }
             }
         }
     }

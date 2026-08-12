@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum Screen: Hashable {
-    case appointment
+    case appointment(UUID)
     case medicine(UUID)
     case calendar(CalendarType)
     case quizz

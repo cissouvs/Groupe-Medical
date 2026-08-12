@@ -25,15 +25,17 @@ struct ContactsListView: View {
                             if let contactPhoto = contact.photo {
                                 contactPhoto
                                     .resizable()
-                                    .scaledToFit()
                                     .clipShape(.circle)
-                                    .frame(maxWidth: 50)
+                                    .frame(width: 70, height: 70)
+                                    .clipped()
                             } else {
-                                Image("placeholder")
+                                Image(systemName: "photo.artframe")
                                     .resizable()
-                                    .scaledToFit()
+                                    .foregroundStyle(.mainText)
                                     .clipShape(.circle)
-                                    .frame(maxWidth: 200)
+                                    .frame(width: 70, height: 70)
+
+                                    .clipped()
                             }
                             Text(contact.firstName)
                             Text(contact.surName)

@@ -62,11 +62,11 @@ struct ModifyAppointmentSheetView: View {
                         .disabled(isConfirmationButtonDisabled)
                     }
                 }
-                .onAppear {
-                    if let appointment = appointmentVM.getAppointment(appointmentID: appointmentID) {
-                        appointmentForm = appointment
-                    }
-                }
+        }
+        .onAppear {
+            if let appointment = appointmentVM.getAppointment(appointmentID: appointmentID) {
+                appointmentForm = appointment
+            }
         }
     }
 }

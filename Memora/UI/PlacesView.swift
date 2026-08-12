@@ -87,8 +87,6 @@ struct PlacesView: View {
                             Text("Liste").tag(1)
                         }
                     }
-                    .padding(.trailing, 10)
-                    .padding(.top, 8)
                     .pickerStyle(.segmented)
                     .frame(width: 280)
                 }

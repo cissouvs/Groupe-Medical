@@ -30,17 +30,12 @@ struct PlacesMapView: View {
         
         ZStack(alignment: .bottomTrailing) {
             Map(position: $camera) {
-                                Annotation("Patient", coordinate: userPosition) {
-                                    AnnotationPersonView(color: .supportBlue)
-//                                        .foregroundStyle(.white)
-//                                        .padding()
-//                                        .background(.supportBlue)
-//                                        .frame(width: 30, height: 30)
-//                                        .clipShape(.circle)
-                                }
-                                Annotation("Vous", coordinate: careGiversPosition) {
-                                    AnnotationPersonView(color: .supportRed)
-                                }
+                Annotation("Patient", coordinate: userPosition) {
+                    AnnotationPersonView(color: .supportGreen, picture: "colette")
+                }
+                Annotation("Vous", coordinate: careGiversPosition) {
+                    AnnotationPersonView(color: .supportOrange, picture: "yann")
+                }
                 ForEach(placesListVM.filteredPlaces) { place in
                     Annotation(place.name, coordinate: place.coordinate)
                     {
@@ -65,12 +60,7 @@ struct PlacesMapView: View {
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
-                    Image(systemName: "paperplane")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.white)
-                        .padding(10)
-                        .background(.supportRed)
-                        .clipShape(.circle)
+                    ButtonMap(symbole: "paperplane.fill", color: .supportOrange)
                 }
                 Button {
                     camera = .region(MKCoordinateRegion(
@@ -78,11 +68,7 @@ struct PlacesMapView: View {
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
-                    Image(systemName: "mappin")
-                        .font(.system(size: 16))                        .foregroundStyle(.white)
-                        .padding(10)
-                        .background(.supportBlue)
-                        .clipShape(.circle)
+                    ButtonMap(symbole: "cross.fill", color: .supportGreen)
                 }
             }
             .padding()

@@ -10,27 +10,24 @@ import SwiftUI
 struct AnnotationPersonView: View {
     
     var color: Color
+    var picture: String = ""
     
     var body: some View {
         ZStack {
             Triangle()
                 .fill(color)
-                .frame(width: 25, height: 20)
+                .frame(width: 40, height: 30)
                 .offset(x: 0, y: 20)
-            Image(systemName: "person")
+            Image(picture)
+                .resizable()
                 .scaledToFill()
-                .frame(width: 30, height: 30)
+                .frame(width: 40, height: 40)
                 .clipShape(Circle())
                 .overlay {
                     Circle()
                         .stroke(color, lineWidth: 3)
                 }
         }
-//                                        .foregroundStyle(.white)
-//                                        .padding()
-//                                        .background(.supportBlue)
-//                                        .frame(width: 30, height: 30)
-//                                        .clipShape(.circle)
     }
 }
 

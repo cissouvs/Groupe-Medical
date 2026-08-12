@@ -27,10 +27,8 @@ struct PlaceDetailView: View {
                         .frame(maxWidth: .infinity, maxHeight: 250)
                         .clipped()
                 } placeholder: {
-                    Image(systemName: "pills.fill")
+                    Image(systemName: "photo.artframe")
                 }
-                    
-                    
                 VStack(alignment:.leading, spacing: 20){
                     Text(place.name)
                         .foregroundStyle(.black)
@@ -62,15 +60,7 @@ struct PlaceDetailView: View {
                         .cornerRadius(20)
                     Map(position: $cameraPosition) {
                         Annotation("",coordinate: place.coordinate, anchor: .center) {
-                            AsyncImage(url: URL(string: place.picture)) { image in
-                                    image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(.circle)
-                            } placeholder: {
-                                Image(systemName: "pills.fill")
-                            }
+                            AnnotationPlacesView(place: place)
                         }
                     }
                     .onAppear {

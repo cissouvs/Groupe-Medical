@@ -18,7 +18,9 @@ struct PlacesListRowView: View {
                     .cornerRadius(400)
                     .clipped()
             } placeholder: {
-                Image(systemName: "pills.fill")
+                Image(systemName: "photo.artframe")
+                    .font(.title)
+                    .frame(width: 60, height: 60)
             }
             VStack(alignment: .leading) {
                 Text(place.name)
@@ -30,6 +32,7 @@ struct PlacesListRowView: View {
                 }
             }
         }
+        .foregroundStyle(.mainText)
     }
 }
 

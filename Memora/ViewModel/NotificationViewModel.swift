@@ -34,10 +34,12 @@ final class NotificationViewModel: NSObject, UIApplicationDelegate, UNUserNotifi
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         
-        if let pageLink = response.notification.request.content.userInfo["pageLink"] as? Screen {
-            if mainPageNavigationPath.last != pageLink {
-                mainPageNavigationPath = []
-                mainPageNavigationPath.append(pageLink)
+        if let pageLink = response.notification.request.content.userInfo["pageLink"] as? String? {
+            if let screen = pageLink?.toScreen() {
+                if mainPageNavigationPath.last != screen {
+                    mainPageNavigationPath = []
+                    mainPageNavigationPath.append(screen)
+                }
             }
         }
     }
@@ -50,7 +52,7 @@ final class NotificationViewModel: NSObject, UIApplicationDelegate, UNUserNotifi
             content.title = "It's TIME !"
             content.subtitle = "N'oublies pas de remplir !"
             content.sound = UNNotificationSound.default
-//            content.userInfo = ["pageLink": Screen.calendar(.events)]
+            content.userInfo = ["pageLink": "calendar.events"]
  
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             
@@ -73,4 +75,13 @@ final class NotificationViewModel: NSObject, UIApplicationDelegate, UNUserNotifi
         }
     }
     
+}
+
+extension String {
+    func toScreen() -> Screen? {
+        if self == "calendar.events" {
+            return .calendar(.events)
+        }
+        return nil
+    }
 }

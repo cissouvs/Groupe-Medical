@@ -34,7 +34,7 @@ struct QuizzAnswerCard: View {
             Text(quizzVM.quizzes[quizzIndex].questions[questionIndex].guesses[guessIndex])
                 .frame(width: 270, height: 40, alignment: .leading)
                 .lineLimit(2)
-            Image(systemName: "circle")
+            Image(systemName: quizzVM.selectedAnswers[guessIndex] ? "checkmark.circle.fill" : "circle")
         }
         .foregroundStyle(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText)
         .fontWeight(quizzVM.selectedAnswers[guessIndex] ? .semibold : .regular)

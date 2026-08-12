@@ -114,21 +114,21 @@ struct CalendarView: View {
                             .foregroundStyle(.black)
                     }
                 }
-                .sheet(isPresented: $isAddSheetPresented) {
-                    AddSheetView(
-                        isAddSheetPresented: $isAddSheetPresented
-                    )
-                }
+            }
+            .sheet(isPresented: $isAddSheetPresented) {
+                AddSheetView(
+                    isAddSheetPresented: $isAddSheetPresented
+                )
             }
             .padding(.horizontal, 12)
             .background(Color.background)
         }
     }
 }
-    #Preview {
-        CalendarView(selectedCalendarType: .medications)
-            .environment(EventViewModel())
-            .environment(MedecineViewModel())
-            .environment(MedicalAppointmentViewModel())
-            .environment(NotificationViewModel())
-    }
+#Preview {
+    CalendarView(selectedCalendarType: .medications)
+        .environment(EventViewModel())
+        .environment(MedecineViewModel())
+        .environment(MedicalAppointmentViewModel())
+        .environment(NotificationViewModel())
+}

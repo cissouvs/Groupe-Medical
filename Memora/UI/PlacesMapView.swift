@@ -60,7 +60,7 @@ struct PlacesMapView: View {
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
-                    ButtonMap(symbole: "paperplane.fill", color: .supportOrange)
+                    ButtonMap(symbole: "location.fill", color: .supportOrange)
                 }
                 Button {
                     camera = .region(MKCoordinateRegion(
@@ -68,7 +68,7 @@ struct PlacesMapView: View {
                         latitudinalMeters: 200,
                         longitudinalMeters: 200))
                 } label: {
-                    ButtonMap(symbole: "cross.fill", color: .supportGreen)
+                    ButtonMap(symbole: "cross.case.fill", color: .supportGreen)
                 }
             }
             .padding()

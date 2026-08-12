@@ -34,7 +34,7 @@ struct MedicalAppointmentSheetFormView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
-            .frame(width: .infinity, height: 150)
+            .frame(height: 150)
             .onChange(of: pickerItem) {
                 Task {
                     if let loadedImage = try? await pickerItem?.loadTransferable(type: Image.self) {
@@ -99,15 +99,16 @@ struct MedicalAppointmentSheetFormView: View {
 }
 
 #Preview {
-    MedicalAppointmentSheetFormView(
-        appointmentForm:
-                .constant(MedicalAppointmentModel(
+    MedicalAppointmentSheetFormView(appointmentForm:
+            .constant(
+                MedicalAppointmentModel(
                     name: "",
-                    profilePicture: "",
                     specialty: .other,
                     date: Date(),
-                    adress: ""
+                    adress: "",
+                    phoneNumber: "",
+                    emailAdress: ""
                 )
-                )
+            )
     )
 }

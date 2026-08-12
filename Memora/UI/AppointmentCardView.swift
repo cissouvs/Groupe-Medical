@@ -9,22 +9,24 @@ import SwiftUI
 
 struct AppointmentCardView: View {
 
+    @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+    @Environment(\.openURL) var openUrl
     var medicalAppointment: MedicalAppointmentModel
 
     var body: some View {
         HStack(spacing: 10) {
-            if medicalAppointment.profilePicture.isEmpty {
+            if let profilePicture = medicalAppointment.profilePicture {
+                profilePicture
+                    .resizable()
+                    .clipShape(.circle)
+                    .frame(width: 70, height: 70)
+                    .clipped()
+            } else {
                 Image(systemName: "stethoscope")
                     .font(.largeTitle)
                     .padding(15)
                     .foregroundStyle(.black)
                     .background(.tagOrange)
-                    .clipShape(.circle)
-                    .frame(width: 70, height: 70)
-                    .clipped()
-            } else {
-                Image(medicalAppointment.profilePicture)
-                    .resizable()
                     .clipShape(.circle)
                     .frame(width: 70, height: 70)
                     .clipped()
@@ -43,22 +45,24 @@ struct AppointmentCardView: View {
                 Text(medicalAppointment.date.formatted(.dateTime.hour().minute()))
                     .font(.custom("Lexend-SemiBold", size: 26))
                 HStack(alignment: .center, spacing: 15) {
-                    if let phoneNumber = medicalAppointment.phoneNumber {
-                        Button {
-
-                        } label: {
-                            Image(systemName: "phone.circle.fill")
-                                .font(.largeTitle)
+                    Button {
+                        guard let number = URL(string: "tel://" + medicalAppointment.phoneNumber) else {
+                            return
                         }
+                        UIApplication.shared.open(number)
+                    } label: {
+                        Image(systemName: "phone.circle.fill")
+                            .font(.largeTitle)
                     }
-                    if let emailAdress = medicalAppointment.emailAdress {
-                        Button {
-
-                        } label: {
-                            Image(systemName: "message.circle.fill")
-                                .font(.largeTitle)
-                        }
+                    .disabled(medicalAppointment.phoneNumber.isEmpty)
+                    Button {
+                        appointmentVM
+                            .sendEmail(openUrl: openUrl, appointment: medicalAppointment)
+                    } label: {
+                        Image(systemName: "message.circle.fill")
+                            .font(.largeTitle)
                     }
+                    .disabled(medicalAppointment.emailAdress.isEmpty)
                 }
             }
             .padding(.horizontal, 5)
@@ -71,5 +75,5 @@ struct AppointmentCardView: View {
 
 #Preview {
     AppointmentCardView(medicalAppointment: mockAppointments[0])
-
+        .environment(MedicalAppointmentViewModel())
 }

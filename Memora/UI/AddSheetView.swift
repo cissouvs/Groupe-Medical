@@ -38,16 +38,14 @@ struct AddSheetView: View {
                 }
             }
         case .appointment:
-            if let phoneNumber = appointmentFormVM.appointmentForm.phoneNumber {
-                if !appointmentFormVM.validatePhoneNumber(phoneNumber: phoneNumber) {
-                    return true
-                }
+            if !appointmentFormVM.appointmentForm.phoneNumber.isEmpty &&
+                !appointmentFormVM.validatePhoneNumber(phoneNumber: appointmentFormVM.appointmentForm.phoneNumber) {
+                return true
             }
-            if let emailAdress = appointmentFormVM.appointmentForm.emailAdress {
-                if !appointmentFormVM
-                    .validateEmailAddress(emailAdress: emailAdress) {
-                    return true
-                }
+            if  !appointmentFormVM.appointmentForm.emailAdress.isEmpty &&
+                    !appointmentFormVM
+                .validateEmailAddress(emailAdress: appointmentFormVM.appointmentForm.emailAdress) {
+                return true
             }
             return appointmentFormVM.appointmentForm.name.isEmpty
         case .events:

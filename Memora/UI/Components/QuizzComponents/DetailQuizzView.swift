@@ -70,7 +70,7 @@ struct DetailQuizzView: View {
                                     .font(.title)
                                     .fontWeight(.semibold)
                                     .fixedSize(horizontal: false, vertical: true)
-                                    .lineLimit(2)
+                                    .lineLimit(3)
                             .padding(.vertical, 10)
                             Text("Choisissez la bonne réponse")
                                 .foregroundStyle(.secondText)
@@ -133,7 +133,3 @@ struct DetailQuizzView: View {
     DetailQuizzView(quizzIndex: 0)
     .environment(QuizzViewModel())
 }
-
-//#Preview {
-//    QuizzView()
-//}

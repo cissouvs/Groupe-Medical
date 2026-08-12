@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LandingScreenCalendarButtonView: View {
-
+    
     var calendarViewType: CalendarType
-
+    
     var logoName: String {
         switch calendarViewType {
         case .medications:
@@ -21,7 +21,7 @@ struct LandingScreenCalendarButtonView: View {
             "1.calendar"
         }
     }
-
+    
     var title: String {
         switch calendarViewType {
         case .medications:
@@ -32,7 +32,18 @@ struct LandingScreenCalendarButtonView: View {
             "Evénements"
         }
     }
-
+    
+    var description: String {
+        switch calendarViewType {
+        case .medications:
+            "Gérez vos traitements"
+        case .appointment:
+            "Consultez vos RDV"
+        case .events:
+            "Voir vos événements"
+        }
+    }
+    
     var color: Color {
         switch calendarViewType {
         case .medications:
@@ -43,23 +54,37 @@ struct LandingScreenCalendarButtonView: View {
             Color.supportGreen
         }
     }
-
-
+    
+    var backgroundColor: Color {
+        switch calendarViewType {
+        case .medications:
+            Color.tagRed
+        case .appointment:
+            Color.tagOrange
+        case .events:
+            Color.tagGreen
+        }
+    }
+    
+    
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 4) {
             Image(systemName: logoName)
+                .font(.system(size: 50))
                 .clipShape(.rect)
                 .frame(width: 70, height: 75)
-                .background(color)
                 .cornerRadius(20)
                 .font(.title)
+                .foregroundStyle(color)
             Text(title)
-                .foregroundStyle(Color.background)
+                .foregroundStyle(.mainText)
+                .font(.custom("Lexend-Regular", size: 14))
+            Text(description)
                 .font(.custom("Lexend-Regular", size: 12))
-                
+                .foregroundStyle(.secondText)
         }
         .padding(10)
-        .background(.secondText)
+        .background(backgroundColor.opacity(0.5))
         .cornerRadius(20)
         .tint(.mainText)
     }

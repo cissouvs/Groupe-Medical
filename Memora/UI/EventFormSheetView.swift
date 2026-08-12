@@ -30,37 +30,64 @@ struct EventFormSheetView: View {
 
         Form {
             Section {
-                TextField("Titre", text: $eventForm.title)
+                TextField(text: $eventForm.title){
+                    Text("Titre")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
                     .focused($focusedField, equals: .title)
-                TextField("Description", text: $eventForm.description)
+                TextField(text: $eventForm.description){
+                    Text("Description")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
                     .focused($focusedField, equals: .description)
-                Picker("Type", selection: $eventForm.type) {
+                Picker(selection: $eventForm.type) {
                     ForEach(EventType.allCases) { type in
                         Text(type.rawValue).tag(type)
                     }
+                } label: {
+                    Text("Titre")
+                        .font(.custom("Lexend-Regular", size: 16))
                 }
                 .tint(.accent)
             }
             Section {
-                Toggle("Journée Entière", isOn: $eventForm.isAllDay)
+                Toggle(isOn: $eventForm.isAllDay){
+                    Text("Journée entière")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
                     .tint(.accent)
                 if eventForm.isAllDay {
-                    DatePicker("Jour", selection: $eventForm.date, displayedComponents: [.date])
+                    DatePicker(selection: $eventForm.date, displayedComponents: [.date]){
+                        Text("Jour")
+                            .font(.custom("Lexend-Regular", size: 16))
+                    }
                         .datePickerStyle(.automatic)
                 } else {
-                    DatePicker("Début", selection: $eventForm.date)
+                    DatePicker(selection: $eventForm.date){
+                        Text("Début")
+                            .font(.custom("Lexend-Regular", size: 16))
+                    }
                         .datePickerStyle(.automatic)
                     if let eventEndTime  = Binding($eventForm.endTime) {
-                        DatePicker("Fin", selection: eventEndTime)
+                        DatePicker(selection: eventEndTime){
+                            Text("Fin")
+                                .font(.custom("Lexend-Regular", size: 16))
+                        }
                             .datePickerStyle(.automatic)
                     }
                 }
                 if let eventLocation = Binding($eventForm.location) {
-                    TextField("Lieu", text: eventLocation)
+                    TextField(text: eventLocation){
+                        Text("Lieu")
+                            .font(.custom("Lexend-Regular", size: 16))
+                    }
                         .focused($focusedField, equals: .location)
                 }
                 VStack(alignment: .leading) {
-                    TextField("Participant", text: $newParticipant)
+                    TextField(text: $newParticipant){
+                        Text("Participant")
+                            .font(.custom("Lexend-Regular", size: 16))
+                    }
                         .focused($focusedField, equals: .partipants)
                 }
                 ScrollView(.horizontal) {

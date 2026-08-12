@@ -29,9 +29,10 @@ struct EventDetailView: View {
                     VStack(alignment: .leading, spacing: 30) {
                         VStack(alignment: .leading, spacing: 10) {
                             Text(event.title)
-                                .font(.largeTitle)
+                                .font(.custom("Lexend-Regular", size: 30))
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("\(dateFormatter.string(from: event.date).capitalized)")
+                                    .font(.custom("Lexend-Light", size: 20))
                                 if let location = event.location {
                                     Text(location)
                                 }
@@ -48,20 +49,22 @@ struct EventDetailView: View {
                     if !event.description.isEmpty {
                         VStack(alignment: .leading)  {
                             Text("Description")
-                                .font(.title2)
+                                .font(.custom("Lexend-Regular", size: 20))
                             Text(event.description)
+                                .font(.custom("Lexend-Light", size: 16))
                         }
                     }
                     if !event.participants.isEmpty {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Participants")
-                                .font(.title2)
+                                .font(.custom("Lexend-Regular", size: 20))
                             HStack {
                                 ForEach(event.participants.enumerated(), id: \.offset) { _, participant in
                                     Text(participant)
                                         .padding(10)
                                         .background(.tagPurple)
                                         .cornerRadius(20)
+                                        .font(.custom("Lexend-Regular", size: 16))
                                 }
                             }
                         }
@@ -73,6 +76,7 @@ struct EventDetailView: View {
                     isDeleteConfirmationPresented = true
                 } label: {
                     Text("Supprimer l'évènement")
+                        .font(.custom("Lexend-Regular", size: 16))
                         .padding(20)
                         .background(.supportRed)
                         .foregroundStyle(.white)

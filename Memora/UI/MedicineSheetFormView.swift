@@ -21,31 +21,45 @@ struct MedicineSheetFormView: View {
     var body: some View {
         Form {
             Section {
-                Picker("Médicament", selection: $medicineForm.medicineName) {
+                Picker(selection: $medicineForm.medicineName) {
                     ForEach(MedicineName.allCases) { medicineName in
-                        Text(medicineName.rawValue).tag(medicineName)
+                        Text(medicineName.rawValue)
+                            .font(.custom("Lexend-Regular", size: 16))
+                            .tag(medicineName)
                     }
+                } label: {
+                    Text("Médicament")
+                    .font(.custom("Lexend-Regular", size: 16))
                 }
                 .tint(.accent)
             }
             Section("Dates") {
                 DatePicker(
-                    "Début du traitement",
                     selection: $medicineForm.startDate,
                     displayedComponents: [.date]
-                )
-                DatePicker("Fin du traitement", selection: $medicineForm.endDate, displayedComponents: [.date])
+                ) {
+                    Text("Début du traitement")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
+                DatePicker(selection: $medicineForm.endDate, displayedComponents: [.date]) {
+                    Text("Début du traitement")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
             }
             Section("Posologie") {
                 switch medicineForm.medicineType {
                 case .capsule:
                     HStack {
                         TextField("Nombre de comprimé", value: $medicineForm.capsuleNumber, format: .number)
+                            .font(.custom("Lexend-Regular", size: 16))
                         Text("comprimé(s)")
+                            .font(.custom("Lexend-Regular", size: 16))
                     }
                     HStack {
                         TextField("Grammage", value: $medicineForm.weight, format: .number)
+                            .font(.custom("Lexend-Regular", size: 16))
                         Text("mg")
+                            .font(.custom("Lexend-Regular", size: 16))
                     }
                 case .drinkable:
                     HStack {

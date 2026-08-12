@@ -94,12 +94,12 @@ struct MedicineDetailContenView: View {
         VStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: 20) {
                 Text(medicine.medicineName.rawValue)
-                    .font(.title)
+                    .font(.custom("Lexend-Regular", size: 26))
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 ScrollView {
                     Text(medicine.details)
-                        .foregroundStyle(.secondText)
+                        .font(.custom("Lexend-Light", size: 16))
                 }
                 .frame(height: 100)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)
@@ -210,10 +210,11 @@ struct InfoCardView: View {
                 .font(.largeTitle)
             VStack {
                 Text(cardType.rawValue)
+                    .font(.custom("Lexend-Regular", size: 16))
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(text)
-                    .font(.callout)
+                    .font(.custom("Lexend-Regular", size: 16))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(height: 80)

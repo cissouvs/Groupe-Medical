@@ -36,7 +36,7 @@ struct DailyQuestionAnswerCard: View {
         }
         .foregroundStyle(dailyQuestionVM.selectedAnswers[guessIndex] ? .accent : .mainText)
         .fontWeight(dailyQuestionVM.selectedAnswers[guessIndex] ? .bold : .regular)
-        .font(.system(size: 16))
+        .font(.custom("Lexend-Regular", size: 16))
         .frame(width: 350, height: 40)
         .padding(.vertical, 8)
         .background {

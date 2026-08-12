@@ -44,7 +44,9 @@ struct MedicineCardView: View {
             .clipped()
             VStack(alignment: .leading, spacing: 10) {
                 Text(medicine.medicineName.rawValue)
+                    .font(.custom("Lexend-Regular", size: 16))
                 Text(medicine.posologyString)
+                    .font(.custom("Lexend-Regular", size: 16))
                     .foregroundStyle(.secondText)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)
             }

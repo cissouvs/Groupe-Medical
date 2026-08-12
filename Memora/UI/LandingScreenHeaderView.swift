@@ -17,9 +17,10 @@ struct LandingScreenHeaderView: View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Bonjour,")
+                    .font(.custom("Lexend-Regular", size: 20))
                 Text("Yann")
                     .fontWeight(.semibold)
-                    .font(.title)
+                    .font(.custom("Lexend-Regular", size: 26))
             }
             Spacer()
             HStack(spacing: 20) {

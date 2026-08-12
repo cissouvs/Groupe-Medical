@@ -38,6 +38,7 @@ struct LandingScreenView: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
+                                .font(.custom("Legend-Regular", size: 20))
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(todayAppointments) { medicalAppointment in
@@ -50,6 +51,7 @@ struct LandingScreenView: View {
                                 }
                             }
                             Text("Rappel")
+                                .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
                             ScrollView(.horizontal) {
                                 HStack {
@@ -65,6 +67,8 @@ struct LandingScreenView: View {
                                 }
                             }
                             Text("Vue d'ensemble")
+                                .font(.custom("Lexend-Regular", size: 20))
+                                .foregroundStyle(.secondText)
                             HStack {
                                 Button {
                                     notificationVM.mainPageNavigationPath.append(.calendar(.medications))
@@ -88,6 +92,7 @@ struct LandingScreenView: View {
                             .background(.whiteBackground)
                             .cornerRadius(20)
                             Text("S'exercer")
+                                .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
                             Button {
                                 notificationVM.mainPageNavigationPath.append(.quizz)

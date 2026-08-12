@@ -28,23 +28,25 @@ struct QuizzView: View {
                                 .foregroundStyle(.yellow)
                                 .font(.title)
                             Text("Question du jour")
-                                .font(.title3)
+                                .font(.custom("Lexend-Regular", size: 20))
+
                         }
                         .fontWeight(.semibold)
                         .frame(width: 280, alignment: .leading)
                         Text("14 août 2026")
-                            .font(.system(size: 14))
-                            .foregroundStyle(.secondText)
+                            .font(.custom("Lexend-Regular", size: 14))
+
                     }
                     VStack(alignment: .leading, spacing: 10) {
                         Text(dailyQuestionVM.dailyQuestion.question)
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                            .font(.custom("Lexend-Regular", size: 20))
                             .fixedSize(horizontal: false, vertical: true)
                             .lineLimit(2)
                             .padding(.top, 10)
                         Text("Choisissez votre réponse.")
                             .foregroundStyle(.secondText)
+                            .font(.custom("Lexend-Regular", size: 16))
+
                             .padding(.bottom, 10)
                         VStack(spacing: 10) {
                             ForEach(dailyQuestionVM.dailyQuestion.guesses.indices, id: \.self) { guess in
@@ -64,10 +66,10 @@ struct QuizzView: View {
                                 Image(systemName: dailyQuestionVM.isDailyQuestionAnswered ? "" : "arrow.right.circle.fill")
                                     .font(.title)
                                 Text(dailyQuestionVM.isDailyQuestionAnswered ? "Reviens demain pour ta prochaine question" : "Répondre")
+                                    
                                 Text("")
                             }
-                            .font(dailyQuestionVM.isDailyQuestionAnswered ? .callout : .title2)
-                            .fontWeight(dailyQuestionVM.isDailyQuestionAnswered ? .semibold : .regular)
+                            .font(.custom(dailyQuestionVM.isDailyQuestionAnswered ? "Lexend-SemiBold" : "Lexend-Regular", size: dailyQuestionVM.isDailyQuestionAnswered ? 14 : 20))
                             .foregroundStyle(dailyQuestionVM.isDailyQuestionAnswered ? .mainText : .whiteBackground)
                             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                             .background(dailyQuestionVM.isDailyQuestionAnswered ?.background : .accent)
@@ -92,8 +94,7 @@ struct QuizzView: View {
                             .font(.title2)
                             .foregroundStyle(.accent)
                         Text("Quiz hebdomadaire")
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                            .font(.custom("Lexend-SemiBold", size: 20))
                     }
                     VStack(alignment: .center, spacing: 10){
                         LazyVGrid(columns: columns, spacing: 10) {

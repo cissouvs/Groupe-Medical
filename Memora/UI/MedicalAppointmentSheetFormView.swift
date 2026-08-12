@@ -43,22 +43,38 @@ struct MedicalAppointmentSheetFormView: View {
                 }
             }
             Section {
-                TextField("Nom", text: $appointmentForm.name)
-                Picker("Spécialité", selection: $appointmentForm.specialty) {
+                TextField(text: $appointmentForm.name){
+                    Text("Nom")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
+                
+                Picker(selection: $appointmentForm.specialty) {
                     ForEach(MedicalSpeciality.allCases) { specialty in
                         Text(specialty.rawValue)
                     }
+                } label: {
+                    Text("Spécialités")
+                        .font(.custom("Lexend-Regular", size: 16))
+                         
                 }
                 .tint(.accentColor)
             }
             Section {
                 DatePicker(
-                    "Date",
                     selection: $appointmentForm.date,
                     displayedComponents: [.date, .hourAndMinute]
-                )
-                TextField("Adresse", text: $appointmentForm.adress)
-                TextField("N° Téléphone", text: $phoneNumber)
+                ) {
+                    Text("Date")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
+                TextField(text: $appointmentForm.adress){
+                    Text("Adresse")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
+                TextField(text: $phoneNumber){
+                    Text("N° de téléphone")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
                     .onChange(of: phoneNumber) {
                         if phoneNumber.isEmpty {
                             appointmentForm.phoneNumber = nil
@@ -66,7 +82,10 @@ struct MedicalAppointmentSheetFormView: View {
                             appointmentForm.phoneNumber = phoneNumber
                         }
                     }
-                TextField("Email", text: $emailAdress)
+                TextField(text: $emailAdress){
+                    Text("Email")
+                        .font(.custom("Lexend-Regular", size: 16))
+                }
                     .onChange(of: emailAdress) {
                         if emailAdress.isEmpty {
                             appointmentForm.emailAdress = nil

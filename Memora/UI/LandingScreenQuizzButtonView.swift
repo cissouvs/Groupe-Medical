@@ -19,6 +19,7 @@ struct LandingScreenQuizzButtonView: View {
                 .font(.title)
             Text("Accéder à vos quizz")
                 .foregroundStyle(Color.background)
+                .font(.custom("Lexend-Regular", size: 20))
         }
         .padding(10)
         .frame(maxWidth: .infinity)

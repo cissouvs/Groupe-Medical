@@ -49,8 +49,8 @@ final class NotificationViewModel: NSObject, UIApplicationDelegate, UNUserNotifi
         
         let addRequest = {
             let content = UNMutableNotificationContent()
-            content.title = "It's TIME !"
-            content.subtitle = "N'oublies pas de remplir !"
+            content.title = "C'est l'heure!"
+            content.subtitle = "Les évènements t'attendent!"
             content.sound = UNNotificationSound.default
             content.userInfo = ["pageLink": "calendar.events"]
  

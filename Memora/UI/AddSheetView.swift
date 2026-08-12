@@ -94,7 +94,7 @@ struct AddSheetView: View {
                     }
                     ToolbarItem(placement: .principal) {
                         Text("Nouveau")
-                            .font(.title2)
+                            .font(.custom("Lexend-Regular", size: 20))
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button {

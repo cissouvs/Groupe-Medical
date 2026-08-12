@@ -55,7 +55,8 @@ struct LandingScreenCalendarButtonView: View {
                 .font(.title)
             Text(title)
                 .foregroundStyle(Color.background)
-                .font(.caption)
+                .font(.custom("Lexend-Regular", size: 12))
+                
         }
         .padding(10)
         .background(.secondText)

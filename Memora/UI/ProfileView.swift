@@ -23,15 +23,18 @@ struct ProfileView: View {
                         .clipShape(.circle)
                         .clipped()
                     Text("Yann")
-                        .font(.title)
-                        .fontWeight(.semibold)
+                        .font(.custom("Lexend-SemiBold", size: 26))
+
                     Text("Aidant")
+                        .font(.custom("Lexend-Regular", size: 16))
+
                 }
                 VStack(spacing: 12) {
                     Button {
 
                     } label: {
                         ProfileItemView(profileItemType: .personalData)
+                        
                     }
                     Button {
                         notificationVM.mainPageNavigationPath.append(.emergencyContact)

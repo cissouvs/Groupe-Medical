@@ -35,6 +35,7 @@ struct CalendarView: View {
             VStack(spacing: 20) {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
+                        .foregroundStyle(.secondText)
                         .tag(CalendarType.medications)
                     Text("Rendez-vous")
                         .tag(CalendarType.appointment)
@@ -80,8 +81,7 @@ struct CalendarView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Calendrier")
-                        .font(.largeTitle)
-                        .bold()
+                        .font(.custom("Lexend-Bold", size: 34))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

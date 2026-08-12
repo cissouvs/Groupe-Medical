@@ -140,12 +140,6 @@ struct LandingScreenView: View {
                 case .quizzFinished(let index):
                     CardFinishTaskView(quizzIndex: index)
                         .toolbarVisibility(.hidden, for: .tabBar)
-                case .profile:
-                    ProfileView()
-                        .toolbarVisibility(.hidden, for: .tabBar)
-                case .emergencyContact:
-                    ContactsListView()
-                        .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
             .ignoresSafeArea()

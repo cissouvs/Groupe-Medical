@@ -101,6 +101,7 @@ struct MedicineDetailContenView: View {
                     Text(medicine.details)
                         .font(.custom("Lexend-Light", size: 16))
                 }
+                .scrollIndicators(.hidden)
                 .frame(height: 100)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)
                 InfoCardSectionView(medicine: medicine)

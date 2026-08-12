@@ -35,16 +35,19 @@ struct AppointmentCardView: View {
                 Text(medicalAppointment.name)
                     .foregroundStyle(.black)
                     .font(.custom("Lexend-Regular", size: 20))
+                    .lineLimit(2)
                 Text(medicalAppointment.specialty.rawValue)
                     .foregroundStyle(Color.secondText)
                     .font(.custom("Lexend-Regular", size: 16))
+                    .lineLimit(2)
             }
+            .multilineTextAlignment(.leading)
             .padding(10)
             .frame(maxWidth: .infinity, alignment: .topLeading)
             VStack(alignment: .center, spacing: 10) {
                 Text(medicalAppointment.date.formatted(.dateTime.hour().minute()))
                     .font(.custom("Lexend-SemiBold", size: 26))
-                HStack(alignment: .center, spacing: 15) {
+                HStack(alignment: .center) {
                     Button {
                         guard let number = URL(string: "tel://" + medicalAppointment.phoneNumber) else {
                             return
@@ -67,7 +70,8 @@ struct AppointmentCardView: View {
             }
             .padding(.horizontal, 5)
         }
-        .padding(10)
+        .frame(height: 140)
+        .padding(.horizontal, 10)
         .background(.whiteBackground)
         .cornerRadius(20)
     }

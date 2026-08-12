@@ -22,6 +22,7 @@ let mockMedicines: [any Medicine] = [
         medicineName: .reminyl,
         takingMoments: [
             .duringBreakfast,
+            .afterLunch,
             .duringDiner
         ],
         details: "L'effet positif de ce médicament dans la maladie d'Alzheimer repose sur l'hypothèse d'un déficit cérébral en acétylcholine chez certains malades atteints de cette maladie, et sur des travaux scientifiques qui montrent que la galantamine améliore certaines fonctions cérébrales chez les malades.",

@@ -83,6 +83,7 @@ struct ContactDetailView: View {
                     }
                     .padding(.horizontal, 30)
                 }
+                .scrollIndicators(.hidden)
                 HStack(alignment: .center ,spacing: 60) {
                     Button {
                         sendEmail(openUrl: openUrl)

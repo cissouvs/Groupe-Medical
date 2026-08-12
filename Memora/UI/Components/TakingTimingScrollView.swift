@@ -23,12 +23,18 @@ struct TakingTimingScrollView: View {
                     .font(.custom("Lexend-Regular", size: 16))
                     .padding(.vertical, 5)
                     .padding(.horizontal, 10)
+                    .frame(width: 160)
                     .background(getTagColor(timing: takingMoment))
                     .cornerRadius(20)
                     .font(.callout)
                 }
             }
         }
+        .scrollIndicators(.hidden)
         .frame(minHeight: 30)
     }
+}
+
+#Preview {
+    TakingTimingScrollView(takingMoments: MedicineTakeTiming.allCases)
 }

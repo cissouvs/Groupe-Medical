@@ -113,6 +113,7 @@ struct QuizzView: View {
                 }
                 .padding(.horizontal, 12)
             }
+            .scrollIndicators(.hidden)
         }
         .environment(quizzVM)
     }

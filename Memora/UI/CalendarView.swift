@@ -32,7 +32,7 @@ struct CalendarView: View {
                 .datePickerStyle(.graphical)
                 .environment(\.locale, Locale.init(identifier: "fr"))
                 .tint(.accent)
-            VStack(spacing: 20) {
+            VStack {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
                         .foregroundStyle(.secondText)
@@ -99,18 +99,19 @@ struct CalendarView: View {
                         }
                     }
                 }
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("Calendrier")
-                            .font(.custom("Lexend-Bold", size: 34))
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            isAddSheetPresented = true
-                        } label: {
-                            Image(systemName: "plus")
-                                .foregroundStyle(.black)
-                        }
+                .scrollIndicators(.hidden)
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Calendrier")
+                        .font(.custom("Lexend-Bold", size: 34))
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isAddSheetPresented = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(.black)
                     }
                 }
                 .sheet(isPresented: $isAddSheetPresented) {

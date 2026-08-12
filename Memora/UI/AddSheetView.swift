@@ -65,6 +65,7 @@ struct AddSheetView: View {
                     Text("Médicaments")
                         .tag(CalendarType.medications)
                 }
+                .padding(16)
                 .pickerStyle(.segmented)
                 VStack {
                     switch selectedType {

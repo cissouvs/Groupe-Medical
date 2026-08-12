@@ -20,6 +20,7 @@ struct TakingTimingScrollView: View {
                     Text(
                         takingMoment.rawValue
                     )
+                    .font(.custom("Lexend-Regular", size: 16))
                     .padding(.vertical, 5)
                     .padding(.horizontal, 10)
                     .background(getTagColor(timing: takingMoment))

@@ -34,16 +34,16 @@ struct AppointmentCardView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(medicalAppointment.name)
                     .foregroundStyle(.black)
+                    .font(.custom("Lexend-Regular", size: 20))
                 Text(medicalAppointment.specialty.rawValue)
                     .foregroundStyle(Color.secondText)
-                    .font(.subheadline)
+                    .font(.custom("Lexend-Regular", size: 16))
             }
             .padding(10)
             .frame(maxWidth: .infinity, alignment: .topLeading)
             VStack(alignment: .center, spacing: 10) {
                 Text(medicalAppointment.date.formatted(.dateTime.hour().minute()))
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
+                    .font(.custom("Lexend-SemiBold", size: 26))
                 HStack(alignment: .center, spacing: 15) {
                     Button {
                         guard let number = URL(string: "tel://" + medicalAppointment.phoneNumber) else {

@@ -7,27 +7,15 @@
 
 import SwiftUI
 
-enum Screen: Hashable {
-    case appointment(UUID)
-    case medicine(UUID)
-    case calendar(CalendarType)
-    case quizz
-    case detailQuizz(Int)
-    case quizzFinished(Int)
-    case profile
-    case emergencyContact
-}
-
 struct LandingScreenView: View {
 
-    @State private var vm = LandingScreenViewModel()
-    @State private var path: [Screen] = []
     @State var eventVM = EventViewModel()
     @State var medicineVM = MedecineViewModel()
     @State var medicalAppointmentVM = MedicalAppointmentViewModel()
     @State var medicalAppointmentFormVM = MedicalAppointmentFormViewModel()
     @State private var quizzVM = QuizzViewModel()
     @State var dailyQuestionVM = DailyQuestionViewModel()
+    @Environment(NotificationViewModel.self) var notificationVM
 
 
     var todayMedicines: [any Medicine] {
@@ -39,21 +27,24 @@ struct LandingScreenView: View {
     }
 
     var body: some View {
-        NavigationStack(path: $path) {
+        @Bindable var notificationVM = notificationVM
+        
+        NavigationStack(path: $notificationVM.mainPageNavigationPath) {
             ZStack {
                 Color.background
                 VStack(alignment: .leading, spacing: 10) {
                     ScrollView {
-                        LandingScreenHeaderView(path: $path)
+                        LandingScreenHeaderView()
                         Divider()
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Prochain Rendez-Vous")
                                 .foregroundStyle(.secondText)
+                                .font(.custom("Legend-Regular", size: 20))
                             ScrollView(.horizontal) {
                                 HStack {
                                     ForEach(todayAppointments) { medicalAppointment in
                                         Button {
-                                            path.append(.appointment(medicalAppointment.id))
+                                            notificationVM.mainPageNavigationPath.append(.appointment)
                                         } label: {
                                             AppointmentCardView(medicalAppointment: medicalAppointment)
                                         }
@@ -61,6 +52,7 @@ struct LandingScreenView: View {
                                 }
                             }
                             Text("Rappel")
+                                .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
                             ScrollView(.horizontal) {
                                 HStack {
@@ -68,7 +60,7 @@ struct LandingScreenView: View {
                                         todayMedicines.enumerated()
                                         , id: \.offset) { _, medicine in
                                             Button {
-                                                path.append(.medicine(medicine.id))
+                                                notificationVM.mainPageNavigationPath.append(.medicine(medicine.id))
                                             } label: {
                                                 MedicineCardView(medicine: medicine)
                                             }
@@ -76,21 +68,23 @@ struct LandingScreenView: View {
                                 }
                             }
                             Text("Vue d'ensemble")
+                                .font(.custom("Lexend-Regular", size: 20))
+                                .foregroundStyle(.secondText)
                             HStack {
                                 Button {
-                                    path.append(.calendar(.medications))
+                                    notificationVM.mainPageNavigationPath.append(.calendar(.medications))
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType: .medications)
                                 }
                                 Spacer()
                                 Button {
-                                    path.append(.calendar(.appointment))
+                                    notificationVM.mainPageNavigationPath.append(.calendar(.appointment))
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType:.appointment)
                                 }
                                 Spacer()
                                 Button {
-                                    path.append(.calendar(.events))
+                                    notificationVM.mainPageNavigationPath.append(.calendar(.events))
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType: .events)
                                 }
@@ -99,18 +93,14 @@ struct LandingScreenView: View {
                             .background(.whiteBackground)
                             .cornerRadius(20)
                             Text("S'exercer")
+                                .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)
                             Button {
-                                path.append(.quizz)
+                                notificationVM.mainPageNavigationPath.append(.quizz)
                             } label: {
                                 LandingScreenQuizzButtonView()
                             }
 
-                        }
-                        Button {
-                            vm.addNotification()
-                        } label: {
-                            Text("Cliquez ici")
                         }
                         Spacer(minLength: 100)
                     }
@@ -123,17 +113,17 @@ struct LandingScreenView: View {
                 case .appointment(let appointmentID):
                     MedicalAppointmentDetailView(appointmentID: appointmentID, path: $path)
                 case .medicine(let medicineId):
-                    MedicineDetailView(path: $path, medicineId: medicineId)
+                    MedicineDetailView(medicineId: medicineId)
                 case .calendar(let selectedCalendarType):
-                    CalendarView(selectedCalendarType: selectedCalendarType ,path: $path)
+                    CalendarView(selectedCalendarType: selectedCalendarType)
                 case .quizz:
-                    QuizzView(path: $path)
+                    QuizzView()
                 case .detailQuizz(let index):
                     DetailQuizzView(quizzIndex: index)
                 case .quizzFinished(let index):
                     CardFinishTaskView(quizzIndex: index)
                 case .profile:
-                    ProfileView(path: $path)
+                    ProfileView()
                 case .emergencyContact:
                     ContactsListView()
                 }

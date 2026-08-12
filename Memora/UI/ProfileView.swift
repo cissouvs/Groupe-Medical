@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
 
-    @Binding var path: [Screen]
+    @Environment(NotificationViewModel.self) var notificationVM
 
     var body: some View {
         ZStack {
@@ -23,18 +23,21 @@ struct ProfileView: View {
                         .clipShape(.circle)
                         .clipped()
                     Text("Yann")
-                        .font(.title)
-                        .fontWeight(.semibold)
+                        .font(.custom("Lexend-SemiBold", size: 26))
+
                     Text("Aidant")
+                        .font(.custom("Lexend-Regular", size: 16))
+
                 }
                 VStack(spacing: 12) {
                     Button {
 
                     } label: {
                         ProfileItemView(profileItemType: .personalData)
+                        
                     }
                     Button {
-                        path.append(.emergencyContact)
+                        notificationVM.mainPageNavigationPath.append(.emergencyContact)
                     } label: {
                         ProfileItemView(profileItemType: .emergencyContact)
                     }
@@ -62,5 +65,6 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(path: .constant([]))
+    ProfileView()
+        .environment(NotificationViewModel())
 }

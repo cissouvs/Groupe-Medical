@@ -20,10 +20,11 @@ struct CalendarView: View {
     @State private var vm = CalendarViewModel()
     @State var isAddSheetPresented: Bool = false
     @State var selectedCalendarType: CalendarType
-    @Binding var path: [Screen]
+    @Environment(NotificationViewModel.self) var notificationVM
     @Environment(EventViewModel.self) var eventVM
     @Environment(MedecineViewModel.self) var medicineVM
     @Environment(MedicalAppointmentViewModel.self) var appointmentVM
+    
 
     var body: some View {
         VStack {
@@ -34,6 +35,7 @@ struct CalendarView: View {
             VStack(spacing: 20) {
                 Picker("", selection: $selectedCalendarType) {
                     Text("Médicaments")
+                        .foregroundStyle(.secondText)
                         .tag(CalendarType.medications)
                     Text("Rendez-vous")
                         .tag(CalendarType.appointment)
@@ -49,7 +51,7 @@ struct CalendarView: View {
                             id: \.offset
                         ) { _, medicine in
                             Button {
-                                path.append(.medicine(medicine.id))
+                                notificationVM.mainPageNavigationPath.append(.medicine(medicine.id))
                             } label: {
                                 MedicineCardView(medicine: medicine)
                             }
@@ -57,7 +59,7 @@ struct CalendarView: View {
                     case .appointment:
                         ForEach(appointmentVM.getFilteredAppointments(at: vm.date)) { appointment in
                             Button {
-                                path.append(.appointment(appointment.id))
+                                notificationVM.mainPageNavigationPath.append(.appointment)
                             } label: {
                                 AppointmentCardView(medicalAppointment: appointment)
                             }
@@ -79,8 +81,7 @@ struct CalendarView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Calendrier")
-                        .font(.largeTitle)
-                        .bold()
+                        .font(.custom("Lexend-Bold", size: 34))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -103,8 +104,9 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(selectedCalendarType: .medications, path: .constant([]))
+    CalendarView(selectedCalendarType: .medications)
         .environment(EventViewModel())
         .environment(MedecineViewModel())
         .environment(MedicalAppointmentViewModel())
+        .environment(NotificationViewModel())
 }

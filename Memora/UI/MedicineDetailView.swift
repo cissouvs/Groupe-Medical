@@ -18,7 +18,7 @@ struct MedicineDetailView: View {
 
     @State private var isDeleteConfirmationPresented = false
     @State private var isModifySheetPresented = false
-    @Binding var path: [Screen]
+    @Environment(NotificationViewModel.self) var notificationVM
     @Environment(MedecineViewModel.self) var medicineVM
     @Environment(\.dismiss) private var dismiss
 
@@ -50,7 +50,7 @@ struct MedicineDetailView: View {
                     Button("Annuler", role: .cancel) {}
                     Button("Supprimer", role: .destructive) {
                         medicineVM.deleteMedicine(medicineID: medicine.id)
-                        path.removeLast()
+                        notificationVM.mainPageNavigationPath.removeLast()
                     }
                 }
                 .toolbar {
@@ -94,12 +94,12 @@ struct MedicineDetailContenView: View {
         VStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: 20) {
                 Text(medicine.medicineName.rawValue)
-                    .font(.title)
+                    .font(.custom("Lexend-Regular", size: 26))
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 ScrollView {
                     Text(medicine.details)
-                        .foregroundStyle(.secondText)
+                        .font(.custom("Lexend-Light", size: 16))
                 }
                 .frame(height: 100)
                 TakingTimingScrollView(takingMoments: medicine.takingMoments)
@@ -210,10 +210,11 @@ struct InfoCardView: View {
                 .font(.largeTitle)
             VStack {
                 Text(cardType.rawValue)
+                    .font(.custom("Lexend-Regular", size: 16))
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(text)
-                    .font(.callout)
+                    .font(.custom("Lexend-Regular", size: 16))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(height: 80)
@@ -227,6 +228,7 @@ struct InfoCardView: View {
 
 #Preview {
     let vm = MedecineViewModel()
-    MedicineDetailView(path: .constant([]),medicineId: vm.medicines[0].id)
+    MedicineDetailView(medicineId: vm.medicines[0].id)
         .environment(vm)
+        .environment(NotificationViewModel())
 }

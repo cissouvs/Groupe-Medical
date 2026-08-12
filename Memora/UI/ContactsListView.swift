@@ -50,9 +50,9 @@ struct ContactsListView: View {
             .toolbar {
                 ToolbarItem(placement: .principal){
                     Text("Contacts d'urgence")
-                        .font(.title)
+                        .font(.custom("Lexend-SemiBold", size: 20)
                         .bold()
-                }
+                )}
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         isSelected = true

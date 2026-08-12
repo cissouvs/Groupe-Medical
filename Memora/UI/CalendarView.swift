@@ -78,6 +78,7 @@ struct CalendarView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {

@@ -123,10 +123,6 @@ struct LandingScreenView: View {
                     DetailQuizzView(quizzIndex: index)
                 case .quizzFinished(let index):
                     CardFinishTaskView(quizzIndex: index)
-                case .profile:
-                    ProfileView()
-                case .emergencyContact:
-                    ContactsListView()
                 }
             }
             .ignoresSafeArea()

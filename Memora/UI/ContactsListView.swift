@@ -15,6 +15,7 @@ struct ContactsListView: View {
     var body: some View {
         ZStack {
             Color.background
+                .ignoresSafeArea()
             VStack {
                 List(vm.contacts) { contact in
                     NavigationLink {
@@ -43,7 +44,7 @@ struct ContactsListView: View {
             }
             .sheet(isPresented: $isSelected){
                 ContactSheet()
-                    .padding(.vertical)
+                    .padding(.top, 30)
                     .environment(vm)
             }
             .font(.title3)

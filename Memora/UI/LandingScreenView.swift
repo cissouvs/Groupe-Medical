@@ -124,20 +124,28 @@ struct LandingScreenView: View {
                 switch screen {
                 case .appointment(let appointmentID):
                     MedicalAppointmentDetailView(appointmentID: appointmentID)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .medicine(let medicineId):
                     MedicineDetailView(medicineId: medicineId)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .calendar(let selectedCalendarType):
                     CalendarView(selectedCalendarType: selectedCalendarType)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .quizz:
                     QuizzView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .detailQuizz(let index):
                     DetailQuizzView(quizzIndex: index)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .quizzFinished(let index):
                     CardFinishTaskView(quizzIndex: index)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .profile:
                     ProfileView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .emergencyContact:
                     ContactsListView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
             .ignoresSafeArea()

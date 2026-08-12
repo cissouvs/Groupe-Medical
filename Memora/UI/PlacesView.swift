@@ -37,10 +37,13 @@ struct PlacesView: View {
                 switch screen {
                 case .list:
                     PlacesListView(path: $path)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .map:
                     PlacesMapView(path: $path)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .detail(let place):
                     PlaceDetailView(path: $path, place: place )
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
             .toolbar {

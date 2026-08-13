@@ -15,6 +15,21 @@ struct ContactSheet: View {
     @State var vm = ContactSheetViewModel()
     @Environment(ContactListViewModel.self) var contactVM
     
+    
+    
+    var isConfirmationButtonDisabled: Bool {
+        if !vm.contactForm.emailAdress.isEmpty && !vm
+            .validateEmailAdress(emailAdress: vm.contactForm.emailAdress) {
+            return true
+        }
+        if !vm.contactForm.phoneNumber.isEmpty && !vm
+            .validatePhoneNumber(phoneNumber: vm.contactForm.phoneNumber) {
+            return true
+        }
+        return vm.contactForm.surName.isEmpty
+    }
+    
+    
     var body: some View {
         VStack {
             HStack(spacing: 30){
@@ -35,12 +50,15 @@ struct ContactSheet: View {
                     dismiss()
                 } label: {
                     Image(systemName: "checkmark")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(isConfirmationButtonDisabled ? .mainText : .white)
                         .padding()
-                        .background(.accent)
+                        .background(isConfirmationButtonDisabled ? .background : .accent)
                         .clipShape(.circle)
                 }
-            }
+                .disabled(isConfirmationButtonDisabled)
+                
+                
+            } /*.padding(.horizontal, 4)*/
             PhotosPicker(selection: $pickerItem, matching: .images) {
                 if let contactPhoto = vm.contactForm.photo  {
                     contactPhoto

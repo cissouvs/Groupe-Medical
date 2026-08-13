@@ -18,7 +18,6 @@ struct ContactDetailView: View {
     var contact : Contact {
         contactVM.getContact(id: contactID)
     }
-
     var body: some View {
         ZStack {
             Color.background

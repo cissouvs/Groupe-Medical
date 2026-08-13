@@ -20,7 +20,7 @@ var familyQuizz = Quizz(
                 "Le 15 avril 1997"
             ],
             rightAnswerValues: [true, false, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Où habite Gillian ?",
@@ -31,7 +31,7 @@ var familyQuizz = Quizz(
                 "Montcuq"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Qui est Cyriac pour toi ?",
@@ -42,7 +42,7 @@ var familyQuizz = Quizz(
                 "Ton médecin"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Combien as-tu de petits enfants ?",
@@ -53,7 +53,7 @@ var familyQuizz = Quizz(
                 "11"
             ],
             rightAnswerValues: [false, false, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Ambre est elle ?",
@@ -64,7 +64,7 @@ var familyQuizz = Quizz(
                 "Morte"
             ],
             rightAnswerValues: [false, true, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Qui as fait des études d'architecture ?",
@@ -75,7 +75,7 @@ var familyQuizz = Quizz(
                 "Louis"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         )
     ],
     isCompleted: false
@@ -94,7 +94,7 @@ var activityQuizz = Quizz(
                 "Faire de la plongée"
             ],
             rightAnswerValues: [false, false, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quelle activité fais-tu souvent avec ta famille ?",
@@ -105,7 +105,7 @@ var activityQuizz = Quizz(
                 "Faire du surf"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quelle activité fais-tu lorsque tu retrouves tes amis ?",
@@ -116,7 +116,7 @@ var activityQuizz = Quizz(
                 "Faire de la voile"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Aimes-tu faire des promenades ?",
@@ -127,7 +127,7 @@ var activityQuizz = Quizz(
                 "Uniquement en hiver"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Que fais-tu généralement lorsque tu écoutes de la musique ?",
@@ -138,7 +138,7 @@ var activityQuizz = Quizz(
                 "Tu lis"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quelle activité aimais-tu faire quand tu étais plus jeune ?",
@@ -149,7 +149,7 @@ var activityQuizz = Quizz(
                 "Faire du parapente"
             ],
             rightAnswerValues: [true, false, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         )
     ],
     isCompleted: false
@@ -168,7 +168,7 @@ var mealQuizz = Quizz(
                 "Du poisson"
             ],
             rightAnswerValues: [false, false, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Qu'as-tu mangé hier midi ?",
@@ -179,7 +179,7 @@ var mealQuizz = Quizz(
                 "Une pizza"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel dessert manges-tu souvent après le repas ?",
@@ -190,7 +190,7 @@ var mealQuizz = Quizz(
                 "Du pain"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel aliment n'aimes-tu pas particulièrement ?",
@@ -201,7 +201,7 @@ var mealQuizz = Quizz(
                 "Les fraises"
             ],
             rightAnswerValues: [false, false, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Qu'aimes-tu boire au petit-déjeuner ?",
@@ -212,7 +212,7 @@ var mealQuizz = Quizz(
                 "Du thé"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel plat as-tu l'habitude de manger en famille ?",
@@ -223,7 +223,7 @@ var mealQuizz = Quizz(
                 "Le gratin"
             ],
             rightAnswerValues: [true, false, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         )
     ],
     isCompleted: false
@@ -242,7 +242,7 @@ var visitedPlacesQuizz = Quizz(
                 "Nice"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Dans quelle ville es-tu déjà parti(e) en vacances ?",
@@ -253,7 +253,7 @@ var visitedPlacesQuizz = Quizz(
                 "Nantes"
             ],
             rightAnswerValues: [true, false, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Avec qui es-tu parti(e) en vacances la dernière fois ?",
@@ -264,7 +264,7 @@ var visitedPlacesQuizz = Quizz(
                 "Tu es parti(e) seul(e)"
             ],
             rightAnswerValues: [true, false, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel endroit as-tu particulièrement aimé visiter ?",
@@ -275,7 +275,7 @@ var visitedPlacesQuizz = Quizz(
                 "Une grande ville"
             ],
             rightAnswerValues: [false, false, true, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel moyen de transport as-tu utilisé pour partir en vacances ?",
@@ -286,7 +286,7 @@ var visitedPlacesQuizz = Quizz(
                 "Le bateau"
             ],
             rightAnswerValues: [false, false, false, true],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         ),
         Question(
             question: "Quel souvenir rapportes-tu généralement de tes voyages ?",
@@ -297,7 +297,7 @@ var visitedPlacesQuizz = Quizz(
                 "Rien en particulier"
             ],
             rightAnswerValues: [false, true, false, false],
-            IsAnswerCorrect: false
+            isAnswerCorrect: false
         )
     ],
     isCompleted: false
@@ -310,12 +310,20 @@ final class QuizzViewModel {
     
     var quizzes: [Quizz] = [familyQuizz, activityQuizz, mealQuizz, visitedPlacesQuizz]
     
-    var selectedAnswers: [Bool] = [false, false, false,false]
+    var selectedAnswers: [[Bool]] = [
+        
+        [false, false, false,false],
+        
+        [false, false, false,false],
+        
+        [false, false, false,false],
+        
+        [false, false, false,false]
+        
+    ]
     
-    var isQuestionAnswered = false
-    
-    func toggleGuess(index: Int) {
-        selectedAnswers[index].toggle()
+    func toggleGuess(quizzIndex: Int, answerIndex: Int) {
+        selectedAnswers[quizzIndex][answerIndex].toggle()
     }
     
     func getQuizz(quizzIndex: Int) -> Quizz {

@@ -86,13 +86,11 @@ struct LandingScreenView: View {
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType: .medications)
                                 }
-                                Spacer()
                                 Button {
                                     notificationVM.mainPageNavigationPath.append(.calendar(.appointment))
                                 } label: {
                                     LandingScreenCalendarButtonView(calendarViewType:.appointment)
                                 }
-                                Spacer()
                                 Button {
                                     notificationVM.mainPageNavigationPath.append(.calendar(.events))
                                 } label: {
@@ -102,6 +100,7 @@ struct LandingScreenView: View {
                             .padding(12)
                             .background(.whiteBackground)
                             .cornerRadius(20)
+                            .padding(12)
                             Text("S'exercer")
                                 .font(.custom("Lexend-Regular", size: 20))
                                 .foregroundStyle(.secondText)

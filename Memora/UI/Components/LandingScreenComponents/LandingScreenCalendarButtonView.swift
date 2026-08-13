@@ -68,21 +68,22 @@ struct LandingScreenCalendarButtonView: View {
     
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack {
             Image(systemName: logoName)
                 .font(.system(size: 50))
                 .clipShape(.rect)
-                .frame(width: 70, height: 75)
+                .frame(width: 75, height: 70)
                 .cornerRadius(20)
                 .font(.title)
                 .foregroundStyle(color)
             Text(title)
                 .foregroundStyle(.mainText)
-                .font(.custom("Lexend-Regular", size: 14))
+                .font(.custom("Lexend-Medium", size: 13))
             Text(description)
-                .font(.custom("Lexend-Regular", size: 12))
+                .font(.custom("Lexend-Regular", size: 11))
                 .foregroundStyle(.secondText)
         }
+        .frame(width: 93, height: 130)
         .padding(10)
         .background(backgroundColor.opacity(0.5))
         .cornerRadius(20)

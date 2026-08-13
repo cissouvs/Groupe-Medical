@@ -89,9 +89,9 @@ struct CalendarView: View {
                             ForEach(
                                 events.enumerated(),
                                 id: \.offset
-                            ) { index, event in
+                            ) { _, event in
                                 NavigationLink {
-                                    EventDetailView(event: eventVM.events[index])
+                                    EventDetailView(eventID: event.id)
                                 } label: {
                                     EventListElementView(event: event)
                                 }

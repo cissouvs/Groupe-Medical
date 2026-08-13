@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct EventDetailView: View {
-    var event: Event
+
     @State var isDeleteConfirmationPresented: Bool = false
     @State var isModifySheetPresented: Bool = false
     @Environment(\.dismiss) var dismiss
     @Environment(EventViewModel.self) var eventVM
+    var eventID: UUID
+
+    var event: Event? {
+        eventVM.getEvent(from: eventID)
+    }
+
 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -117,6 +123,6 @@ struct EventDetailView: View {
 }
 
 #Preview {
-    EventDetailView(event: crisis[0])
+    EventDetailView(eventID: mockEvents[1].id)
         .environment(EventViewModel())
 }

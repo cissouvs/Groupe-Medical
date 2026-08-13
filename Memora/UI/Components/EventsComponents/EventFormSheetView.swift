@@ -139,7 +139,7 @@ struct EventFormSheetView: View {
     EventFormSheetView(
         isAddSheetPresented: .constant(true),
         eventForm: .constant(
-            crisis[0]
+            mockEvents[0]
         )
     )
 

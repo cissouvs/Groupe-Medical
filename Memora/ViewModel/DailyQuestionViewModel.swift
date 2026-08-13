@@ -18,7 +18,7 @@ var dailyQuestion = Question(
         "Le 15 avril 1997"
     ],
     rightAnswerValues: [true, false, false, false],
-    IsAnswerCorrect: false
+    isAnswerCorrect: false
 )
 
 @Observable
@@ -33,7 +33,7 @@ final class DailyQuestionViewModel {
             "Une pizza"
         ],
         rightAnswerValues: [false, false, false, true],
-        IsAnswerCorrect: false
+        isAnswerCorrect: false
     )
     
     var selectedAnswers: [Bool] = [false, false, false,false]
@@ -50,7 +50,7 @@ final class DailyQuestionViewModel {
     
     func checkDailyQuestionAnswer() {
         if dailyQuestion.rightAnswerValues == selectedAnswers {
-            dailyQuestion.IsAnswerCorrect = true
+            dailyQuestion.isAnswerCorrect = true
         }
     }
 }

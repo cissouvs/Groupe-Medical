@@ -19,14 +19,29 @@ struct QuizzAnswerCard: View {
     let questionIndex: Int
     
     var answerBackground: Color {
-        if quizzVM.isQuestionAnswered {
+        if quizzVM
+            .quizzes[quizzIndex]
+            .questions[questionIndex].isQuestionAnswered {
             if quizzVM.quizzes[quizzIndex].questions[questionIndex].rightAnswerValues[guessIndex] {
                 return Color.tagGreen
-            } else if quizzVM.selectedAnswers[guessIndex] {
+            } else if quizzVM.selectedAnswers[quizzIndex][guessIndex] {
                 return Color.tagRed
             }
         }
         return Color.background
+    }
+    
+    var quizz: Quizz {
+        quizzVM.getQuizz(quizzIndex: quizzIndex)
+    }
+    
+    var mainColorCategory: Color {
+        switch quizz.category {
+        case .family: return .supportRed
+        case .activity: return .supportGreen
+        case .meal: return .supportOrange
+        case .visitedPlaces: return .supportBlue
+        }
     }
     
     var body: some View {
@@ -34,10 +49,13 @@ struct QuizzAnswerCard: View {
             Text(quizzVM.quizzes[quizzIndex].questions[questionIndex].guesses[guessIndex])
                 .frame(width: 270, height: 40, alignment: .leading)
                 .lineLimit(2)
-            Image(systemName: quizzVM.selectedAnswers[guessIndex] ? "checkmark.circle.fill" : "circle")
+            Image(systemName: quizzVM.selectedAnswers[quizzIndex][guessIndex] ? "checkmark.circle.fill" : "circle")
+                .foregroundStyle(
+                    quizzVM.selectedAnswers[quizzIndex][guessIndex] ? mainColorCategory : .mainText
+                )
         }
-        .foregroundStyle(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText)
-        .fontWeight(quizzVM.selectedAnswers[guessIndex] ? .semibold : .regular)
+        .foregroundStyle(quizzVM.selectedAnswers[quizzIndex][guessIndex] ? .mainText : .secondText)
+        .fontWeight(quizzVM.selectedAnswers[quizzIndex][guessIndex] ? .semibold : .regular)
         .font(.system(size: 16))
         .frame(width: 350, height: 40)
         .padding(.vertical)
@@ -47,8 +65,8 @@ struct QuizzAnswerCard: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: 15)
-                .stroke(quizzVM.selectedAnswers[guessIndex] ? .mainText : .secondText
-                        , lineWidth: quizzVM.selectedAnswers[guessIndex] ? 1 : 0.5)
+                .stroke(quizzVM.selectedAnswers[quizzIndex][guessIndex] ? .mainText : .secondText
+                        , lineWidth: quizzVM.selectedAnswers[quizzIndex][guessIndex] ? 1 : 0.5)
         }
     }
 }

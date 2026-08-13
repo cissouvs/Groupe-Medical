@@ -55,19 +55,17 @@ struct ProfileView: View {
             .toolbar{
                 ToolbarItem(placement: .principal) {
                     Text("Profil")
-                        .font(.largeTitle)
-                        .bold()
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Image(systemName: "pencil.line")
+                        .font(.custom("Lexend-Bold", size: 34))
                 }
             }
             .navigationDestination(for: ProfileScreen.self) { screen in
                 switch screen {
                 case .detail(let index):
                     ContactDetailView(contactID: index)
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 case .list:
                     ContactsListView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
             .ignoresSafeArea()

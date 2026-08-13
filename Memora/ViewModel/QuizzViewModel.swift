@@ -38,7 +38,7 @@ var familyQuizz = Quizz(
             guesses: [
                 "Ton petit fils",
                 "Ton fils",
-                "Ton marie",
+                "Ton mari",
                 "Ton médecin"
             ],
             rightAnswerValues: [false, true, false, false],

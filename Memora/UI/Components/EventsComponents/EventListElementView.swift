@@ -9,6 +9,20 @@ import SwiftUI
 
 struct EventListElementView: View {
     var event : Event
+
+    var color: Color {
+        switch event.type {
+        case .activity:
+            return .tagBlue
+        case .birthday:
+            return .tagGreen
+        case .crisis:
+            return .tagRed
+        case .other:
+            return .tagOrange
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 20) {
@@ -25,8 +39,9 @@ struct EventListElementView: View {
                 .foregroundStyle(.secondText)
                 .font(.title3)
         }
+        .multilineTextAlignment(.leading)
         .padding(10)
-        .background(event.type == .crisis ? .tagRed : .whiteBackground)
+        .background(color)
         .cornerRadius(20)
     }
 }

@@ -141,7 +141,7 @@ struct LandingScreenView: View {
                         .toolbarVisibility(.hidden, for: .tabBar)
                 }
             }
-            .ignoresSafeArea()
+            .ignoresSafeArea(.all)
         }
         .environment(eventVM)
         .environment(medicineVM)

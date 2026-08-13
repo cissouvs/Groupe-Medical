@@ -57,6 +57,7 @@ struct ProfileItemView: View {
                 .background(logoBackgroundColor)
                 .clipShape(.circle)
                 .clipped()
+                .frame(width: 50, height: 50)
             Text(text)
                 .foregroundStyle(.mainText)
                 .font(.custom("Lexend-Regular", size: 20))

@@ -19,10 +19,10 @@ let mockAppointments: [MedicalAppointmentModel] = [
             emailAdress: "leteur@medecin.fr"
         ),
         MedicalAppointmentModel(
-            name: "Dr Martinaaa",
-            specialty: .generalist,
-            date: Date(),
-            adress: "8 Allée des Platanes, 46800 Montcuq-en-Quercy-Blanc",
+            name: "Dr Duparc",
+            specialty: .neurologist,
+            date: Date().addingTimeInterval(86400),
+            adress: "12 place de la République, 46000 Cahors",
             phoneNumber: "0606060606",
             emailAdress: "ledocteur@medecin.fr"
         )

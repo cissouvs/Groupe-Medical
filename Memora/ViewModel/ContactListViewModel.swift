@@ -10,18 +10,10 @@ import SwiftUI
 
 var emergencyContacts = [
     Contact(
-        emailAdress: "colettelevrelle@gmail.com",
-        firstName: "Colette",
-        surName: "Levrelle",
-        phoneNumber: "0765259315",
-        adress: "11 Rue du Tour de la Vielle ville",
-        postalCode: "46800 Montcuq-en-Quercy-Blanc",
-        photo: Image("colette")),
-    Contact(
         emailAdress: "renelatop@caramail.fr",
         firstName: "Rene",
         surName: "Latop",
-        phoneNumber: "0303030303",
+        phoneNumber: "0765259315",
         adress: "52 impasse de la Charette,",
         postalCode: " 69000 Lyon",
         photo: Image("rene")),

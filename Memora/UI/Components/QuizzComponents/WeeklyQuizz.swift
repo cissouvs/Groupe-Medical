@@ -18,20 +18,20 @@ struct WeeklyQuizz: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 10){
-                                LazyVGrid(columns: columns, spacing: 10) {
-                                    ForEach(quizzVM.quizzes.enumerated(), id: \.offset) { index, quizz  in
-                                        Button {
-                                            notificationVM.mainPageNavigationPath
-                                                .append(.detailQuizz(index))
-                                        } label: {
-                                            QuizzCategoryCard(quizz: quizz)
-                                        }
-                                    }
-                                }
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: 500)
-                            .cornerRadius(20)
-
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(quizzVM.quizzes.enumerated(), id: \.offset) { index, quizz  in
+                    Button {
+                        notificationVM.mainPageNavigationPath
+                            .append(.detailQuizz(index))
+                    } label: {
+                        QuizzCategoryCard(quizz: quizz)
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: 500)
+        .cornerRadius(20)
+        
     }
 }
 

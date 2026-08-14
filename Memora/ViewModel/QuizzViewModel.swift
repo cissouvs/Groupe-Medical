@@ -41,7 +41,7 @@ var familyQuizz = Quizz(
                 "Ton mari",
                 "Ton médecin"
             ],
-            rightAnswerValues: [false, true, false, false],
+            rightAnswerValues: [true, false, false, false],
             isAnswerCorrect: false
         ),
         Question(

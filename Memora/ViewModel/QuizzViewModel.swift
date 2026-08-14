@@ -38,7 +38,7 @@ var familyQuizz = Quizz(
             guesses: [
                 "Ton petit fils",
                 "Ton fils",
-                "Ton marie",
+                "Ton mari",
                 "Ton médecin"
             ],
             rightAnswerValues: [false, true, false, false],
@@ -310,16 +310,12 @@ final class QuizzViewModel {
     
     var quizzes: [Quizz] = [familyQuizz, activityQuizz, mealQuizz, visitedPlacesQuizz]
     
-    var selectedAnswers: [[Bool]] = [
-        
+    var selectedAnswers: [[Bool]] =
+    [
         [false, false, false,false],
-        
         [false, false, false,false],
-        
         [false, false, false,false],
-        
         [false, false, false,false]
-        
     ]
     
     func toggleGuess(quizzIndex: Int, answerIndex: Int) {

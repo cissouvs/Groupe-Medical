@@ -60,6 +60,7 @@ struct DetailQuizzView: View {
                     CardFinishTaskView(quizzIndex: quizzIndex)
                         .environment(quizzVM)
                         .frame(height: 500)
+                        .background(Color.background)
                         .cornerRadius(20)
                         .padding()
                 } else {
@@ -128,7 +129,7 @@ struct DetailQuizzView: View {
                                     .questions[currentQuestionIndex].isQuestionAnswered ?  "arrow.right" : "checkmark")
                                 Text(quizzVM
                                     .quizzes[quizzIndex]
-                                    .questions[currentQuestionIndex].isQuestionAnswered ? "Suivant" : "Validé")
+                                    .questions[currentQuestionIndex].isQuestionAnswered ? "Suivant" : "Valider")
                             }
                             .font(.title2)
                             .foregroundStyle(quizzVM

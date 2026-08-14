@@ -63,11 +63,11 @@ final class MedecineViewModel {
 
     private let medicinePhotoUrl: [MedicineName: String] = [
         .aricept:"https://cdn.pim.mesoigner.fr/mesoigner/8cc2bb4cda8b3bc00d4c81930eefbc91/mesoigner-thumbnail-1000-1000-inset/737/076/aricept-5-mg-comprime-pellicule.webp",
-        .donepezil: "",
-        .ebixa: "",
-        .exelon: "",
-        .galantamine: "",
-        .memantine: "",
+        .donepezil: "https://cdn.pim.mesoigner.fr/mesoigner/8415ca5265dac29b5a1e6690db12c77d/mesoigner-thumbnail-1000-1000-inset/125/263/donepezil-mylan-10-mg-comprime-pellicule.webp",
+        .ebixa: "https://cdn.pim.mesoigner.fr/mesoigner/c5dab719d6c2582c0ac21bb0ddb4ccfa/mesoigner-thumbnail-1000-1000-inset/888/685/ebixa-20-mg-comprime-pellicule.webp",
+        .exelon: "https://cdn.pim.mesoigner.fr/mesoigner/3cc1399b2bec6f89ba323e4f034f91a8/mesoigner-thumbnail-1000-1000-inset/033/904/exelon-9-5-mg-24-h-disp-transderm-30sach-pet-pe-alu-pa.webp",
+        .galantamine: "https://cdn.pim.mesoigner.fr/mesoigner/ceda723a97fe9f314a85e1d54a857c96/mesoigner-thumbnail-1000-1000-inset/782/103/galantamine-biogaran-lp-16-mg-gelule-a-liberation-prolongee.webp",
+        .memantine: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsp0i_EQDO5cOvxKKzYWwy5WQKzU766mswoEoKzrIEGg&s=10",
         .reminyl:"https://cdn.pim.mesoigner.fr/mesoigner/c23c149d2b855a005ef4b7f04034fb8d/mesoigner-thumbnail-1000-1000-inset/573/585/reminyl-4-mg-ml-solution-buvable.webp",
         .rivastigmine: "https://cdn.pim.mesoigner.fr/mesoigner/6dc1c928cbb2afff29b4c64148816534/mesoigner-thumbnail-1000-1000-inset/684/026/rivastigmine-arrow-9-5-mg-24-heures-dispositif-transdermique.webp"
     ]

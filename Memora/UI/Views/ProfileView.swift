@@ -22,7 +22,7 @@ struct ProfileView: View {
                 Color.background
                 VStack(spacing: 63) {
                     VStack(spacing: 10) {
-                        Image("colette")
+                        Image("yann")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 150, height: 150)
